@@ -4,6 +4,7 @@ define([
 ], function(Backbone, template) {
 
     return Backbone.View.extend({
+        getTemplateParameters: $.noop,
         template: _.template(template, undefined, {variable: 'ctx'}),
 
         initialize: function(options) {

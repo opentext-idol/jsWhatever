@@ -7,7 +7,7 @@ define([
 ], function(Backbone, store, footerTemplate, TabTemplate, ViewTemplate) {
 
     return Backbone.View.extend({
-        className: 'tabbable',
+        className: 'tabbable page-footer',
 
         events: {
             'click .toggle-footer': 'toggle',
