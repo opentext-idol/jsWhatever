@@ -6,33 +6,12 @@ define([
 ], function(Backbone, template){
 
     var View = Backbone.View.extend({
-
         template: _.template(template),
 
         className: 'modal hide fade',
 
         initialize: function(config) {
             _.bindAll(this, 'remove');
-
-            if(!config.message) {
-                throw 'Confirm Error: message must be supplied in input';
-            }
-
-            if(!config.okHandler && config.showButtons) {
-                throw 'Confirm Error: okHandler must be supplied in input when buttons are shown';
-            }
-
-            if(!config.title) {
-                throw 'Confirm Error: title must be provided in input';
-            }
-
-            if(config.showButtons && (!config.okText || !config.cancelText)) {
-                throw 'Confirm Error: strings must be provided for the ok and cancel buttons in input, if showButtons is set';
-            }
-
-            if(config.closable && !config.cancelText) {
-                throw 'Confirm Error: cancel button string must be provided in input if closable is true';
-            }
 
             this.config = _.defaults(config, {
                 cancelClass: 'btn-danger',
@@ -42,6 +21,26 @@ define([
                 okIcon: 'icon-ok',
                 showButtons: true
             });
+
+            if(!this.config.message) {
+                throw 'Confirm Error: message must be supplied in input';
+            }
+
+            if(!this.config.okHandler && this.config.showButtons) {
+                throw 'Confirm Error: okHandler must be supplied in input when buttons are shown';
+            }
+
+            if(!this.config.title) {
+                throw 'Confirm Error: title must be provided in input';
+            }
+
+            if(this.config.showButtons && (!this.config.okText || !this.config.cancelText)) {
+                throw 'Confirm Error: strings must be provided for the ok and cancel buttons in input, if showButtons is set';
+            }
+
+            if(this.config.closable && !this.config.cancelText) {
+                throw 'Confirm Error: cancel button string must be provided in input if closable is true';
+            }
 
             this.$el.on('shown', _.bind(function() {
                 document.activeElement.blur();
@@ -63,8 +62,7 @@ define([
             }
 
             if(!config.closable) {
-                this.$el.data('backdrop', 'static')
-                        .addClass('undismissable-modal');
+                this.$el.data('backdrop', 'static').addClass('undismissable-modal');
             }
 
             this.$el.modal().on('hidden', this.remove);
@@ -99,9 +97,9 @@ define([
             if (this.$el && this.$el.hasClass('in')) {
                 this.$el.modal('hide');
             }
+
             Backbone.View.prototype.remove.call(this);
         }
-
     });
 
     return function(config) {
