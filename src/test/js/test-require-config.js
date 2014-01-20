@@ -4,6 +4,7 @@ define(function() {
             // lib
             backbone: '/src/main/lib/backbone/backbone',
             bootstrap: '/src/main/lib/bootstrap/js/bootstrap',
+            jqueryui: '/src/main/lib/jquery/jquery-ui',
             raphael: '/src/main/lib/raphael/raphael',
             text: '/src/main/lib/require/text',
 
