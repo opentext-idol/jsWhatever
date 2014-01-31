@@ -1,0 +1,25 @@
+<div class="fuelux">
+    <div class="wizard">
+        <ul class="steps">
+            <% _.each(steps, function(step, index){ %>
+                <li data-target=".<%= step.class %>" class="<%= step.active ? 'active' : '' %>">
+                    <span class="badge <%= step.active ? 'badge-info' : '' %>"><%= index + 1 %></span>
+                    <%= step.label %><span class="chevron"></span>
+                </li>
+            <% }); %>
+        </ul>
+        <div class="actions">
+            <button type="button" class="btn btn-mini btn-prev" disabled>
+                <i class="icon-arrow-left"></i> <%= strings.prev %>
+            </button>
+            <button type="button" class="btn btn-mini btn-next" data-last="<%= strings.last %>">
+                <%= strings.next %> <i class="icon-arrow-right"></i>
+            </button>
+        </div>
+    </div>
+</div>
+<div class="step-content">
+    <% _.each(steps, function(step){ %>
+        <div class="step-pane <%= step.active ? 'active' : '' %> <%= step.class %>"></div>
+    <% }); %>
+</div>

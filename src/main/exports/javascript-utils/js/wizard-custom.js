@@ -1,16 +1,22 @@
 define([
     'backbone',
     'underscore',
+    'text!js-utils/templates/wizard/wizard.html',
     'fuelux/wizard'
-], function(Backbone, _) {
+], function(Backbone, _, template) {
 
     return Backbone.View.extend({
+
+        template: _.template(template),
 
         initialize: function(options){
             _.bindAll(this, 'handleStepChange', 'handleStepChanged', 'handleStepClick', 'handleFinished');
 
-            this.template = options.template;
-            this.i18n = options.i18n;
+            if (options.template) {
+                this.template = options.template;
+            }
+
+            this.strings = options.strings;
             this.steps = options.steps;
             this.renderOptions = options.renderOptions;
 
@@ -35,7 +41,7 @@ define([
             this.$el.html(this.template({
                 renderOptions: this.renderOptions,
                 steps: this.steps,
-                i18n: this.i18n
+                strings: this.strings
             }));
 
             this.$wizard = this.$('.wizard');
