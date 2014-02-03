@@ -47,9 +47,11 @@ define([
             this.$wizard = this.$('.wizard');
 
             _.each(this.steps, function(step){
-                step.view = new step.constructor({
+                var options = step.options || {};
+
+                step.view = new step.constructor(_.defaults({
                     el: this.$('.'+ step.class)
-                });
+                }, options));
             }, this);
 
             this.$wizard.on('change', this.handleStepChange);
