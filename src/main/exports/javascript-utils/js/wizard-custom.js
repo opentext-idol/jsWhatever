@@ -78,12 +78,12 @@ define([
         },
 
         // if you want to override this function you should probably call this as the first line of your function
-        handleStepChange: function(e, wizardObj) {
+        handleStepChange: function(e, wizardObj, renderOptions) {
             var newStepNumber = wizardObj.step + (wizardObj.direction === 'next' ? 1 : -1);
             var newStep = this.getStep(newStepNumber);
 
             if(newStep.view.$el.children().length === 0){
-                newStep.view.render();
+                newStep.view.render(renderOptions);
             }
         },
 
