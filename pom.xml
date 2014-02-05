@@ -232,7 +232,7 @@
         <dependency>
             <groupId>com.exacttarget</groupId>
             <artifactId>fuelux</artifactId>
-            <version>2.5.1</version>
+            <version>2.5.1b</version>
         </dependency>
 
         <dependency>

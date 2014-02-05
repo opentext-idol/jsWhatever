@@ -17,9 +17,9 @@
             </button>
         </div>
     </div>
-</div>
-<div class="step-content">
-    <% _.each(steps, function(step){ %>
-        <div class="step-pane <%= step.active ? 'active' : '' %> <%= step.class %>"></div>
-    <% }); %>
+    <div class="step-content">
+        <% _.each(steps, function(step){ %>
+            <div class="step-pane <%= step.active ? 'active' : '' %> <%= step.class %>"></div>
+        <% }); %>
+    </div>
 </div>
