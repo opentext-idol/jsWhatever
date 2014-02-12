@@ -18,17 +18,16 @@
                         <ul class="dropdown-menu">
                             <% _.each(navItem.children, function(child) { %>
                             <li class="<%=child.classes%>" data-pagename="<%=child.pageName%>">
-                                <a <% if (child.href || child.route) { %>
-                                        href="<%=child.href || child.route%>"
-                                    <% } %>> <%=child.label%> </a>
+                                <a href="<%=child.href || (child.route ? ('#' + child.route) : '')%>"> <%=child.label%> </a>
                             </li>
                             <% }); %>
                         </ul>
                     </li>
                     <% } else { %>
                     <li class="<%=navItem.classes%>" data-pagename="<%=navItem.pageName%>">
-                        <a <% if (navItem.href || navItem.route) { %> href="<%=navItem.href || navItem.route%>" <% } %>>
-                            <i class="<%=navItem.icon%>"></i> <%=navItem.label%> </a>
+                        <a href="<%=navItem.href || (navItem.route ? ('#' + navItem.route) : '')%>">
+                            <i class="<%=navItem.icon%>"></i> <%=navItem.label%>
+                        </a>
                     </li>
                     <% } %>
                 <% }); %>
@@ -44,16 +43,16 @@
                         <ul class="dropdown-menu">
                             <% _.each(navItem.children, function(child) { %>
                             <li class="<%=child.classes%>" data-pagename="<%=child.pageName%>">
-                                <a <% if (child.href || child.route) { %> href="<%=child.href || child.route%>" <% } %>>
-                                    <%=child.label%></a>
+                                <a href="<%=child.href || (child.route ? ('#' + child.route) : '')%>"> <%=child.label%></a>
                             </li>
                             <% }); %>
                         </ul>
                     </li>
                     <% } else { %>
                     <li class="<%=navItem.classes%>" data-pagename="<%=navItem.pageName%>">
-                        <a <% if (navItem.href || navItem.route) { %> href="<%=navItem.href || navItem.route%>"<% } %>>
-                            <i class="<%=navItem.icon%>"></i> <%=navItem.label%></a>
+                        <a href="<%=navItem.href || (navItem.route ? ('#' + navItem.route) : '')%>">
+                            <i class="<%=navItem.icon%>"></i> <%=navItem.label%>
+                        </a>
                     </li>
                     <% } %>
                 <% }); %>
