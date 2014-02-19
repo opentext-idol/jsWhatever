@@ -1,91 +1,114 @@
 define([
-    'js-utils/js/escape-with-links',
-    'js-utils/js/regex-replace',
-    'real/js/regex-replace',
-    'sinon',
-    'underscore'
-], function (escapeWithLinks, regexReplace, realRegexReplace) {
+	'js-utils/js/escape-with-links',
+	'js-utils/js/regex-replace',
+	'sinon',
+	'underscore'
+], function (escapeWithLinks, regexReplace) {
 
-    describe('Utility: escapeWithLinks', function () {
-        describe('applying with falsy text', function () {
-            it('should render the identity function', function () {
-                _.each([void 0, null, 0, false, ''], function (value) {
-                    expect(escapeWithLinks(value)).toBe(value);
-                });
-            });
-        });
+	describe('Utility: escapeWithLinks', function () {
+		describe('given falsy input', function () {
+			it('should return the input unaltered', function () {
+				expect(escapeWithLinks(void 0)).toBe(void 0);
+				expect(escapeWithLinks(null)).toBe(null);
+				expect(escapeWithLinks(0)).toBe(0);
+				expect(escapeWithLinks(false)).toBe(false);
+				expect(escapeWithLinks('')).toBe('');
+			});
+		});
 
+		describe('given all combinations of input', function () {
+			beforeEach(function() {
+				this.sandbox = sinon.sandbox.create()
+				this.sandbox.spy(regexReplace, 'impl')
+			})
 
-        var checkRegexReplaceInput = function (input, url, link) {
+			afterEach(function() {
+				this.sandbox.restore()
+			})
 
-            return function (reg, text, html, escape) {
+			describe('for links with spaces in them', function() {
+				beforeEach(function() {
+					this.input = 'before http://example with spaces.com/ after'
+				})
 
-                it('send regexReplace valid input', function () {
-                    expect(text).toBe(input);
-                    expect(input).toMatch(reg);
-                    expect(html(url)).toBe(link);
-                    expect(escape).toBe(_.escape);
-                });
+				it('with a target, and a className appropriate output is returned', function () {
+					var expectedOutput = 'before <a class="demoClassName" target="demoTarget" href="http://example with spaces.com/ after">http://example with spaces.com/ after</a>'
+					var output = escapeWithLinks(this.input, true, 'demoTarget', 'demoClassName')
 
-                return realRegexReplace(reg, text, html, escape);
-            };
-        };
+					expect(output).toBe(expectedOutput);
+					expect(regexReplace.impl).toHaveBeenCalled()
+					expect(regexReplace.impl).toHaveBeenCalledWith(jasmine.any(Object), this.input, jasmine.any(Function), _.escape)
+				});
 
+				it('with a target, and no className appropriate output is returned', function () {
+					var expectedOutput = 'before <a class="autoLink" target="demoTarget" href="http://example with spaces.com/ after">http://example with spaces.com/ after</a>'
+					var output = escapeWithLinks(this.input, true, 'demoTarget', null)
 
-        var URL_WITH_SPACES = 'http://example with spaces.com/';
-        var URL_WITHOUT_SPACES = 'http://examplewithoutspaces.com/';
+					expect(output).toBe(expectedOutput);
+					expect(regexReplace.impl).toHaveBeenCalled()
+					expect(regexReplace.impl).toHaveBeenCalledWith(jasmine.any(Object), this.input, jasmine.any(Function), _.escape)
+				});
 
-        var performTest = function (shouldCatchSpaces, useTarget, useClassName) {
-            var url   = shouldCatchSpaces ? URL_WITH_SPACES : URL_WITHOUT_SPACES;
-            var input = 'before ' + url + '\n after';
+				it('with no target, and a className appropriate output is returned', function () {
+					var expectedOutput = 'before <a class="demoClassName" target="_blank" href="http://example with spaces.com/ after">http://example with spaces.com/ after</a>'
+					var output = escapeWithLinks(this.input, true, null, 'demoClassName')
 
-            var target    = useTarget    ? 'demoTarget'    : null;
-            var className = useClassName ? 'demoClassName' : null;
+					expect(output).toBe(expectedOutput);
+					expect(regexReplace.impl).toHaveBeenCalled()
+					expect(regexReplace.impl).toHaveBeenCalledWith(jasmine.any(Object), this.input, jasmine.any(Function), _.escape)
+				});
+//
+				it('with no target, and no className appropriate output is returned', function () {
+					var expectedOutput = 'before <a class="autoLink" target="_blank" href="http://example with spaces.com/ after">http://example with spaces.com/ after</a>'
+					var output = escapeWithLinks(this.input, true, null, null)
 
-            var expectedTarget    = useTarget    ? target    : '_blank';
-            var expectedClassName = useClassName ? className : 'autoLink';
+					expect(output).toBe(expectedOutput);
+					expect(regexReplace.impl).toHaveBeenCalled()
+					expect(regexReplace.impl).toHaveBeenCalledWith(jasmine.any(Object), this.input, jasmine.any(Function), _.escape)
+				});
+			})
 
-            var escapedUrl = _.escape(url);
-            var link       = '<a class="' + expectedClassName + '" target="' + expectedTarget + '" href="' + escapedUrl + '">' + escapedUrl + '</a>';
-            var output     = 'before ' + link + '\n after';
+			describe('for links without spaces in them', function() {
+				beforeEach(function() {
+					this.input = 'before http://example.com/ after'
+				})
 
-            sinon.stub(regexReplace, 'impl', checkRegexReplaceInput(input, url, link));
+				it('with a target, and a className appropriate output is returned', function () {
+					var expectedOutput = 'before <a class="demoClassName" target="demoTarget" href="http://example.com/">http://example.com/</a> after'
+					var output = escapeWithLinks(this.input, false, 'demoTarget', 'demoClassName')
 
-            var actualOutput;
-            describe('should execute correctly and', function () {
-                actualOutput = escapeWithLinks(input, shouldCatchSpaces, target, className);
-            });
+					expect(output).toBe(expectedOutput);
+					expect(regexReplace.impl).toHaveBeenCalled()
+					expect(regexReplace.impl).toHaveBeenCalledWith(jasmine.any(Object), this.input, jasmine.any(Function), _.escape)
+				});
 
-            regexReplace.impl.restore();
+				it('with a target, and no className appropriate output is returned', function () {
+					var expectedOutput = 'before <a class="autoLink" target="demoTarget" href="http://example.com/">http://example.com/</a> after'
+					var output = escapeWithLinks(this.input, false, 'demoTarget', null)
 
-            it('should give the correct output', function () {
-                expect(actualOutput).toBe(output);
-            });
-        };
+					expect(output).toBe(expectedOutput);
+					expect(regexReplace.impl).toHaveBeenCalled()
+					expect(regexReplace.impl).toHaveBeenCalledWith(jasmine.any(Object), this.input, jasmine.any(Function), _.escape)
+				});
 
+				it('with no target, and a className appropriate output is returned', function () {
+					var expectedOutput = 'before <a class="demoClassName" target="_blank" href="http://example.com/">http://example.com/</a> after'
+					var output = escapeWithLinks(this.input, false, null, 'demoClassName')
 
-        var describeTest = function (shouldCatchSpaces, useTarget, useClassName) {
-            var description = [
-                shouldCatchSpaces  ? 'truthy catchSpaces' : 'falsy catchSpaces',
-                useTarget          ? 'defined target'     : 'null target',
-                useClassName       ? 'defined className'  : 'null className'
-            ];
-            describe(description.join(' and  '), function () {
-                performTest(shouldCatchSpaces, useTarget, useClassName);
-            });
-        };
+					expect(output).toBe(expectedOutput);
+					expect(regexReplace.impl).toHaveBeenCalled()
+					expect(regexReplace.impl).toHaveBeenCalledWith(jasmine.any(Object), this.input, jasmine.any(Function), _.escape)
+				});
 
+				it('with no target, and no className appropriate output is returned', function () {
+					var expectedOutput = 'before <a class="autoLink" target="_blank" href="http://example.com/">http://example.com/</a> after'
+					var output = escapeWithLinks(this.input, false, null, null)
 
-        describe('applying with valid text and', function () {
-            //  For every possible combination of input -> Describe a test
-            var values = [true, false];
-            _.each(values, function (shouldCatchSpaces) {
-                _.each(values, function (useTarget) {
-                    _.each(values, function (useClassName) {
-                        describeTest(shouldCatchSpaces, useTarget, useClassName);
-                    });
-                });
-            });
-        });
-    });
+					expect(output).toBe(expectedOutput);
+					expect(regexReplace.impl).toHaveBeenCalled()
+					expect(regexReplace.impl).toHaveBeenCalledWith(jasmine.any(Object), this.input, jasmine.any(Function), _.escape)
+				})
+			})
+		})
+	})
 });
