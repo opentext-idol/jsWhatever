@@ -110,5 +110,16 @@ define([
 				})
 			})
 		})
+
+		describe('given input with no links', function () {
+
+			it('should return text unaltered', function () {
+				expect(escapeWithLinks("today while running to the store a leopard bit me")).toBe("today while running to the store a leopard bit me");
+			});
+
+			it('should return input as a string', function() {
+				expect(escapeWithLinks(420666)).toBe('420666')
+			})
+		});
 	})
 });
