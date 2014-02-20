@@ -236,6 +236,13 @@ define([
 
 				expect(escapeWithLinks(input, false)).toBe(expectedOutput)
 			})
+
+			it('should handle links with characters right up the http://', function() {
+				var input = "hhttp://auto.howstuffworks.com/airbag.htm, Testing"
+				var expectedOutput = 'h<a class="autoLink" target="_blank" href="http://auto.howstuffworks.com/airbag.htm">http://auto.howstuffworks.com/airbag.htm</a>, Testing'
+
+				expect(escapeWithLinks(input, false)).toBe(expectedOutput)
+			})
 		})
 	})
 });

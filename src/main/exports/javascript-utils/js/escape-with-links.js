@@ -10,8 +10,8 @@ define([
 	 * className - the class to put on the <a> tag of any links found
 	 */
     return function escapeWithLinks(text, catchSpaces, target, className){
-        var regex = /\(?\bhttps?:\/\/[-A-Za-z0-9+&@#/%?=~_()|!:,.;']*[-A-Za-z0-9+&@#/%=~_()|]/ig;
-        var regexSpaces = /\(?\bhttps?:\/\/[-A-Za-z0-9+&@#/%?=~_()|!:,.;'\s]*[-A-Za-z0-9+&@#/%=~_()|]/ig;
+        var regex = /\(?https?:\/\/[-A-Za-z0-9+&@#/%?=~_()|!:,.;']*[-A-Za-z0-9+&@#/%=~_()|]/ig;
+        var regexSpaces = /\(?https?:\/\/[-A-Za-z0-9+&@#/%?=~_()|!:,.;'\s]*[-A-Za-z0-9+&@#/%=~_()|]/ig;
 
         if (target == null) {
             target = '_blank';
