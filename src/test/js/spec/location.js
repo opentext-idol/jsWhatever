@@ -3,6 +3,10 @@ define([
 ], function (location) {
 
     describe('Utility: `Location`', function () {
+        it('should retrieve the correct host', function () {
+            expect(location.host()).toBe(window.location.host);
+        });
+
         it('should retrieve the correct hostname', function () {
             expect(location.hostname()).toBe(window.location.hostname);
         });
