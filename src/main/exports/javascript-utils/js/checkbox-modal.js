@@ -14,6 +14,8 @@ define([
             this.parameters = ensureArray(init.parameters);
             this.okCallback = init.okCallback || $.noop;
             this.okIcon = init.okIcon || 'icon-refresh';
+            this.okClass = init.okClass || 'btn-success';
+            this.cancelClass = init.cancelClass || '';
             this.atLeastOneElementSelected = init.atLeastOneElementSelected || false;
 
             this.i18n = init.i18n;
@@ -176,7 +178,9 @@ define([
                 table_configs: table_config,
                 table_template: this.template_table_modal,
                 i18n: this.i18n,
-                okIcon: this.okIcon
+                okIcon: this.okIcon,
+                okClass: this.okClass,
+                cancelClass: this.cancelClass
             };
 
             _.each(this.parameters, _.bind(function(entry) {
