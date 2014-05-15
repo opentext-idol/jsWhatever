@@ -6,7 +6,16 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </a>
-            <a class="brand" <% if(ctx.brandRoute){ %> href="#<%=ctx.brandRoute%>" <% } %>><%=ctx.appName%></a>
+            <a class="brand" <% if(ctx.brandRoute){ %> href="#<%=ctx.brandRoute%>" <% } %>>
+            <%=ctx.appName%>
+            <% if(ctx.subheading) { %>
+                <p class="subheading">
+                    <small>
+                       <%- ctx.subheading %>
+                    </small>
+                </p>
+            <% } %>
+            </a>
             <div class="nav-collapse collapse">
                 <ul class="nav">
                 <% _.each(ctx.navLeft, function(navItem) { %>
