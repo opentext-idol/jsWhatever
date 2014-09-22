@@ -2,6 +2,26 @@ define([
     'underscore', 'raphael'
 ], function() {
 
+    var hex2Rgb = function(hex) {
+        if(hex[0] === '#') {
+            hex = hex.substring(1);
+        }
+
+        if(hex.length !== 6) {
+            throw new Error('Invalid hex string supplied: ' + hex);
+        }
+
+        var rString = hex.substring(0,2);
+        var gString = hex.substring(2,4);
+        var bString = hex.substring(4,6);
+
+        return {
+            r: Number.parseInt(rString, 16),
+            g: Number.parseInt(gString, 16),
+            b: Number.parseInt(bString, 16)
+        }
+    };
+
     // getColour maps user-defined keys to a (hopefully) unique colour.
 
     var predefinedColours = function() {
@@ -50,7 +70,7 @@ define([
         },
 
         changeSaturation: function (hexIn, fraction) {
-            var rgb = Raphael.getRGB(hexIn);
+            var rgb = hex2Rgb(hexIn);
             var hsb = Raphael.rgb2hsb(rgb.r, rgb.g, rgb.b);
             hsb.s = Math.min(1, hsb.s * fraction);
             return Raphael.hsb(hsb.h, hsb.s, hsb.b);
