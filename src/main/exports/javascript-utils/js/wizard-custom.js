@@ -20,7 +20,7 @@ define([
             this.steps = options.steps;
             this.renderOptions = options.renderOptions;
 
-            this.wizardOptions = _.defaults(options.wizardOptions, {
+            this.wizardOptions = _.defaults(options.wizardOptions || {}, {
                 onStepChanging: this.handleStepChange,
                 labels: {
                     finish: this.strings.last,
