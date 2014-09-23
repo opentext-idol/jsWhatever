@@ -19,7 +19,8 @@ define([
                 closable: true,
                 okClass: 'btn-success',
                 okIcon: 'icon-ok',
-                showButtons: true
+                showButtons: true,
+                hiddenEvent: 'hidden'
             });
 
             if(!this.config.message) {
@@ -65,7 +66,7 @@ define([
                 this.$el.data('backdrop', 'static').addClass('undismissable-modal');
             }
 
-            this.$el.modal().on('hidden', this.remove);
+            this.$el.modal().on(this.config.hiddenEvent, this.remove);
 
             this.$('.modal-body a.route').click(_.bind(function(){
                 this.$el.modal('hide');
@@ -88,7 +89,7 @@ define([
             var args = _.toArray(arguments).slice(2);
 
             //wait for popup or we exceed the call stack size if okHandler opens another modal (such as load mask)
-            this.$el.on('hidden', function() {
+            this.$el.on(this.config.hiddenEvent, function() {
                 handler.apply(element, args);
             });
         },
