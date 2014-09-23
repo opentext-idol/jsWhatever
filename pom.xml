@@ -226,6 +226,12 @@
         </dependency>
 
         <dependency>
+            <groupId>com.jquery-steps</groupId>
+            <artifactId>jquery-steps</artifactId>
+            <version>1.1.0</version>
+        </dependency>
+
+        <dependency>
             <groupId>in.marcuswest</groupId>
             <artifactId>store</artifactId>
             <version>1.0</version>

@@ -2,7 +2,7 @@ define([
     'backbone',
     'underscore',
     'text!js-utils/templates/wizard/wizard.html',
-    'fuelux/wizard'
+    'jquery-steps'
 ], function(Backbone, _, template) {
 
     return Backbone.View.extend({
@@ -10,7 +10,7 @@ define([
         template: _.template(template),
 
         initialize: function(options){
-            _.bindAll(this, 'handleStepChange', 'handleStepChanged', 'handleStepClick', 'handleFinished');
+            _.bindAll(this, 'handleStepChange');
 
             if (options.template) {
                 this.template = options.template;
@@ -20,21 +20,14 @@ define([
             this.steps = options.steps;
             this.renderOptions = options.renderOptions;
 
-            if(options.onStepChange) {
-                this.handleStepChange = options.onStepChange;
-            }
-
-            if(options.onStepChanged) {
-                this.handleStepChanged = options.onStepChanged;
-            }
-
-            if(options.onStepClick) {
-                this.handleStepClick = options.onStepClick;
-            }
-
-            if(options.onFinished) {
-                this.handleFinished = options.onFinished;
-            }
+            this.wizardOptions = _.defaults(options.wizardOptions, {
+                onStepChanging: this.handleStepChange,
+                labels: {
+                    finish: this.strings.last,
+                    next: this.strings.next,
+                    previous: this.strings.prev
+                }
+            });
         },
 
         render: function(){
@@ -46,6 +39,8 @@ define([
 
             this.$wizard = this.$('.wizard');
 
+            this.$wizard.steps(this.wizardOptions);
+
             _.each(this.steps, function(step){
                 var options = step.options || {};
 
@@ -53,11 +48,6 @@ define([
                     el: this.$('.'+ step.class)
                 }, options));
             }, this);
-
-            this.$wizard.on('change', this.handleStepChange);
-            this.$wizard.on('changed', this.handleStepChanged);
-            this.$wizard.on('stepclick', this.handleStepClick);
-            this.$wizard.on('finished', this.handleFinished);
         },
 
         // takes 1 based arguments to match fuelux
@@ -66,7 +56,7 @@ define([
         },
 
         getCurrentStep: function() {
-            return this.getStep(this.$wizard.wizard('selectedItem').step);
+            return this.getStep(this.$wizard.steps('getCurrentIndex'));
         },
 
         renderActiveStep: function(){
@@ -78,19 +68,12 @@ define([
         },
 
         // if you want to override this function you should probably call this as the first line of your function
-        handleStepChange: function(e, wizardObj, renderOptions) {
-            var newStepNumber = wizardObj.step + (wizardObj.direction === 'next' ? 1 : -1);
-            var newStep = this.getStep(newStepNumber);
+        handleStepChange: function(e, currentIndex, newIndex, renderOptions) {
+            var newStep = this.getStep(newIndex);
 
             if(newStep.view.$el.children().length === 0){
                 newStep.view.render(renderOptions);
             }
-        },
-
-        handleStepChanged: $.noop,
-
-        handleStepClick: $.noop,
-
-        handleFinished: $.noop
+        }
     });
 });
