@@ -16,9 +16,9 @@ define([
         var bString = hex.substring(4,6);
 
         return {
-            r: Number.parseInt(rString, 16),
-            g: Number.parseInt(gString, 16),
-            b: Number.parseInt(bString, 16)
+            r: parseInt(rString, 16),
+            g: parseInt(gString, 16),
+            b: parseInt(bString, 16)
         }
     };
 
