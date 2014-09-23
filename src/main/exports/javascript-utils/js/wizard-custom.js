@@ -50,9 +50,8 @@ define([
             }, this);
         },
 
-        // takes 1 based arguments to match fuelux
         getStep: function(index) {
-            return this.steps[index - 1];
+            return this.steps[index];
         },
 
         getCurrentStep: function() {
