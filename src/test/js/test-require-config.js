@@ -4,7 +4,6 @@ define(function() {
             // lib
             backbone: '/src/main/lib/backbone/backbone',
             bootstrap: '/src/main/lib/bootstrap/js/bootstrap',
-            jqueryui: '/src/main/lib/jquery/jquery-ui',
             text: '/src/main/lib/require/text',
 
             //dir
@@ -14,7 +13,8 @@ define(function() {
 
             // mock
             store: '/test/mock/store',
-            'js-utils/js/regex-replace': '/test/mock/regex-replace'
+            'js-utils/js/regex-replace': '/test/mock/regex-replace',
+            jqueryui: '/test/mock/lib/jquery-ui'
         },
         shim: {
             backbone: {
