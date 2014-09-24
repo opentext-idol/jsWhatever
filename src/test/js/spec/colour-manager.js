@@ -99,7 +99,7 @@ define([
 
             it('should not increase the saturation above 100%', function() {
                 var finalColour = this.colourManager.changeSaturation(originalColour, 100);
-                expect(finalColour).toBeAHexColour();
+                expect(finalColour).toEqual('#00e05b');
             });
         });
 

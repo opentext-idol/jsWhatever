@@ -1,5 +1,5 @@
 define([
-    'underscore', 'raphael'
+    'underscore'
 ], function() {
 
     var hex2Rgb = function(hex) {
@@ -65,6 +65,47 @@ define([
         }
     };
 
+    var hsb2rgb = function(h,s,v) {
+        var c = v * s;
+        var hp = h * 6;
+        var x = c * (1 - Math.abs(hp % 2 - 1));
+
+        // r,g,b
+        var matrix = [
+            [c,x,0],
+            [x,c,0],
+            [0,c,x],
+            [0,x,c],
+            [x,0,c],
+            [c,0,x]
+        ];
+
+        var row = matrix[Math.floor(hp)];
+        var m = v - c;
+        var r = Math.floor(255 * (row[0] + m));
+        var g = Math.floor(255 * (row[1] + m));
+        var b = Math.floor(255 * (row[2] + m));
+
+        var out = '#';
+
+        if(r < 16) {
+            out += '0';
+        }
+        out += r.toString(16);
+
+        if(g < 16) {
+            out += '0';
+        }
+        out += g.toString(16);
+
+        if(b < 16) {
+            out += '0';
+        }
+        out += b.toString(16);
+
+        return out;
+    };
+
     // getColour maps user-defined keys to a (hopefully) unique colour.
 
     var predefinedColours = function() {
@@ -116,7 +157,7 @@ define([
             var rgb = hex2Rgb(hexIn);
             var hsb = rgb2hsb(rgb.r, rgb.g, rgb.b);
             hsb.s = Math.min(1, hsb.s * fraction);
-            return Raphael.hsb(hsb.h, hsb.s, hsb.b);
+            return hsb2rgb(hsb.h, hsb.s, hsb.b);
         }
     });
 
