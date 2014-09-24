@@ -8,12 +8,17 @@ define([
     return Backbone.View.extend({
 
         template: _.template(template),
+        columnClass: 'span12',
 
         initialize: function(options){
             _.bindAll(this, 'handleStepChange');
 
             if (options.template) {
                 this.template = options.template;
+            }
+
+            if(options.columnClass) {
+                this.columnClass = options.columnClass;
             }
 
             this.strings = options.strings;
@@ -40,6 +45,12 @@ define([
             this.$wizard = this.$('.wizard');
 
             this.$wizard.steps(this.wizardOptions);
+
+            this.$wizard.find('.actions').insertAfter(this.$wizard.find('.steps'));
+
+            this.$wizard.find('.steps').addClass(this.columnClass);
+            this.$wizard.find('.actions').addClass(this.columnClass);
+            this.$wizard.find('.content').addClass(this.columnClass);
 
             _.each(this.steps, function(step){
                 var options = step.options || {};
