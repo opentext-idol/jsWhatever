@@ -41,7 +41,7 @@ define([
             });
         });
 
-        _.each(['de!', 'demo!', 'my!', ' ', '', '!'], function (content) {
+        _.each(['de!', 'demo!', 'my!', ' ', '!'], function (content) {
             it('should not find any nodes from content: "' + content + '"', function () {
                 var search = this.$parent.find(':icontains("'+content+'")');
                 expect(search.length).toBe(0);
