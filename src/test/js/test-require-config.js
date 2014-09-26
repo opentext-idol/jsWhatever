@@ -21,6 +21,12 @@ define(function() {
                 deps: ['underscore', 'jquery'],
                 exports: 'Backbone'
             }
+        },
+        map: {
+            '*': {
+                'jasmine-jquery': 'jasmineJquery',
+                'jasmine-sinon': 'jasmineSinon'
+            }
         }
     });
 });

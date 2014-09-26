@@ -2,7 +2,8 @@ define([
 	'js-utils/js/escape-with-links',
 	'js-utils/js/regex-replace',
 	'sinon',
-	'underscore'
+	'underscore',
+    'jasmine-sinon'
 ], function (escapeWithLinks, regexReplace) {
 
 	describe('Utility: escapeWithLinks', function () {

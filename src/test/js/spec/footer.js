@@ -2,7 +2,8 @@ define([
     'backbone',
     'js-utils/js/footer',
     'store',
-    'bootstrap'
+    'bootstrap',
+    'jasmine-jquery'
 ], function (Backbone, Footer, store) {
 
     describe('Footer', function () {

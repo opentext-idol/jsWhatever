@@ -1,5 +1,6 @@
 define([
-    'js-utils/js/confirm'
+    'js-utils/js/confirm',
+    'jasmine-jquery'
 ], function(confirm) {
 
     describe('Confirm function', function() {
