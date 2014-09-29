@@ -26,7 +26,9 @@ define([
             this.filterTabs();
 
             _.each(this.tabs, function(tab) {
-                if (tab.constructor) tab.view = new tab.constructor(tab.constructorOptions);
+                if (tab.constructor) {
+                    tab.view = new tab.constructor(tab.constructorOptions);
+                }
             });
         },
 

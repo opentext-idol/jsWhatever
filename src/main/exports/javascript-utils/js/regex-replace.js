@@ -12,6 +12,7 @@ define(function(){
 
         var match, lastIndex = 0, output = '';
 
+        /* jshint -W084 */
         while(match = regex.exec(text)) {
             var offset = regex.lastIndex - match[0].length;
             if (lastIndex < offset) {
@@ -20,6 +21,7 @@ define(function(){
             output += yesFn.apply(this, match);
             lastIndex = regex.lastIndex;
         }
+        /* jshint +W084 */
 
         if (lastIndex < text.length) {
             output += noFn(text.substring(lastIndex));

@@ -8,7 +8,9 @@ define(function(){
         var mins = strings ? ' ' + strings['duration.short.minutes'] : ' mins';
         var secs = strings ?  strings['duration.short.seconds'] : 's';
         
-        if (s == 0) return '0' + secs;
+        if (s === 0) {
+            return '0' + secs;
+        }
 
         if (!isFinite(s)) {
             return s === Infinity ? '\u221e' : s === -Infinity  ? '-\u221e' : String(s);

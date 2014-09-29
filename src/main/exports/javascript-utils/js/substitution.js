@@ -3,7 +3,7 @@
  * allowing arguments to be passed in and hide string concatenation
  */
 
-define(['underscore'], function() {
+define(['underscore'], function(_) {
 
     return function(i18n) {
         var processed = {};
@@ -13,7 +13,7 @@ define(['underscore'], function() {
         _.each(i18n, function(value, key) {
             var matches = value.match(regex);
 
-            if(matches == null) {
+            if(matches === null) {
                 processed[key] = value;
             }
             else {

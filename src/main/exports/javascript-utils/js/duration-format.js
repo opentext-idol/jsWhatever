@@ -1,4 +1,6 @@
-define(function(){
+define([
+    'underscore'
+], function(_){
     return function(ms, strings, precision) {
         var oneDay = strings ? ' ' + strings['duration.day'] : ' day';
         var days = strings ? ' ' + strings['duration.days'] : ' days';
@@ -11,7 +13,7 @@ define(function(){
         
         var round;
 
-        if (precision == null) {
+        if (_.isUndefined(precision) || _.isNull(precision)) {
             precision = 1;
         }
 

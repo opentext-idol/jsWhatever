@@ -13,11 +13,11 @@ define([
         var regex = /\(?https?:\/\/[-A-Za-z0-9+&@#/%?=~_()|!:,.;']*[-A-Za-z0-9+&@#/%=~_()|]/ig;
         var regexSpaces = /\(?https?:\/\/[-A-Za-z0-9+&@#/%?=~_()|!:,.;'\s]*[-A-Za-z0-9+&@#/%=~_()|]/ig;
 
-        if (target == null) {
+        if (_.isUndefined(target) || _.isNull(target)) {
             target = '_blank';
         }
 
-        if (className == null) {
+        if (_.isUndefined(className) || _.isNull(className)) {
             className = 'autoLink';
         }
 
