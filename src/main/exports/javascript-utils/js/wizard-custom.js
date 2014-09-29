@@ -56,7 +56,8 @@ define([
                 var options = step.options || {};
 
                 step.view = new step.constructor(_.defaults({
-                    el: this.$('.'+ step.class)
+                    // class is a reserved word
+                    el: this.$('.'+ step['class'])
                 }, options));
             }, this);
         },

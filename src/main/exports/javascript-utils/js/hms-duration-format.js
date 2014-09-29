@@ -22,7 +22,7 @@ define(function(){
         s = s - (dayCount * 60*60*24);
 
         if (dayCount > 0) {
-            result = result + dayCount + ((dayCount == 1) ? oneDay : days);
+            result = result + dayCount + ((dayCount === 1) ? oneDay : days);
             if (s > 0) {
                 result = result +', ';
             }
@@ -32,7 +32,7 @@ define(function(){
         s = s -(hourCount * 60*60);
 
         if (hourCount > 0) {
-            result = result + hourCount + ((hourCount == 1) ? oneHour : hours);
+            result = result + hourCount + ((hourCount === 1) ? oneHour : hours);
             if (s > 0) {
                 result = result +', ';
             }
@@ -42,7 +42,7 @@ define(function(){
         s = s - minCount * 60;
 
         if (minCount > 0) {
-            result = result + minCount + ((minCount == 1) ? oneMin: mins);
+            result = result + minCount + ((minCount === 1) ? oneMin: mins);
             if (s > 0) {
                 result = result +', ';
             }

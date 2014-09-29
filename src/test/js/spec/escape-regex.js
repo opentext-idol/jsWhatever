@@ -14,18 +14,18 @@ define([
             var chars = '\\^$*+-?.(){}[]|';
             var charsList = chars.split('');
             _.times(255, function (code) {
-                var char = String.fromCharCode(code);
-                if (_.contains(charsList, char)) {
-                    expect(escapeRegex(char)).toBe('\\' + char);
+                var character = String.fromCharCode(code);
+                if (_.contains(charsList, character)) {
+                    expect(escapeRegex(character)).toBe('\\' + character);
                 } else {
-                    expect(escapeRegex(char)).toBe(char);
+                    expect(escapeRegex(character)).toBe(character);
                 }
             })
         });
 
         it('should not break on unicode', function () {
-            var char = '\u263A';
-            expect(escapeRegex(char)).toBe(char);
+            var character = '\u263A';
+            expect(escapeRegex(character)).toBe(character);
         });
     });
 });

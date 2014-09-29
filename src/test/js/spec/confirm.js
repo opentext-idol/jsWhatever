@@ -105,7 +105,7 @@ define([
             });
 
             waitsFor('button to get focus', function() {
-                return $('.confirm-test button').get(0) == document.activeElement;
+                return $('.confirm-test button').get(0) === document.activeElement;
             }, waitTime);
 
             runs(function() {
@@ -119,7 +119,7 @@ define([
             });
 
             waitsFor('button to lose focus', function() {
-                return $('.confirm-test button').get(0) != document.activeElement;
+                return $('.confirm-test button').get(0) !== document.activeElement;
             }, waitTime);
         });
 

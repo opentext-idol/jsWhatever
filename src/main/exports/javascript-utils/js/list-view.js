@@ -2,7 +2,10 @@ define([
     'backbone'
 ], function(Backbone) {
 
-    var defaultItemFilter = function(model) {
+    /**
+     * @param model
+     */
+    var defaultItemFilter = function() {
         return true;
     };
 

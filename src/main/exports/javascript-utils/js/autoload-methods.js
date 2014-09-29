@@ -46,7 +46,7 @@ define({
 
     ///Override to something like: "?action=GetStatus&ResponseFormat=json"
     url: function() {
-        typeof console !== 'undefined' && console.log("You are being a very silly person.  Override the url property of your ACI Model!");
+        typeof console !== 'undefined' && console.log('You are being a very silly person.  Override the url property of your ACI Model!');
     },
 
     onLoad: function(callback, ctx) {

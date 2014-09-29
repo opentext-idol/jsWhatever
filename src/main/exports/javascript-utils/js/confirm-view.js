@@ -84,7 +84,7 @@ define([
             }
         },
 
-        handleButton: function(element, handler, e) {
+        handleButton: function(element, handler) {
             // don't want to pass element or handler to the handler
             var args = _.toArray(arguments).slice(2);
 

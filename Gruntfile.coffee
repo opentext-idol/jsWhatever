@@ -36,8 +36,37 @@ module.exports = (grunt) ->
       options:
         asi: true
         bitwise: true
+        browser: true
+        camelcase: true
         curly: true
+        devel: true
+        eqeqeq: true
+        es3: true
         expr: true
+        forin: true
+        freeze: true
+        jquery: true
+        latedef: true
+        newcap: true
+        noarg: true
+        noempty: true
+        nonbsp: true
+        undef: true
+        unused: true
+        globals:
+          define: false
+          _: false
+          expect: false
+          it: false
+          require: false
+          describe: false
+          sinon: false
+          beforeEach: false
+          afterEach: false
+          jasmine: false
+          runs: false
+          waits: false
+          waitsFor: false
     coffeelint:
       app: [
         'Gruntfile.coffee'
