@@ -5,45 +5,46 @@ module.exports = (grunt) ->
   jasmineSpecRunner = 'spec-runner.html'
   coverageSpecRunner = 'coverage-runner.html'
 
+  sourcePath = 'src/main/exports/javascript-utils/js/**/*.js'
+
+  testRequireConfig = 'src/test/js/js-test-require-config.js'
+  specs = 'src/test/js/spec/**/*.js'
+  styles = 'src/test/css/bootstrap-stub.css'
+  serverPort = 8000
+  host = "http://localhost:#{serverPort}/"
+
   grunt.initConfig
     pkg: grunt.file.readJSON 'package.json'
-    build:
-      src: 'src'
-      dest: 'build'
     clean: [
       jasmineSpecRunner
       coverageSpecRunner
       'bin'
-      'build'
       '.grunt'
     ]
     connect:
-      test:
+      server:
         options:
-          port: 8000
-      coverage:
-        options:
-          port: 8000
+          port: serverPort
     jasmine:
       test:
-        src: 'src/main/exports/javascript-utils/js/**/*.js'
+        src: sourcePath
         options:
-          host: 'http://localhost:8000/'
+          host: host
           keepRunner: true
           outfile: jasmineSpecRunner
-          specs: 'src/test/js/spec/**/*.js'
-          styles: 'src/test/css/bootstrap-stub.css'
+          specs: specs
+          styles: styles
           template: jasmineRequireTemplate
           templateOptions:
-            requireConfigFile: 'src/test/js/js-test-require-config.js'
+            requireConfigFile: testRequireConfig
       coverage:
-        src: 'src/main/exports/javascript-utils/js/**/*.js'
+        src: sourcePath
         options:
-          host: 'http://localhost:8000/'
+          host: host
           keepRunner: true
           outfile: coverageSpecRunner
-          specs: 'src/test/js/spec/**/*.js'
-          styles: 'src/test/css/bootstrap-stub.css'
+          specs: specs
+          styles: styles
           template: jasmineIstanbulTemplate
           templateOptions:
             coverage: 'bin/coverage/coverage.json'
@@ -52,11 +53,11 @@ module.exports = (grunt) ->
               type: 'text'
             template: jasmineRequireTemplate
             templateOptions:
-              requireConfigFile: 'src/test/js/js-test-require-config.js'
+              requireConfigFile: testRequireConfig
               requireConfig:
                 config:
                   instrumented: {
-                    src: grunt.file.expand('src/main/exports/javascript-utils/js/**/*.js')
+                    src: grunt.file.expand(sourcePath)
                   }
                 callback: () ->
                   define('instrumented', ['module'], (module) ->
@@ -80,7 +81,7 @@ module.exports = (grunt) ->
 
     jshint:
       all: [
-        'src/main/exports/javascript-utils/js/**/*.js'
+        sourcePath
         'src/test/js/mock/*.js'
         'src/test/js/spec/*.js'
         'src/test/js/*.js'
@@ -131,6 +132,6 @@ module.exports = (grunt) ->
   grunt.loadNpmTasks 'grunt-coffeelint'
 
   grunt.registerTask 'default', 'test'
-  grunt.registerTask 'test', ['connect', 'jasmine']
-  grunt.registerTask 'coverage', ['connect:coverage', 'jasmine:coverage']
+  grunt.registerTask 'test', ['connect:server', 'jasmine:test']
+  grunt.registerTask 'coverage', ['connect:server', 'jasmine:coverage']
   grunt.registerTask 'lint', ['jshint', 'coffeelint']
