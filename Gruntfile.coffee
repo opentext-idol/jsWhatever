@@ -65,13 +65,13 @@ module.exports = (grunt) ->
                   require ['instrumented'], (instrumented) ->
                     oldLoad = requirejs.load
                     requirejs.load = (context, moduleName, url) ->
-                      if url.substring(0, 1)  == '/'
+                      if url.substring(0, 1) == '/'
                         url = url.substring 1
-                      else if url.substring(0, 2)  == './'
+                      else if url.substring(0, 2) == './'
                         url = url.substring 2
 
                       # redirect
-                      if (instrumented.indexOf(url) > -1)
+                      if instrumented.indexOf(url) > -1
                         url = './.grunt/grunt-contrib-jasmine/' + url;
 
                       return oldLoad.apply(this, [context, moduleName, url]);
