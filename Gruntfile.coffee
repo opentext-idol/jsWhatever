@@ -1,6 +1,9 @@
 module.exports = (grunt) ->
+  jasmineRequireTemplate = require 'grunt-template-jasmine-requirejs'
+  jasmineIstanbulTemplate = require 'grunt-template-jasmine-istanbul'
 
   jasmineSpecRunner = 'spec-runner.html'
+  coverageSpecRunner = 'coverage-runner.html'
 
   grunt.initConfig
     pkg: grunt.file.readJSON 'package.json'
@@ -9,11 +12,18 @@ module.exports = (grunt) ->
       dest: 'build'
     clean: [
       jasmineSpecRunner
+      coverageSpecRunner
+      'bin'
       'build'
+      '.grunt'
     ]
     connect:
       test:
-        port: 8000
+        options:
+          port: 8000
+      coverage:
+        options:
+          port: 8000
     jasmine:
       test:
         src: 'src/main/exports/javascript-utils/js/**/*.js'
@@ -23,9 +33,51 @@ module.exports = (grunt) ->
           outfile: jasmineSpecRunner
           specs: 'src/test/js/spec/**/*.js'
           styles: 'src/test/css/bootstrap-stub.css'
-          template: require 'grunt-template-jasmine-requirejs'
+          template: jasmineRequireTemplate
           templateOptions:
             requireConfigFile: 'src/test/js/js-test-require-config.js'
+      coverage:
+        src: 'src/main/exports/javascript-utils/js/**/*.js'
+        options:
+          host: 'http://localhost:8000/'
+          keepRunner: true
+          outfile: coverageSpecRunner
+          specs: 'src/test/js/spec/**/*.js'
+          styles: 'src/test/css/bootstrap-stub.css'
+          template: jasmineIstanbulTemplate
+          templateOptions:
+            coverage: 'bin/coverage/coverage.json'
+            replace: false
+            report:
+              type: 'text'
+            template: jasmineRequireTemplate
+            templateOptions:
+              requireConfigFile: 'src/test/js/js-test-require-config.js'
+              requireConfig:
+                config:
+                  instrumented: {
+                    src: grunt.file.expand('src/main/exports/javascript-utils/js/**/*.js')
+                  }
+                callback: () ->
+                  define('instrumented', ['module'], (module) ->
+                    module.config().src
+                  )
+                  require ['instrumented'], (instrumented) ->
+                    oldLoad = requirejs.load
+                    requirejs.load = (context, moduleName, url) ->
+                      if url.substring(0, 1)  == '/'
+                        url = url.substring 1
+                      else if url.substring(0, 2)  == './'
+                        url = url.substring 2
+
+                      # redirect
+                      if (instrumented.indexOf(url) > -1)
+                        url = './.grunt/grunt-contrib-jasmine/' + url;
+
+                      return oldLoad.apply(this, [context, moduleName, url]);
+                    return
+                  return
+
     jshint:
       all: [
         'src/main/exports/javascript-utils/js/**/*.js'
@@ -80,4 +132,5 @@ module.exports = (grunt) ->
 
   grunt.registerTask 'default', 'test'
   grunt.registerTask 'test', ['connect', 'jasmine']
+  grunt.registerTask 'coverage', ['connect:coverage', 'jasmine:coverage']
   grunt.registerTask 'lint', ['jshint', 'coffeelint']
