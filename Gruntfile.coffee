@@ -9,7 +9,7 @@ module.exports = (grunt) ->
 
   testRequireConfig = 'src/test/js/js-test-require-config.js'
   specs = 'src/test/js/spec/**/*.js'
-  styles = 'src/test/css/bootstrap-stub.css'
+  styles = 'bower_components/hp-autonomy-js-testing-utils/src/css/bootstrap-stub.css'
   serverPort = 8000
   host = "http://localhost:#{serverPort}/"
 
