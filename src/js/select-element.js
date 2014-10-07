@@ -8,6 +8,7 @@ define([
             return false;
         }
 
+        // real browsers
         if (window.getSelection) {
             var sel = window.getSelection();
             sel.removeAllRanges();
@@ -15,7 +16,7 @@ define([
             range.selectNodeContents(el[0]);
             sel.addRange(range);
             return true;
-        } else if (document.selection) {
+        } else if (document.selection) { // IE < 9
             var textRange = document.body.createTextRange();
             textRange.moveToElementText(el[0]);
             textRange.select();
