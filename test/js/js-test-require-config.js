@@ -14,11 +14,11 @@ define(function() {
             underscore: 'bower_components/underscore/underscore',
 
             //dir
-            test: 'src/test/js',
+            test: 'test/js',
 
             // mock
-            store: 'src/test/js/mock/store',
-            jqueryui: 'src/test/js/mock/lib/jquery-ui'
+            store: 'test/js/mock/store',
+            jqueryui: 'test/js/mock/lib/jquery-ui'
         },
         shim: {
             backbone: {
@@ -41,9 +41,9 @@ define(function() {
         // list mocks here, not above
         map: {
             '*': {
-                'js-utils': 'src/main/exports/javascript-utils',
-                'js-utils/js/regex-replace': 'src/test/js/mock/regex-replace',
-                'real': 'src/main/exports/javascript-utils'
+                'js-utils': 'src',
+                'js-utils/js/regex-replace': 'test/mock/regex-replace',
+                'real': 'src'
             }
         }
     });

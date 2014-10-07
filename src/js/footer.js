@@ -4,7 +4,7 @@ define([
     'text!js-utils/templates/footer/footer.html',
     'text!js-utils/templates/footer/footer-tab.html',
     'text!js-utils/templates/footer/footer-tab-view.html'
-], function(Backbone, store, footerTemplate, TabTemplate, ViewTemplate) {
+], function(Backbone, store, footerTemplate, tabTemplate, viewTemplate) {
 
     return Backbone.View.extend({
         className: 'tabbable page-footer',
@@ -18,8 +18,8 @@ define([
 		index: 'footer.tab-index',
 
 		processors: [
-			{ selector: '.footer-tabs', component: 'tab', template: TabTemplate, target: 'li'},
-			{ selector: '.tab-content', component: 'view', template: ViewTemplate, target: '.tab-pane' }
+			{ selector: '.footer-tabs', component: 'tab', template: _.template(tabTemplate, null, {variable: 'ctx'}), target: 'li'},
+			{ selector: '.tab-content', component: 'view', template: _.template(viewTemplate, null, {variable: 'ctx'}), target: '.tab-pane' }
 		],
 
         initialize: function(options) {
@@ -43,7 +43,7 @@ define([
                 var $container = this.$(processor.selector);
 
                 _.each(this.tabData, function (item) {
-                    var $wrapper = $($.parseHTML(_.template(processor.template, { key: item.key }, { variable: 'ctx' })));
+                    var $wrapper = $($.parseHTML(processor.template({ key: item.key })));
                     var component = item[processor.component];
 
                     component.render();

@@ -5,10 +5,10 @@ module.exports = (grunt) ->
   jasmineSpecRunner = 'spec-runner.html'
   coverageSpecRunner = 'coverage-runner.html'
 
-  sourcePath = 'src/main/exports/javascript-utils/js/**/*.js'
+  sourcePath = 'src/js/**/*.js'
 
-  testRequireConfig = 'src/test/js/js-test-require-config.js'
-  specs = 'src/test/js/spec/**/*.js'
+  testRequireConfig = 'test/js/js-test-require-config.js'
+  specs = 'test/js/spec/**/*.js'
   styles = 'bower_components/hp-autonomy-js-testing-utils/src/css/bootstrap-stub.css'
   serverPort = 8000
   host = "http://localhost:#{serverPort}/"
@@ -82,9 +82,7 @@ module.exports = (grunt) ->
     jshint:
       all: [
         sourcePath
-        'src/test/js/mock/*.js'
-        'src/test/js/spec/*.js'
-        'src/test/js/*.js'
+        specs
       ],
       options:
         asi: true
@@ -124,6 +122,9 @@ module.exports = (grunt) ->
       app: [
         'Gruntfile.coffee'
       ]
+      options:
+        max_line_length:
+          level: 'ignore'
 
   grunt.loadNpmTasks 'grunt-contrib-clean'
   grunt.loadNpmTasks 'grunt-contrib-connect'
