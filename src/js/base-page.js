@@ -11,7 +11,8 @@ define([
         show: function() {
             this.$el.show();
 
-            this.$el.attr('data-pagename', this.pageName);      // for Selenium testing
+            // for Selenium testing
+            this.$el.attr('data-pagename', this.pageName);
 
             this.update();
         },
