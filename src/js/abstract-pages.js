@@ -22,6 +22,9 @@ define([
             this.router.on(this.eventName, this.changePage);
         },
 
+        // override this in your subtype
+        initializePages: $.noop,
+
 	    buildRoute: function(page) {
 		    return this.routePrefix + (page.view.getSelectedRoute() || page.pageName )
 	    },
