@@ -23,11 +23,7 @@ define([
 
         fireResize: _.throttle(function(){
             this.trigger('vent:resize');
-        }, 200),
-
-        query: function(queryString) {
-            this.navigate('page/console/console-test-action/' + encodeURIComponent(queryString))
-        }
+        }, 200)
     });
 
     return Vent;
