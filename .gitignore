@@ -11,3 +11,4 @@ bower_components/
 spec-runner.html
 coverage-runner.html
 .grunt/
+bin

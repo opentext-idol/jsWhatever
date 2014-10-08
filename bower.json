@@ -15,7 +15,8 @@
     "**/.*",
     "node_modules",
     "bower_components",
-    "test"
+    "test",
+    "bin"
   ],
   "dependencies": {
     "backbone": "~1.1.2",
