@@ -13,11 +13,11 @@ define([
 
             this.initializePages();
 
-            _.each(this.pages, _.bind(function(page) {
+            _.each(this.pages, function(page) {
                 page.view = new page.constructor();
                 page.view.pageName = page.pageName;
-	            page.route = this.buildRoute(page)
-            }, this));
+                page.route = this.buildRoute(page)
+            }, this);
 
             this.router.on(this.eventName, this.changePage);
         },
@@ -25,14 +25,12 @@ define([
         // override this in your subtype
         initializePages: $.noop,
 
-	    buildRoute: function(page) {
-		    return this.routePrefix + (page.view.getSelectedRoute() || page.pageName )
-	    },
+        buildRoute: function(page) {
+            return this.routePrefix + (page.view.getSelectedRoute() || page.pageName )
+        },
 
         findPage: function(pageName) {
-            return _.find(this.pages, function(subPage) {
-                return subPage.pageName === pageName;
-            });
+            return _.findWhere(this.pages, { pageName: pageName });
         },
 
         changePage: function(pageName) {
