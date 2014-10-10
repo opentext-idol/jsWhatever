@@ -138,5 +138,6 @@ module.exports = (grunt) ->
 
   grunt.registerTask 'default', 'test'
   grunt.registerTask 'test', ['connect:server', 'jasmine:test']
+  grunt.registerTask 'browser-test', ['connect:server:keepalive']
   grunt.registerTask 'coverage', ['connect:server', 'jasmine:coverage']
   grunt.registerTask 'lint', ['jshint', 'coffeelint']
