@@ -29,8 +29,14 @@ define(function() {
             bootstrap: {
                 deps: ['jquery']
             },
+            'jasmine-sinon': {
+                deps:['sinon']
+            },
             'jquery-steps': {
                 deps: ['jquery']
+            },
+            sinon: {
+                exports: 'sinon'
             },
             underscore: {
                 exports: '_'
