@@ -1,15 +1,17 @@
 define([
     'backbone',
-    'js-utils/js/ensure-array'
-], function(Backbone, ensureArray) {
+    'js-utils/js/ensure-array',
+    'text!js-utils/templates/checkbox-modal/checkbox-modal.html',
+    'text!js-utils/templates/checkbox-modal/checkbox-table.html'
+], function(Backbone, ensureArray, checkboxModal, checkboxTable) {
 
     return Backbone.View.extend({
         initialize: function(init) {
             _.bindAll(this, 'render', 'setRows', 'setRow', 'getSelectedRows', 'remove', 'resizeModal',
                 'getModalTemplateParams', 'getElementValue', 'restorePrevState', 'setGlobalCheckboxes');
 
-            this.templateModal = _.template(init.templateModal);
-            this.templateTableModal = _.template(init.templateTableModal);
+            this.templateModal = _.template(init.templateModal || checkboxModal);
+            this.templateTableModal = _.template(init.templateTableModal || checkboxTable);
             this.tables = init.tables;
             this.parameters = ensureArray(init.parameters);
             this.okCallback = init.okCallback || $.noop;
@@ -44,10 +46,10 @@ define([
         },
 
         setTableInitialState: function() {
-            _.each(this.tables, _.bind(function(table) {
+            _.each(this.tables, function(table) {
                 table.initialState = table.initialState || false;
 
-                table.columnStates = _.reduce(table.rows, _.bind(function(memo, row) {
+                table.columnStates = _.reduce(table.rows, function(memo, row) {
                     if (_.isArray(table.initialState)) {
                         memo[row] = _.contains(table.initialState, row);
                     } else {
@@ -55,10 +57,10 @@ define([
                     }
 
                     return memo;
-                }, this), {});
+                }, {});
 
                 table.prevConfig = '';
-            }, this));
+            });
         },
 
         setRow: function(index, name, value) {
@@ -66,23 +68,24 @@ define([
         },
 
         setRows: function(index, value) {
-            _.each(this.tables[index].columnStates, _.bind(function(oldValue, field) {
+            _.each(this.tables[index].columnStates, function(oldValue, field) {
                 this.setRow(index, field, value);
-            }, this));
+            }, this);
         },
 
         clearAllRows: function() {
-            _.each(this.tables, _.bind(function(table, index) {
+            _.each(this.tables, function(table, index) {
                 this.setRows(index, false);
-            }, this));
+            }, this);
         },
 
+        // because of the global checkbox this uses one based indexing
         setNthCheckbox: function(index, n, value) {
             this.editModal.find('table:eq(' + index + ') input:eq(' + n + ')').prop('checked', value);
         },
 
-        setCheckbox: function(index, columnName, value) {
-            this.editModal.find('table:eq(' + index + ') input[data-col-name="' + columnName + '"]').prop('checked', value);
+        setCheckbox: function(index, rowName, value) {
+            this.editModal.find('table:eq(' + index + ') input[data-row-name="' + rowName + '"]').prop('checked', value);
         },
 
         setCheckboxes: function(index, value) {
@@ -95,7 +98,7 @@ define([
         },
 
         setIndeterminateCheckbox: function(index, value) {
-            this.editModal.find('table:eq(' + index + ') input[data-col-name=""]').prop('indeterminate', value);
+            this.editModal.find('table:eq(' + index + ') input[data-row-name=""]').prop('indeterminate', value);
         },
 
         setCheckboxesAndRows: function(index, valueCheckbox, valueGlobalCheckbox) {
@@ -107,7 +110,7 @@ define([
         },
 
         setGlobalCheckboxes: function() {
-            _.each(this.editModal.find('table'), _.bind(function(table, index) {
+            _.each(this.editModal.find('table'), function(table, index) {
                 var tempCheck = '';
 
                 _.each($(table).find('td input[type="' + this.checkboxOrRadio + '"]'), function(check) {
@@ -120,59 +123,56 @@ define([
                     }
                 });
 
-
                 if (tempCheck !== 'indeterminate') {
                     this.setCheckbox(index, '', tempCheck);
                 } else {
                     this.setIndeterminateCheckbox(index, true);
                 }
-            }, this));
+            }, this);
         },
 
         getSelectedRows: function() {
-
-            return _.map(this.editModal.find('table'), _.bind(function(table, index) {
-
+            return _.map(this.editModal.find('table'), function(table, index) {
                 var checked = $(table).find('td input[type="' + this.checkboxOrRadio + '"]:checked');
                 var notChecked = $(table).find('td input[type="' + this.checkboxOrRadio + '"]:not(:checked)');
-                var all = $(table).find('input[data-col-name=""]');
-                var innerCheckedRows = {};
+                var globalCheckbox = $(table).find('input[data-row-name=""]');
+                var innerCheckedRows = [];
 
-                if (checked.length && (!all.length || all.prop('indeterminate'))) {
+                if (checked.length && (!globalCheckbox.length || globalCheckbox.prop('indeterminate'))) {
                     this.setRow(index, '', 'indeterminate');
 
-                    _.each(notChecked, _.bind(function(elem) {
-                        this.setRow(index, $(elem).data('col-name'), false);
-                    }, this));
+                    _.each(notChecked, function(elem) {
+                        this.setRow(index, $(elem).data('row-name'), false);
+                    }, this);
 
-                    innerCheckedRows = _.map(checked, _.bind(function(elem) {
-                        this.setRow(index, $(elem).data('col-name'), true);
-                        return $(elem).data('col-name');
-                    }, this));
+                    innerCheckedRows = _.map(checked, function(elem) {
+                        this.setRow(index, $(elem).data('row-name'), true);
+                        return $(elem).data('row-name');
+                    }, this);
                 } else {
-                    if (all.prop('checked')) {
-                        innerCheckedRows = _.map(checked, _.bind(function(elem) {
-                            return $(elem).data('col-name');
-                        }, this));
+                    if (globalCheckbox.prop('checked')) {
+                        innerCheckedRows = _.map(checked, function(elem) {
+                            return $(elem).data('row-name');
+                        }, this);
+
                         this.setRows(index, true);
                     } else {
                         this.setRows(index, false);
                     }
                 }
+
                 return innerCheckedRows;
-
-            }, this));
-
+            }, this);
         },
 
         getModalTemplateParams: function() {
-            var tableConfig = _.map(this.tables, _.bind(function(table) {
+            var tableConfig = _.map(this.tables, function(table) {
                 return {
                     i18nTableHeader: table.tableHeader,
                     rows: table.columnStates,
                     i18n: this.i18n
                 };
-            }, this));
+            }, this);
 
             var templateParams = {
                 tableConfigs: tableConfig,
@@ -183,19 +183,21 @@ define([
                 cancelClass: this.cancelClass
             };
 
-            _.each(this.parameters, _.bind(function(entry) {
-                _.each(entry, _.bind(function(value, key) {
+            _.each(this.parameters, function(entry) {
+                _.each(entry, function(value, key) {
                     templateParams[key] = value;
-                }, this));
-            }, this));
+                });
+            });
 
             return templateParams;
         },
 
+        // don't use this to get the value of checkboxes or you will have a bad time
         getElementValue: function(selector) {
             return this.editModal.find(selector).val();
         },
 
+        // don't use this to set the value of checkboxes or you will have a bad time
         setElementValue: function(selector, value) {
             this.editModal.find(selector).val(value);
         },
@@ -212,15 +214,15 @@ define([
         },
 
         restorePrevState: function() {
-            _.each(this.tables, _.bind(function(table) {
-                _.each(table.prevConfig, _.bind(function(state, element) {
+            _.each(this.tables, function(table) {
+                _.each(table.prevConfig, function(state, element) {
                     if (state === 'indeterminate') {
-                        this.editModal.find('input[data-col-name="' + element + '"]').prop('indeterminate', true);
+                        this.editModal.find('input[data-row-name="' + element + '"]').prop('indeterminate', true);
                     } else {
-                        this.editModal.find('input[data-col-name="' + element + '"]').prop('checked', state);
+                        this.editModal.find('input[data-row-name="' + element + '"]').prop('checked', state);
                     }
-                }, this));
-            }, this));
+                }, this);
+            }, this);
         },
 
         render: function() {
@@ -231,53 +233,55 @@ define([
             this.editModal.find('table input[type="' + this.checkboxOrRadio + '"]').change(_.bind(this.handleCheckBoxChange, this));
             this.editModal.find('button.ok').click(_.bind(this.onOkClick, this));
 
-            this.editModal.on('shown', _.bind(function() {
+            this.editModal.on('shown', function() {
                 document.activeElement.blur();
-            }, this));
+            });
+
             return this;
         },
 
         handleCheckBoxChange: function(e) {
-            var rowname = $(e.target).data('col-name');
-            var checkboxes = $(e.target).closest('table').find('td input[type="' + this.checkboxOrRadio + '"]');
-            var checked = $(e.target).closest('table').find('td input[type="' + this.checkboxOrRadio + '"]:checked');
-            var all = $(e.target).closest('table').find('input[data-col-name=""]');
+            var $target = $(e.target);
+            var rowName = $target.data('row-name');
+            var checkboxes = $target.closest('table').find('td input[type="' + this.checkboxOrRadio + '"]');
+            var checked = $target.closest('table').find('td input[type="' + this.checkboxOrRadio + '"]:checked');
+            var globalCheckbox = $target.closest('table').find('input[data-row-name=""]');
 
             if (this.storePrevConfig) {
                 this.prevConfig = this.columnStates;
                 this.storePrevConfig = false;
             }
 
-            if (rowname === '') {
-                if ($(e.target).prop('checked') || this.atLeastOneElementSelected) {
+            if (rowName === '') {
+                if ($target.prop('checked') || this.atLeastOneElementSelected) {
                     checkboxes.prop('checked', true);
-                    all.prop('indeterminate', false);
+                    globalCheckbox.prop('indeterminate', false);
 
                     if (this.atLeastOneElementSelected) {
-                        all.prop('checked', true);
+                        globalCheckbox.prop('checked', true);
                     }
                 } else {
                     checkboxes.prop('checked', false);
-                    all.prop('indeterminate', false);
+                    globalCheckbox.prop('indeterminate', false);
                 }
             } else {
-                if ($(e.target).prop('checked')) {
+                if ($target.prop('checked')) {
                     if (checkboxes.length === checked.length) {
-                        all.prop('checked', true);
-                        all.prop('indeterminate', false);
+                        globalCheckbox.prop('checked', true);
+                        globalCheckbox.prop('indeterminate', false);
                     } else {
-                        all.prop('indeterminate', true);
+                        globalCheckbox.prop('indeterminate', true);
                     }
                 } else {
                     if (checked.length === 0) {
                         if (this.atLeastOneElementSelected) {
                             $(e.delegateTarget).prop('checked', true);
                         } else {
-                            all.prop('indeterminate', false);
-                            all.prop('checked', false);
+                            globalCheckbox.prop('indeterminate', false);
+                            globalCheckbox.prop('checked', false);
                         }
                     } else {
-                        all.prop('indeterminate', true);
+                        globalCheckbox.prop('indeterminate', true);
                     }
                 }
             }
@@ -287,9 +291,9 @@ define([
             this.okCallback(this.getSelectedRows(), this.editModal);
             this.storePrevConfig = true;
 
-            _.each(this.tables, _.bind(function(table) {
+            _.each(this.tables, function(table) {
                 table.prevConfig = table.columnStates;
-            }, this));
+            });
 
             this.hideModal();
         },
