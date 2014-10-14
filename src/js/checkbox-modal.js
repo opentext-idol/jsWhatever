@@ -80,6 +80,7 @@ define([
         },
 
         // because of the global checkbox this uses one based indexing
+        // if your template has no global checkbox it of course uses zero based indexing
         setNthCheckbox: function(index, n, value) {
             this.editModal.find('table:eq(' + index + ') input:eq(' + n + ')').prop('checked', value);
         },
@@ -93,8 +94,8 @@ define([
         },
 
         clearAllCheckboxes: function() {
-            this.editModal.find('th input[type="checkbox"]').prop('indeterminate', false);
-            this.editModal.find('input[type="checkbox"]').prop('checked', false);
+            this.editModal.find('th input[type="' + this.checkboxOrRadio + '"]').prop('indeterminate', false);
+            this.editModal.find('input[type="' + this.checkboxOrRadio + '"]').prop('checked', false);
         },
 
         setIndeterminateCheckbox: function(index, value) {
@@ -168,9 +169,10 @@ define([
         getModalTemplateParams: function() {
             var tableConfig = _.map(this.tables, function(table) {
                 return {
+                    inputName: table.inputName || '',
+                    i18n: this.i18n,
                     i18nTableHeader: table.tableHeader,
-                    rows: table.columnStates,
-                    i18n: this.i18n
+                    rows: table.columnStates
                 };
             }, this);
 
