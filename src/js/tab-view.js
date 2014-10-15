@@ -39,14 +39,14 @@ define([
             if (!tabNewlyCreated && (!tab.view || !_.result(tab.view, 'suppressTabHistory'))) {
                 var newRoute = this.appPrefix + '/' + this.getSelectedRoute(id);
 
-                var isSubtabRoute = newRoute.indexOf(Backbone.history.fragment.replace(/^.*?page/, 'page') + '/') === 0;
+                var isSubTabRoute = newRoute.indexOf(Backbone.history.fragment.replace(new RegExp('^.*?' + this.appPrefix), this.appPrefix ) + '/') === 0;
 
                 // if the new route is a subtab of the old route, we should replace the old route
                 // e.g. when refreshing a page on #page/performance/performanceStatistics/statstab-ACI we
                 // briefly go to #page/performance/performanceStatistics.
                 this.vent.navigate(newRoute, {
                     trigger: false,
-                    replace: isSubtabRoute
+                    replace: isSubTabRoute
                 });
             }
         },
@@ -58,11 +58,11 @@ define([
             this.selectedId = id;
         },
 
-		find: function(id) {
-			return _.find(this.tabs, function(tab) {
-				return tab.href === id
-			});
-		},
+        find: function(id) {
+            return _.find(this.tabs, function(tab) {
+                return tab.href === id
+            });
+        },
 
         indexOf: function(id) {
             return _.indexOf(this.tabs, this.find(id));
