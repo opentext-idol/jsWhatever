@@ -28,24 +28,24 @@ define([
             }
         },
 
-		getSelectedRoute: function(id) {
+        getSelectedRoute: function(id) {
             id = id || this.selectedId;
 
-			var route = TabView.prototype.getSelectedRoute.apply(this, arguments);
+            var route = TabView.prototype.getSelectedRoute.apply(this, arguments);
 
-			if (id) {
-				var selectedView = this.find(id).view;
+            if (id) {
+                var selectedView = this.find(id).view;
 
-				if (selectedView && selectedView.getSelectedRoute) {
-					var additionalRoute = selectedView.getSelectedRoute();
+                if (selectedView && selectedView.getSelectedRoute) {
+                    var additionalRoute = selectedView.getSelectedRoute();
 
-					if (additionalRoute) {
-						route += '/' + additionalRoute
-					}
-				}
-			}
+                    if (additionalRoute) {
+                        route += '/' + additionalRoute
+                    }
+                }
+            }
 
-			return route;
-		}
+            return route;
+        }
     });
 });
