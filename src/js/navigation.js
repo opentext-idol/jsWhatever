@@ -10,8 +10,8 @@ define([
         initialize: function(options) {
             _.bindAll(this, 'navigate');
 
-            if (!this.event || !this.router || !this.getTemplateParameters) {
-                throw 'navigation.js error: event, router and getTemplateParameters must be provided!';
+            if (!this.event || !this.router) {
+                throw 'navigation.js error: event and router must be provided!';
             }
 
             this.pages = options.pages;
