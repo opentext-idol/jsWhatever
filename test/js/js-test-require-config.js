@@ -49,6 +49,7 @@ define(function() {
         map: {
             '*': {
                 'js-utils': 'src',
+                'js-utils/js/lazy-tab-view': 'test/mock/lazy-tab-view',
                 'js-utils/js/regex-replace': 'test/mock/regex-replace',
                 'real': 'src'
             }

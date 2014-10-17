@@ -1,5 +1,5 @@
 define([
-    'js-utils/js/lazy-tab-view',
+    'real/js/lazy-tab-view',
     'js-testing/backbone-mock-factory',
     'backbone'
 ], function(LazyTabView, backboneMockFactory, Backbone) {
