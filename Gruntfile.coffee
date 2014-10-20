@@ -122,6 +122,8 @@ module.exports = (grunt) ->
           waits: false
           waitsFor: false
           spyOn: false
+          xit: false
+          xdescribe: false
     coffeelint:
       app: [
         'Gruntfile.coffee'
