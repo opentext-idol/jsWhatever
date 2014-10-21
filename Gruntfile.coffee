@@ -7,6 +7,7 @@ module.exports = (grunt) ->
 
   sourcePath = 'src/js/**/*.js'
 
+  documentation = 'doc'
   testRequireConfig = 'test/js/js-test-require-config.js'
   specs = 'test/js/spec/**/*.js'
   styles = 'bower_components/hp-autonomy-js-testing-utils/src/css/bootstrap-stub.css'
@@ -21,6 +22,7 @@ module.exports = (grunt) ->
       coverageSpecRunner
       'bin'
       '.grunt'
+      documentation
     ]
     connect:
       server:
@@ -131,15 +133,24 @@ module.exports = (grunt) ->
       options:
         max_line_length:
           level: 'ignore'
+    jsdoc:
+      dist:
+        src: ['src/**/*.js', 'README.md']
+        options:
+          destination: documentation
+          template: 'node_modules/ink-docstrap/template'
+          configure: 'jsdoc.conf.json'
 
   grunt.loadNpmTasks 'grunt-contrib-clean'
   grunt.loadNpmTasks 'grunt-contrib-connect'
   grunt.loadNpmTasks 'grunt-contrib-jasmine'
   grunt.loadNpmTasks 'grunt-contrib-jshint'
   grunt.loadNpmTasks 'grunt-coffeelint'
+  grunt.loadNpmTasks 'grunt-jsdoc'
 
   grunt.registerTask 'default', 'test'
   grunt.registerTask 'test', ['connect:server', 'jasmine:test']
   grunt.registerTask 'browser-test', ['connect:server:keepalive']
   grunt.registerTask 'coverage', ['connect:server', 'jasmine:coverage']
   grunt.registerTask 'lint', ['jshint', 'coffeelint']
+  grunt.registerTask 'doc', ['jsdoc']

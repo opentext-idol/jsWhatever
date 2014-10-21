@@ -1,14 +1,33 @@
+/**
+ * @module abstract-pages
+ * @desc Abstract base class for representing groups of pages
+ * @extends Backbone.View
+ */
 define([
     'backbone',
     'underscore'
 ], function(Backbone, _) {
-
     return Backbone.View.extend({
+        /**
+         * @desc Backbone.Router instance which is observed for navigation events
+         * @abstract
+         */
+        router: null,
+
+        /**
+         * @desc Vent instance used when navigating
+         * @abstract
+         */
+        vent: null,
+
+        /**
+         * @desc Backbone initialize method.
+         */
         initialize: function() {
             _.bindAll(this, 'changePage', 'findPage');
 
-            if (!this.initializePages || !this.router || !this.vent) {
-                throw 'abstract-pages.js error: initializePages, router and vent must be provided!';
+            if (!this.router || !this.vent) {
+                throw 'abstract-pages.js error: router and vent must be provided!';
             }
 
             this.initializePages();
@@ -22,17 +41,43 @@ define([
             this.router.on(this.eventName, this.changePage);
         },
 
-        // override this in your subtype
+        /**
+         * @desc Sets the value of this.pages to the list of page objects.
+         * These must have a pageName and a constructor function.
+         * The constructors should extend {@link module:base-page}
+         * @abstract
+         * @example
+         * this.pages = [{
+         *     constructor: Foo,
+         *     pageName: 'foo'
+         * }, {
+         *     constructor: Bar,
+         *     pageName: 'bar'
+         * }]
+         */
         initializePages: $.noop,
 
+        /**
+         * @param {String} page The page object
+         * @returns {String} The current route for a given page
+         */
         buildRoute: function(page) {
             return this.routePrefix + (page.view.getSelectedRoute() || page.pageName )
         },
 
+        /**
+         * @param {String} pageName The name of the page
+         * @returns {Object} The page object with the given name
+         */
         findPage: function(pageName) {
             return _.findWhere(this.pages, { pageName: pageName });
         },
 
+        /**
+         * @desc Change to the named page.  This will call it's render method if this hasn't already been called,
+         * and hide the current page
+         * @param {String} pageName The name of the page
+         */
         changePage: function(pageName) {
             var newPage = this.findPage(pageName);
 
@@ -51,6 +96,10 @@ define([
             this.currentPage = newPage;
         },
 
+        /**
+         * Navigate to the named page, showing it and using the vent to propagate the navigation
+         * @param {String} pageName The name of the page
+         */
         navigateToPage: function(pageName) {
             var page = this.findPage(pageName);
 

@@ -1,3 +1,6 @@
+/**
+ * @module base-page
+ */
 define([
     'backbone'
 ], function(Backbone) {
