@@ -1,5 +1,11 @@
+/**
+ * @module autoload-collection
+ * @desc A Backbone.Collection which incorporates {@link module:autoload-methods|AutoloadMethods}
+ * @extends Backbone.Collection
+ * @abstract
+ */
 define([
-	'backbone',
+    'backbone',
     'js-utils/js/autoload-methods'
 ], function(Backbone, autoloadMethods) {
 

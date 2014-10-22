@@ -1,13 +1,32 @@
+/**
+ * @module autoload-methods
+ * @desc Methods for Backbone models and collections which fetch themselves upon instantiation
+ * @abstract
+ */
 define([
     'jquery',
     'underscore'
 ],function($, _) {
 
     return {
+        /**
+         * @desc Determines if the model should fetch when instantiated
+         * @type {boolean}
+         */
         autoload: true,
         loaded: false,
 
-        initialize : function(initialState, options) {
+        /**
+         * @typedef {Object} AutoloadOptions
+         * @property {boolean} autoload If the model should autoload
+         * @property {boolean} loaded If the model has already loaded
+         */
+        /**
+         * @desc backbone
+         * @param {Object} attributes initial model attributes
+         * @param {AutoloadOptions} options
+         */
+        initialize : function(attributes, options) {
             // We need our .loaded flag to be set true in a change listener since it's fired before the fetch()
             // completion handler fires; prevents loss of the first change event if we call this.onLoad from within
             // this.onLoad e.g. in #1018992. We still keep the fetch completion handler since it's not explicitly
@@ -40,9 +59,19 @@ define([
             }
         },
 
-        ///Override to something like: "?action=GetStatus&ResponseFormat=json"
+        /**
+         * @desc the url that data should be fetched from
+         * @abstract
+         * @method
+         */
         url: $.noop,
 
+        /**
+         * @desc Register a callback to be called when there is data available.  If the model has loaded, the callback
+         * will be called immediately.  Otherwise the callback will be called when the model has finished loading.
+         * @param callback The callback to be called
+         * @param ctx The context for callback
+         */
         onLoad: function(callback, ctx) {
             if (ctx) {
                 callback = _.bind(callback, ctx);

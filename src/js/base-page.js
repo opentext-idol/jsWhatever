@@ -1,5 +1,10 @@
 /**
  * @module base-page
+ * @desc Abstract base class representing a page. All application pages should extend from this or implement the same
+ * methods.
+ * Base pages will start hidden.
+ * @extends Backbone.View
+ * @abstract
  */
 define([
     'backbone'
@@ -11,6 +16,9 @@ define([
             style: 'display:none;'
         },
 
+        /**
+         * @desc Shows the page and calls the update method
+         */
         show: function() {
             this.$el.show();
 
@@ -20,6 +28,9 @@ define([
             this.update();
         },
 
+        /**
+         * @desc Hides the page
+         */
         hide: function() {
             this.$el.hide();
         },
@@ -28,8 +39,19 @@ define([
             return this.$el.is(':visible');
         },
 
+        /**
+         * @desc Called when showing a page. The default implementation is a no-op.
+         * @abstract
+         * @method
+         */
         update: $.noop,
 
+        /**
+         * @desc Called when navigating to a page.  If a page has state which can be represented by a route, this route
+         * should be returned. The default implementation is a no-op.
+         * @abstract
+         * @method
+         */
         getSelectedRoute: $.noop
 
     });
