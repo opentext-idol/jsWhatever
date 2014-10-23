@@ -1,3 +1,26 @@
+/**
+ * @module checkbox-modal
+ * @desc Bootstrap modal which displays tables containing checkboxes or radio buttons, which can be toggled individually or
+ * through a global checkbox
+ * @extends Backbone.View
+ * @example
+ * new CheckboxModal({
+ *     i18n: i18n,
+ *     vent: vent,
+ *     parameters: {
+ *         modalHeader: 'modalHeader'
+ *     },
+ *     tables: [{
+ *         initialState: true,
+ *         tableHeader: 'tableTitle',
+ *         rows: [
+ *             'one',
+ *             'two',
+ *             'three'
+ *         ]
+ *     }]
+ * });
+ */
 define([
     'backbone',
     'js-utils/js/ensure-array',
@@ -6,6 +29,34 @@ define([
 ], function(Backbone, ensureArray, checkboxModal, checkboxTable) {
 
     return Backbone.View.extend({
+        /**
+         * @typedef CheckboxModalTable
+         * @property {boolean|string[]} initialState The initial state of the checkboxes. Can be either a boolean, or a list of
+         * row names which should start checked
+         * @property {string} tableHeader The i18n key for the table header.
+         * @property {string} [inputName] The name of the radio input. Only used if checkboxOrRadio is set to radio
+         * @property {string[]} rows The names of the rows.  These must be unique
+         */
+        /**
+         * @typedef CheckboxModalOptions
+         * @property {String} [templateModal] The template for the modal
+         * @property {String} [templateTableModal] The template for the table.
+         * @property {Array.<CheckboxModalTable>} tables The configuration for the tables
+         * @property {object} [parameters=[]] Additional parameters passed to templateModal
+         * @property {function} [okCallback=$.noop] Callback called when the OK button is pressed
+         * @property {string} [okIcon='icon-refresh'] Icon for the OK button
+         * @property {string} [okClass='btn-success'] Class for the OK button
+         * @property {string} [cancelClass=''] Class for the cancel button
+         * @property {boolean} [atLeastOneElementSelected=false] Set this to true if a checkbox
+         * @property {object} i18n Object containing i18n strings
+         * @property {object} vent Instance of VentConstructor. Used to track resize events
+         * @property {string} [checkboxOrRadio=checkbox] Should be set to 'checkbox' or 'radio' according to the inputs
+         * used in your template
+         */
+        /**
+         * Backbone initialize method
+         * @param {CheckboxModalOptions} init Options passed
+         */
         initialize: function(init) {
             _.bindAll(this, 'render', 'setRows', 'setRow', 'getSelectedRows', 'remove', 'resizeModal',
                 'getModalTemplateParams', 'getElementValue', 'restorePrevState', 'setGlobalCheckboxes');
@@ -36,6 +87,11 @@ define([
             this.listenTo(this.vent, 'vent:resize', this.resizeModal);
         },
 
+        /**
+         * @desc Called when the vent fires a vent:resize event. Sets the max-height of the modal body to 80% of the window
+         * height, less the height of the modal-header and modal-footer, clamped to [1, 400].
+         * @protected
+         */
         resizeModal: function() {
             var header = this.editModal.find('.modal-header').outerHeight(true);
             var footer = this.editModal.find('.modal-footer').outerHeight(true);
@@ -45,6 +101,10 @@ define([
             );
         },
 
+        /**
+         * @desc Initialises the internal state of the tables from the configuration
+         * @protected
+         */
         setTableInitialState: function() {
             _.each(this.tables, function(table) {
                 table.initialState = table.initialState || false;
@@ -63,45 +123,92 @@ define([
             });
         },
 
+        /**
+         * @desc Sets the internal state of a row
+         * @param {number} index The index of the table
+         * @param {string} name The name of the row
+         * @param {boolean} value The new value of the checkbox
+         * @protected
+         */
         setRow: function(index, name, value) {
             this.tables[index].columnStates[name] = value;
         },
 
+        /**
+         * @desc Sets the internal state of all rows for the given table
+         * @param {number} index The index of the table
+         * @param {boolean} value The new value of the checkbox
+         * @protected
+         */
         setRows: function(index, value) {
             _.each(this.tables[index].columnStates, function(oldValue, field) {
                 this.setRow(index, field, value);
             }, this);
         },
 
+        /**
+         * @desc Clear the internal state of all rows for all tables
+         * @protected
+         */
         clearAllRows: function() {
             _.each(this.tables, function(table, index) {
                 this.setRows(index, false);
             }, this);
         },
 
-        // because of the global checkbox this uses one based indexing
-        // if your template has no global checkbox it of course uses zero based indexing
+        /**
+         * @desc Set the checked property of the nth input in the given table
+         * @param {number} index The index of the table
+         * @param {number} n The index of the checkbox in the table.  This includes the global checkbox and other inputs.
+         * @param {boolean} value The new value of the checkbox
+         * @deprecated Prefer setCheckbox
+         */
         setNthCheckbox: function(index, n, value) {
             this.editModal.find('table:eq(' + index + ') input:eq(' + n + ')').prop('checked', value);
         },
 
+        /**
+         * @desc Set the checked property of the named checkbox in the given table
+         * @param {number} index The index of the table
+         * @param {string} rowName The name of the row
+         * @param {boolean} value The new value of the checkbox
+         */
         setCheckbox: function(index, rowName, value) {
             this.editModal.find('table:eq(' + index + ') input[data-row-name="' + rowName + '"]').prop('checked', value);
         },
 
+        /**
+         * @desc Set the checked property of all checkboxes in the given table
+         * @param {number} index The index of the table
+         * @param {boolean} value The new value of the checkbox
+         */
         setCheckboxes: function(index, value) {
             this.editModal.find('table:eq(' + index + ') input').prop('checked', value);
         },
 
+        /**
+         * @desc clear all checkboxes in all tables
+         */
         clearAllCheckboxes: function() {
             this.editModal.find('th input[type="' + this.checkboxOrRadio + '"]').prop('indeterminate', false);
             this.editModal.find('input[type="' + this.checkboxOrRadio + '"]').prop('checked', false);
         },
 
+        /**
+         * @desc Sets the value of the indeterminate property of the checkbox with the given index
+         * @param {number} index The index of the checkbox
+         * @param {boolean} value The value of the indeterminate property
+         */
         setIndeterminateCheckbox: function(index, value) {
             this.editModal.find('table:eq(' + index + ') input[data-row-name=""]').prop('indeterminate', value);
         },
 
+        /**
+         * @desc Sets the internal state and the checkboxes for a given table
+         * @param {number} index The index of the table
+         * @param {boolean} valueCheckbox The new value of the checkbox
+         * @param {boolean} valueGlobalCheckbox The new indeterminate state of the global checkbox
+         */
         setCheckboxesAndRows: function(index, valueCheckbox, valueGlobalCheckbox) {
             this.setCheckboxes(index, valueCheckbox);
             this.setRows(index, valueCheckbox);
@@ -110,6 +217,10 @@ define([
             }
         },
 
+        /**
+         * @desc sets the value of the global checkbox in each table in accordance with the values of the checkboxes in
+         * the table
+         */
         setGlobalCheckboxes: function() {
             _.each(this.editModal.find('table'), function(table, index) {
                 var tempCheck = '';
@@ -132,6 +243,10 @@ define([
             }, this);
         },
 
+        /**
+         * Get the selected rows for each table. Updates the internal state of the tables
+         * @returns {string[]} The names of the selected rows
+         */
         getSelectedRows: function() {
             return _.map(this.editModal.find('table'), function(table, index) {
                 var checked = $(table).find('td input[type="' + this.checkboxOrRadio + '"]:checked');
@@ -166,6 +281,28 @@ define([
             }, this);
         },
 
+        /**
+         * @typedef TableConfig
+         * @property {string} inputName The name of the input if using radio buttons
+         * @property {object} i18n strings
+         * @property {string} i18nTableHeader A key in i18n which will be used as the table header
+         * @property {object} rows A map from row names to booleans representing the checkbox state
+         */
+        /**
+         * @typedef CheckboxModalTemplateParameters
+         * @property {Array.<TableConfig>} tableConfigs The configuration for the tables
+         * @property {function} tableTemplate The template for the table
+         * @property {object} i18n i18n strings
+         * @property {string} okIcon The icon for the OK butto
+         * @property {string} okClass The class for the OK button
+         * @property {string} cancelClass The class for the cancel button
+         */
+        /**
+         * Gets the parameters which are passed to templateModal.  The tables configs are passed to each table.
+         * @returns {CheckboxModalTemplateParameters} template parameters augemented with the additional parameters
+         * passed to initialize
+         * @protected
+         */
         getModalTemplateParams: function() {
             var tableConfig = _.map(this.tables, function(table) {
                 return {
@@ -194,16 +331,27 @@ define([
             return templateParams;
         },
 
-        // don't use this to get the value of checkboxes or you will have a bad time
+        /**
+         * @desc Get the value of an input. Don't use this to get the value of checkboxes or you will have a bad time
+         * @param {string} selector A css selector for locating the input
+         * @returns {*} The value of the input
+         */
         getElementValue: function(selector) {
             return this.editModal.find(selector).val();
         },
 
-        // don't use this to set the value of checkboxes or you will have a bad time
+        /**
+         * @desc Get the value of an input. Don't use this to get the value of checkboxes or you will have a bad time
+         * @param {string} selector A css selector for locating the input
+         * @param {*} value The new value of the input
+         */
         setElementValue: function(selector, value) {
             this.editModal.find(selector).val(value);
         },
 
+        /**
+         * @desc Shows the modal
+         */
         showModal: function() {
             this.editModal.modal('show');
             if (!this.storePrevConfig) {
@@ -211,10 +359,17 @@ define([
             }
         },
 
+        /**
+         * @desc Hides the modal
+         */
         hideModal: function() {
             this.editModal.modal('hide');
         },
 
+        /**
+         * @desc Restores the previous state of the modal
+         * @protected
+         */
         restorePrevState: function() {
             _.each(this.tables, function(table) {
                 _.each(table.prevConfig, function(state, element) {
@@ -227,6 +382,10 @@ define([
             }, this);
         },
 
+        /**
+         * @desc renders the modal and adds the event handlers
+         * @returns this
+         */
         render: function() {
             this.editModal = $(this.templateModal(this.getModalTemplateParams()));
             this.editModal.on('shown', this.resizeModal);
@@ -242,6 +401,12 @@ define([
             return this;
         },
 
+        /**
+         * @desc Handler called when a checkbox is clicked. This will set the state of the corresponding global checkbox
+         * accordingly
+         * @param {object} e jQuery event object
+         * @protected
+         */
         handleCheckBoxChange: function(e) {
             var $target = $(e.target);
             var rowName = $target.data('row-name');
@@ -289,6 +454,10 @@ define([
             }
         },
 
+        /**
+         * @desc Called when the OK button is pressed.  This will call okCallback and close the modal
+         * @protected
+         */
         onOkClick: function() {
             this.okCallback(this.getSelectedRows(), this.editModal);
             this.storePrevConfig = true;
@@ -300,6 +469,9 @@ define([
             this.hideModal();
         },
 
+        /**
+         * @desc removes the modal
+         */
         remove: function() {
             this.editModal.remove();
             Backbone.View.prototype.remove.call(this);
