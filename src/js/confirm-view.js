@@ -1,3 +1,9 @@
+/**
+ * @module confirm-view
+ * @desc Creates a Bootstrap modal which presents a message and the option to click OK and Cancel. By default it uses
+ * Bootstrap 2 classes, but can be overridden for Bootstrap 3
+ * @extends Backbone.View
+ */
 define([
     'backbone',
     'text!js-utils/templates/confirm.html',
@@ -6,10 +12,42 @@ define([
 ], function(Backbone, template){
 
     return Backbone.View.extend({
+        /**
+         * @desc {function} Default template, which can be overridden
+         */
         template: _.template(template),
 
+        /**
+         * @desc {string} Initial classes for the modal
+         */
         className: 'modal hide fade',
 
+        /**
+         * @typedef ConfirmViewOptions
+         * @property {string} message Message to be displayed
+         * @property {string} title Modal title
+         * @property {string} [okText] Text for the OK button. Must be defined if showButtons or closable are set to
+         * true
+         * @property {string} [cancelText] Text for the Cancel button. Must be defined if showButtons is set to true
+         * @property {function} [okHandler] Function called when the OK button is clicked. If showButtons is set to
+         * true, this must be defined
+         * @property {function} [cancelHandler] Function called when the Cancel button is clicked
+         * @property {string} [modalClass] Class added to modal after rendering
+         * @property {string} [cancelClass=btn-danger] Cancel button class
+         * @property {string} [cancelIcon=icon-remove] Cancel button icon
+         * @property {boolean} [closable=true] Set to true if the modal can be closed. If show buttons is true the modal
+         * can still be closed using the buttons
+         * @property {string} [okClass=btn-success] OK button class
+         * @property {string} [okIcon=icon-ok] OK button icon
+         * @property {boolean} [showButtons=true] Set to true if the modal should have OK and Cancel buttons
+         * @property {string} [hiddenEvent=hidden] The Bootstrap event to listen for when the modal is hidden. Override
+         * if using Bootstrap 3
+         */
+
+        /**
+         * @desc Backbone initialize method
+         * @param {ConfirmViewOptions} config
+         */
         initialize: function(config) {
             _.bindAll(this, 'remove');
 
@@ -24,23 +62,23 @@ define([
             });
 
             if(!this.config.message) {
-                throw 'Confirm Error: message must be supplied in input';
-            }
-
-            if(!this.config.okHandler && this.config.showButtons) {
-                throw 'Confirm Error: okHandler must be supplied in input when buttons are shown';
+                throw 'Confirm Error: message must be defined';
             }
 
             if(!this.config.title) {
-                throw 'Confirm Error: title must be provided in input';
+                throw 'Confirm Error: title must be defined in input';
+            }
+
+            if(this.config.showButtons && !this.config.okHandler) {
+                throw 'Confirm Error: okHandler must be defined when buttons are shown';
             }
 
             if(this.config.showButtons && (!this.config.okText || !this.config.cancelText)) {
-                throw 'Confirm Error: strings must be provided for the ok and cancel buttons in input, if showButtons is set';
+                throw 'Confirm Error: strings must be defined for the ok and cancel buttons when buttons are shown';
             }
 
-            if(this.config.closable && !this.config.cancelText) {
-                throw 'Confirm Error: cancel button string must be provided in input if closable is true';
+            if(this.config.closable && !this.config.okText) {
+                throw 'Confirm Error: okText string must be defined if closable is true';
             }
 
             this.$el.on('shown', _.bind(function() {
@@ -51,6 +89,10 @@ define([
             this.render();
         },
 
+        /**
+         * @desc Renders the modal and add listeners to the buttons. Links with the class 'route' will cause the modal
+         * to hide.
+         */
         render: function() {
             var config = this.config;
 
@@ -84,6 +126,12 @@ define([
             }
         },
 
+        /**
+         * @desc Calls a handler function with a given element as the context
+         * @param element The element which has been clicked
+         * @param handler The handler function
+         * @protected
+         */
         handleButton: function(element, handler) {
             // don't want to pass element or handler to the handler
             var args = _.toArray(arguments).slice(2);
@@ -94,6 +142,9 @@ define([
             });
         },
 
+        /**
+         * @desc Hides the modal and removes it from the DOM
+         */
         remove: function () {
             if (this.$el && this.$el.hasClass('in')) {
                 this.$el.modal('hide');

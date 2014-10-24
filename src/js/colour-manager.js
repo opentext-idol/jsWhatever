@@ -1,3 +1,7 @@
+/**
+ * @module colour-manager
+ * @desc Associates keys with colours to allow colours to be applied consistently to keys without clashes
+ */
 define([
     'underscore'
 ], function() {
@@ -117,6 +121,10 @@ define([
         return '#' + Math.floor(Math.random() * (0xFFFFFF - 0x100000) + 0x100000).toString(16);
     };
 
+    /**
+     * @desc Construct a new ColourManager
+     * @constructor
+     */
     var ColourManager = function() {
         this.colourList = [];
         this.colourMap = {};
@@ -125,11 +133,19 @@ define([
     };
 
     _.extend(ColourManager.prototype, {
+        /**
+         * @desc Reset the ColourManager, restoring the list of predefined colours
+         */
         reset: function() {
             this.colourList = predefinedColours();
             this.colourMap = {};
         },
 
+        /**
+         * @desc Get the colour for a given key.  This will assign a new colour if one doesn't already exist
+         * @param {string} key The key to associate with a colour
+         * @returns {string} The hex value of the colour
+         */
         getColour: function(key) {
             if (this.colourMap[key]) {
                 return this.colourMap[key];
@@ -149,10 +165,20 @@ define([
             return newColour;
         },
 
+        /**
+         * @desc Removes the colour for the given key, freeing it up for reuse
+         * @param {string} key The key to remove
+         */
         deleteColour: function(key) {
             delete this.colourMap[key];
         },
 
+        /**
+         * Multiplies the saturation of a given hex value by fraction, capping the resulting value at 1
+         * @param {string} hexIn The initial hex value
+         * @param {number} fraction The multiplier for the saturation. This should be > 0
+         * @returns {string} The new hex value
+         */
         changeSaturation: function (hexIn, fraction) {
             var rgb = hex2Rgb(hexIn);
             var hsb = rgb2hsb(rgb.r, rgb.g, rgb.b);
