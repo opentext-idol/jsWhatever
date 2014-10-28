@@ -211,7 +211,7 @@ define([
 
         it('should not show cancel button if "showButtons" is passed as false when "closable" is not passed', function() {
             openModalWithOptions({
-                cancelText: 'Cancel',
+                okText: 'OK',
                 message: 'A message.',
                 showButtons: false,
                 title: 'A Title'
