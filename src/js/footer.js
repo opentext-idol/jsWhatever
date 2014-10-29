@@ -1,3 +1,9 @@
+/**
+ * @module footer
+ * @desc View representing a page footer which can have multiple tabs and be minimised. The state of the footer is
+ * stored in local storage
+ * @extends Backbone.View
+ */
 define([
     'backbone',
     'store',
@@ -7,21 +13,71 @@ define([
 ], function(Backbone, store, footerTemplate, tabTemplate, viewTemplate) {
 
     return Backbone.View.extend({
+        /**
+         * @desc Classes added to footer element
+         * @type {string}
+         */
         className: 'tabbable page-footer',
 
+        /**
+         * @desc Backbone events hash
+         */
         events: {
             'click .toggle-footer': 'toggle',
             'click .footer-tab': 'handleTabClick'
         },
 
-		expanded: 'footer.expanded',
-		index: 'footer.tab-index',
+        /**
+         * @desc Local storage key for if the footer is expanded
+         * @type {string}
+         */
+        expanded: 'footer.expanded',
 
-		processors: [
-			{ selector: '.footer-tabs', component: 'tab', template: _.template(tabTemplate, null, {variable: 'ctx'}), target: 'li'},
-			{ selector: '.tab-content', component: 'view', template: _.template(viewTemplate, null, {variable: 'ctx'}), target: '.tab-pane' }
-		],
+        /**
+         * @desc Local storage key for the current tab index
+         * @type {string}
+         */
+        index: 'footer.tab-index',
 
+        /**
+         * @typedef FooterProcessor
+         * @property {string} component The key in tabData that the processor reads
+         * @property {string} selector CSS selector for the element of the footer template that the processor renders to
+         * @property {function} template Base template for processor
+         * @property {string} target CSS selector for element within the selected element which will be given the class
+         * 'active'
+         */
+        /**
+         * @desc Defines the components of the footer
+         * @type {Array<FooterProcessor>}
+         */
+        processors: [
+            { selector: '.footer-tabs', component: 'tab', template: _.template(tabTemplate, null, {variable: 'ctx'}), target: 'li'},
+            { selector: '.tab-content', component: 'view', template: _.template(viewTemplate, null, {variable: 'ctx'}), target: '.tab-pane' }
+        ],
+
+        /**
+         * @typedef FooterStrings
+         * @property {string} [clickToHide='Collapse footer.']
+         * @property {string} [clickToShow='Show more...']
+         */
+        /**
+         * @typedef FooterTabData
+         * @desc Describes a footer tab. In addition to the properties listed below, it requires a Backbone View for
+         * every component in the list of processors
+         * @property {string} key Identifier for the tab
+         */
+        /**
+         * @typedef FooterOptions
+         * @property {jQuery} $parent Parent element.  The show-footer class to this element when the footer is shown
+         * @property {object} vent Instance of vent-constructor
+         * @property {FooterStrings} strings Strings to use as tooltip labels
+         * @property {Array<FooterTabData>} tabData Defines the tabs in the footer
+         */
+        /**
+         * @desc Backbone initialize method
+         * @param {FooterOptions} options
+         */
         initialize: function(options) {
             this.$parent = options.$parent;
             this.tabData = options.tabData;
@@ -33,16 +89,19 @@ define([
             };
         },
 
+        /**
+         * @desc Renders the footer according to the defined processors and tabData
+         */
         render: function() {
             this.$el.html(footerTemplate);
 
             var selectedIndex = store.get(this.index) || 0;
             this.updateForState(store.get(this.expanded) || false);
 
-            _.each(this.processors, function (processor) {
+            _.each(this.processors, function(processor) {
                 var $container = this.$(processor.selector);
 
-                _.each(this.tabData, function (item) {
+                _.each(this.tabData, function(item) {
                     var $wrapper = $($.parseHTML(processor.template({ key: item.key })));
                     var component = item[processor.component];
 
@@ -61,7 +120,11 @@ define([
             }, this);
         },
 
-		selectIndex: function(index) {
+        /**
+         * @desc Select a footer tab by index
+         * @param {Number} index The index of the tab in tabData
+         */
+        selectIndex: function(index) {
             store.set(this.index, index);
 
             _.each(this.processors, function(processor) {
@@ -71,6 +134,10 @@ define([
             this.updateForState(true);
         },
 
+        /**
+         * @desc Event handler called when a tab is clicked
+         * @param {object} e jQuery event
+         */
         handleTabClick: function(e) {
             var $tab = $(e.currentTarget).parent();
 
@@ -83,21 +150,32 @@ define([
             }
         },
 
+        /**
+         * @desc Hides the footer
+         */
         hide: function() {
-            this.$parent.removeClass('show-footer');
             this.updateForState(false);
         },
 
+        /**
+         * @desc Shows the footer
+         */
         show: function() {
-            this.$parent.addClass('show-footer');
             this.updateForState(true);
         },
 
+        /**
+         * @desc Toggles the footer
+         */
         toggle: function() {
             this.updateForState(!this.$parent.hasClass('show-footer'));
         },
 
-        updateForState: function (state) {
+        /**
+         * @desc Shows or hides the footer.
+         * @param {boolean} state True to show the footer, false to hide the footer
+         */
+        updateForState: function(state) {
             store.set(this.expanded, state);
             this.$parent.toggleClass('show-footer', state);
 
