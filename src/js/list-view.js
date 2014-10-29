@@ -1,19 +1,29 @@
+/**
+ * @module list-view
+ * @desc View representing a Backbone.Collection. Re-renders items in response to changes in the collection
+ * @extends Backbone.View
+ */
 define([
     'backbone'
 ], function(Backbone) {
 
-    /**
-     * @param model
-     */
     var defaultItemFilter = function() {
         return true;
     };
 
-    // Takes a Backbone Collection and renders one itemTemplate for each Model
-    // If the collection has a comparator, they are maintained in the correct order
-    // If an itemFilter is provided, only models which pass the filter are displayed
-
     return Backbone.View.extend({
+        /**
+         * @typedef ListViewOptions
+         * @property {Backbone.Collection} collection The collection containing the items to render
+         * @property {function} [itemFilter = function() { return true; }] Function which takes a model from the
+         * collection and returns true if it should be rendered
+         * @property {function} itemTemplate Template function, called once per model to render it
+         * @property {object} [itemTemplateOptions={}] Options passed to itemTemplate
+         */
+        /**
+         * @desc Backbone initialize method
+         * @param {ListViewOptions} options
+         */
         initialize: function(options) {
             this.itemFilter = options.itemFilter || defaultItemFilter;
             this.itemTemplate = options.itemTemplate;
@@ -32,7 +42,10 @@ define([
             return this;
         },
 
-        // Call this function each time the filter conditions update
+        /**
+         * @desc Call this function each time the filter conditions update. Removes renderings of views which no longer
+         * match the filter, and adds ones which do
+         */
         filter: function() {
             var $previous;
 
@@ -58,6 +71,12 @@ define([
             }, this);
         },
 
+        /**
+         * @desc Returns an HTML rendering of a model
+         * @param {Backbone.Model} model The model to render
+         * @returns {jQuery} A jQuery object
+         * @protected
+         */
         getItem: function(model) {
             var $item = $(this.itemTemplate(_.extend({
                 data: _.clone(model.attributes)
@@ -67,12 +86,20 @@ define([
             return $item;
         },
 
+        /**
+         * @desc Callback called when a model is added to the collection
+         * @param {Backbone.Model} model The model added to the collection
+         */
         onAdd: function(model) {
             if (this.itemFilter(model)) {
                 this.$el.append(this.getItem(model));
             }
         },
 
+        /**
+         * @desc Callback called when a model fires a change event
+         * @param {Backbone.Model} model The model that fired the change event
+         */
         onChange: function(model) {
             var $existing = this.$('[data-cid="' + model.cid + '"]');
 
@@ -89,10 +116,18 @@ define([
             }
         },
 
+        /**
+         * @desc Callback called when a model is removed from the collection
+         * @param {Backbone.Model} model The model that was removed from the collection
+         */
         onRemove: function(model) {
             this.$('[data-cid="' + model.cid + '"]').remove();
         },
 
+        /**
+         * @desc Callback called when the collection is sorted. This will reorder the model renderings to reflect the
+         * new collection order
+         */
         onSort: function() {
             var $previous;
 
