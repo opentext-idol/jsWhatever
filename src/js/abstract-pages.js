@@ -1,13 +1,18 @@
 /**
- * @module abstract-pages
- * @desc Abstract base class for representing groups of pages
- * @extends Backbone.View
+ * @module js-utils/js/abstract-pages
  */
 define([
     'backbone',
     'underscore'
 ], function(Backbone, _) {
-    return Backbone.View.extend({
+
+    /**
+     * @name module:js-utils/js/abstract-pages.AbstractPages
+     * @constructor
+     * @desc Abstract base class for representing groups of pages
+     * @extends Backbone.View
+     */
+    return Backbone.View.extend(/** @lends module:js-utils/js/abstract-pages.AbstractPages.prototype */ {
         /**
          * @desc Backbone.Router instance which is observed for navigation events
          * @abstract
@@ -21,7 +26,7 @@ define([
         vent: null,
 
         /**
-         * @desc Backbone initialize method.
+         * @desc Backbone initialize method
          */
         initialize: function() {
             _.bindAll(this, 'changePage', 'findPage');
@@ -46,6 +51,7 @@ define([
          * These must have a pageName and a constructor function.
          * The constructors should extend {@link module:base-page}
          * @abstract
+         * @method
          * @example
          * this.pages = [{
          *     constructor: Foo,
@@ -81,13 +87,13 @@ define([
         changePage: function(pageName) {
             var newPage = this.findPage(pageName);
 
-            if(!newPage.hasRendered) {
+            if (!newPage.hasRendered) {
                 newPage.view.render();
                 this.$el.append(newPage.view.el);
                 newPage.hasRendered = true;
             }
 
-            if(this.currentPage) {
+            if (this.currentPage) {
                 this.currentPage.view.hide();
             }
 
