@@ -1,11 +1,25 @@
 /**
- * Defines a function that allows i18n strings to contain placeholders of the form {n},
- * allowing arguments to be passed in and hide string concatenation
+ * @module js-utils/js/substitution
  */
-
 define(['underscore'], function(_) {
 
-    return function(i18n) {
+    //noinspection UnnecessaryLocalVariableJS
+    /**
+     * @alias module:js-utils/js/substitution
+     * @desc Interpolates placeholders of the form {n} in strings, turning the strings into functions and allowing
+     * arguments to be passed in to hide string concatenation
+     * @param {object} i18n Object containing strings to interpolate
+     * @returns {object} A copy of i18n where the strings containing the interpolation pattern have become functions
+     * @example
+     * var i18n = {
+     *     foo: 'Substitution {0}, {1}'
+     * };
+     *
+     * var substitutedI18n = substitution(i18n);
+     *
+     * substitutedI18n.foo('works', 'like this'); // returns 'Substitution works, like this'
+     */
+    var substitution = function(i18n) {
         var processed = {};
 
         var regex = /\{(\d+)\}/g;
@@ -13,7 +27,7 @@ define(['underscore'], function(_) {
         _.each(i18n, function(value, key) {
             var matches = value.match(regex);
 
-            if(matches === null) {
+            if (matches === null) {
                 processed[key] = value;
             }
             else {
@@ -35,6 +49,8 @@ define(['underscore'], function(_) {
 
         return processed;
     };
+
+    return substitution;
 
 });
 

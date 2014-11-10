@@ -1,7 +1,20 @@
+/**
+ * @module string-ends-with
+ */
 define([
     'underscore'
 ], function() {
     _.mixin({
+        /**
+         * @desc Tests if the given string ends with any of the given suffices. Provided as an underscore mixin
+         * @param {string} string The string to test
+         * @param {string|String[]} suffices The suffices to test for
+         * @returns {boolean} true if the given string ends with any of the given suffices, false otherwise
+         * @example
+         * _.endsWith('hello world', 'world'); // returns true
+         * _.endsWith('hello world', 'hello'); // returns false
+         * _.endsWith('hello world', ['hello', 'world']); // returns true
+         */
         endsWith: function(string, suffices) {
             if(_.isString(string) && (_.isArray(suffices) || _.isString(suffices))){
                 var length = string.length;

@@ -1,25 +1,68 @@
+/**
+ * @module tab-page
+ * @desc Wrapper around {@link module:lazy-tab-view|lazy-tab-view} which allows it to be used as a page
+ * @abstract
+ * @extends base-page
+ */
 define([
     'js-utils/js/base-page',
     'js-utils/js/lazy-tab-view',
     'text!js-utils/templates/tab-page.html',
-    'underscore',
-    'jqueryui'
+    'underscore'
 ], function(BasePage, LazyTabView, template, _) {
 
     return BasePage.extend({
 
+        /**
+         * @desc The base route of your application
+         * @type {string}
+         * @default page
+         */
         appPrefix: 'page',
 
+        /**
+         * @desc Instance of VentConstructor used for navigation
+         * @abstract
+         */
         vent: null, // You need to set this
 
+        /**
+         * @type {Backbone.Router}
+         * @abstract
+         */
         router: null, // You need to set this
 
+        /**
+         * @typedef TabPageTabData
+         * @property {string} href The id of the tab
+         * @property {label} label The display name of the tab
+         * @property {function} constructor A Backbone.View constructor function
+         * @property {object} [constructorOptions] Options passed to the constructor
+         */
+        /**
+         * @desc Tabs to be rendered. Initialize in initializeTabs
+         * @type {Array<TabPageTabData>}
+         * @abstract
+         */
         tabs: [], //You need to set this
 
+        /**
+         * @desc String used in route construction. Set this to the name of the page
+         * @type {string}
+         * @default overrideMe
+         * @abstract
+         */
         routePrefix: "overrideMe", //You need to set this
 
+        /**
+         * @desc Template for page
+         */
         template: _.template(template),
 
+        /**
+         * @desc Backbone initialize method. Calls initializeTabs, followed by filterTabs, then constructs an instance
+         * of each tab
+         */
         initialize: function() {
             this.initializeTabs();
 
@@ -32,10 +75,21 @@ define([
             });
         },
 
+        /**
+         * @desc Override to initialize this.tabs
+         * @type {function}
+         */
         initializeTabs: $.noop, //Override this and create this.tabs
 
+        /**
+         * @desc Override to filter this.tabs
+         * @type {function}
+         */
         filterTabs: $.noop, // Override this to filter this.tabs before creating page
 
+        /**
+         * @desc Renders the view, creating an embedded {@link module:tab-view}
+         */
         render: function() {
             this.$el.html(this.template({
                 tabs: this.tabs
@@ -51,11 +105,17 @@ define([
             });
         },
 
+        /**
+         * @desc Selects the currently selected tab to update navigation
+         */
         update: function() {
-            // select the currently selected tab to update navigation
             this.tabView.selectTab();
         },
 
+        /**
+         * @desc Returns the selected route for the embedded tab view
+         * @returns {string}
+         */
         getSelectedRoute: function() {
             return this.tabView ? this.tabView.getSelectedRoute() : [this.routePrefix, this.tabs[0].href].join('/');
         }

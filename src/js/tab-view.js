@@ -1,3 +1,6 @@
+/**
+ * @module tab-view
+ */
 define([
     'backbone',
     'jqueryui'
@@ -5,6 +8,24 @@ define([
 
     return Backbone.View.extend({
 
+        /**
+         * @typedef TabData
+         * @property {string} href The id of the tab
+         * @property {label} label The display name of the tab
+         * @property {Backbone.View} view The view representing the tab
+         */
+        /**
+         * @typedef TabViewOptions
+         * @property {Array<TabData>} tabs The tabs that comprise the view
+         * @property {Backbone.Router} router The router to use for navigation
+         * @property {Vent} vent The vent used for navigation
+         * @property {string} [appPrefix=page] The initial part of routes for the application
+         * @property {string} routePrefix The prefix for routes leading up to the tabView
+         */
+        /**
+         * Backbone initialize method
+         * @param {TabViewOptions} options
+         */
         initialize: function(options) {
             _.bindAll(this, 'showTab', 'selectTab');
 
@@ -27,6 +48,11 @@ define([
             this.$el.tabs('option', 'active', 0);
         },
 
+        /**
+         * @desc Shows a tab in response to an event from the jQuery plugin.
+         * @param {object} e jQuery event object
+         * @param {object} ui jQuery UI tabs data
+         */
         showTab: function(e, ui) {
             var id = ui.newPanel.attr('id');
 
@@ -51,6 +77,10 @@ define([
             }
         },
 
+        /**
+         * @desc Activates a tab by id
+         * @param {string} reqId The id of the tab
+         */
         selectTab: function(reqId) {
             var id = reqId || this.selectedId;
 
@@ -58,16 +88,29 @@ define([
             this.selectedId = id;
         },
 
+        /**
+         * @desc Finds the tab data for a given id
+         * @param {String} id The id of the tab
+         * @returns {TabData} The tab data for the id
+         */
         find: function(id) {
-            return _.find(this.tabs, function(tab) {
-                return tab.href === id
-            });
+            return _.findWhere(this.tabs, {href: id});
         },
 
+        /**
+         * @desc Obtains the index of the tab with given id
+         * @param {String} id The id of the tab
+         * @returns {number} The tab data for the id
+         */
         indexOf: function(id) {
             return _.indexOf(this.tabs, this.find(id));
         },
 
+        /**
+         * @desc Gets the selected route for the tab view
+         * @param [id=this.selectedId] The id of the tab to use
+         * @returns {string}
+         */
         getSelectedRoute: function(id) {
             id = id || this.selectedId;
             return [this.routePrefix, id].join('/');
