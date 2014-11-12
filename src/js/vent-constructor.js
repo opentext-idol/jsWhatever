@@ -1,12 +1,11 @@
-
+/**
+ * @module js-utils/js/vent-constructor
+ */
 define([
     'backbone'
-],
-    /**
-     * @exports vent
-     */
-    function(Backbone) {
+], function(Backbone) {
         /**
+         * @name module:js-utils/js/vent-constructor.Vent
          * @desc Constructs a new instance of vent.  Observes resize events on window
          * @param {Backbone.Router} router The router to use for navigation
          * @constructs module:vent.Vent
@@ -20,17 +19,11 @@ define([
             this.router = router;
         };
 
-        _.extend(Vent.prototype, Backbone.Events,
-            /**
-             * @lends module:vent.Vent
-             */
-            {
+        _.extend(Vent.prototype, Backbone.Events, /** @lends module:js-utils/js/vent-constructor.Vent.prototype */ {
                 /**
                  * @desc Aggregated navigation method. The Backbone.Router.navigate trigger option defauls to true
                  * @param {string} route The route to navigate to
                  * @param {object} options Options passed to router.navigate.
-                 * @memberOf module:vent.Vent
-                 * @instance
                  */
                 navigate: function(route, options) {
                     options = options || {};
@@ -44,9 +37,7 @@ define([
 
                 /**
                  * @desc Requests that the vent:resize event be fired
-                 * @memberOf module:vent.Vent
                  * @method
-                 * @instance
                  */
                 fireResize: _.throttle(function(){
                     this.trigger('vent:resize');
@@ -55,6 +46,5 @@ define([
         );
 
         return Vent;
-
     }
 );

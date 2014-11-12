@@ -1,14 +1,19 @@
 /**
- * @module dirty-base-page
- * @desc A version of {@link module:base-page|base-page} which tracks dirty state. Call the renderIfVisible to render
- * the view only if it is visible, otherwise a dirty flag will be set to true and the view rendered at a later date
- * @abstract
+ * @module js-utils/js/dirty-base-page
  */
 define([
     'js-utils/js/base-page'
 ], function(BasePage) {
 
-    return BasePage.extend({
+    /**
+     * @name module:js-utils/js/dirty-base-page.DirtyBasePage
+     * @desc A version of {@link module:base-page|base-page} which tracks dirty state. Call the renderIfVisible to
+     * render the view only if it is visible, otherwise a dirty flag will be set to true and the view rendered at a
+     * later date
+     * @constructor
+     * @abstract
+     */
+    return BasePage.extend(/** @lends module:js-utils/js/dirty-base-page.DirtyBasePage.prototype */{
 
         /**
          * @desc Calls the render method if the page isVisible, otherwise sets the dirty flag to true

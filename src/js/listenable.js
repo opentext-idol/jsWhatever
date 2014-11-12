@@ -1,19 +1,25 @@
 /**
- * Allows jQuery wrapped objects to be used with backbone style events.
- * e.g. listenTo and stopListening
+ * @module js-utils/js/listenable
  */
-
 define([
     'jquery',
     'underscore'
-], function listenable() {
+], function() {
 
     var DATA_KEY = 'listenable';
 
-    return function (el) {
+    /**
+     * @alias module:js-utils/js/listenable
+     * @desc Allows jQuery wrapped objects to be used with backbone style events. e.g. listenTo and stopListening
+     * @param {string|jQuery} el The element to be wrapped
+     * @returns {{on: Function, off: Function}} A object which can be consumed by Backbone's listenTo and stopListening
+     * methods
+     */
+    var listenable = function(el) {
         var $el = $(el);
+
         var me = {
-            on: function (event, fn) {
+            on: function(event, fn) {
                 var id = me._listenerId || (me._listenerId = _.uniqueId('l'));
                 var data = $el.data(DATA_KEY) || {};
                 var pairs = data[id] || [];
@@ -25,15 +31,19 @@ define([
                 $el.data(DATA_KEY, data);
             },
 
-            off: function (event, fn) {
+            off: function(event, fn) {
                 var data = $el.data(DATA_KEY);
-                if (!data) { return; }
+                if (!data) {
+                    return;
+                }
 
                 var pairs = data[me._listenerId];
-                if (!pairs) { return; }
+                if (!pairs) {
+                    return;
+                }
 
                 if (!event && !fn) {
-                    _.each(pairs, function(data){
+                    _.each(pairs, function(data) {
                         $el.off(data.event, data.fn);
                     });
                 }
@@ -49,6 +59,9 @@ define([
                 data[me._listenerId] = pairs;
             }
         };
+
         return me;
     };
+
+    return listenable;
 });

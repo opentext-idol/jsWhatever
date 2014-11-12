@@ -1,5 +1,5 @@
 /**
- * @module icontains
+ * @module js-utils/js/icontains
  * @desc jQuery pseudo selector to test if an element contains a particular string, ignoring case
  * @example
  * // <div class="test">cats</div>

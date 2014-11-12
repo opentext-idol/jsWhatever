@@ -1,7 +1,5 @@
 /**
- * @module wizard-custom
- * @desc Backbone wrapper around the jQuery steps plugin
- * @see http://www.jquery-steps.com/
+ * @module js-utils/js/wizard-custom
  */
 define([
     'backbone',
@@ -9,8 +7,35 @@ define([
     'text!js-utils/templates/wizard/wizard.html',
     'jquery-steps'
 ], function(Backbone, _, template) {
-
-    return Backbone.View.extend({
+    /**
+     * @typedef WizardStrings
+     * @property {string} last String displayed on the wizard's finish button
+     * @property {string} next String displayed on the wizard's next button
+     * @property {string} prev String displayed on the wizard's previous button
+     */
+    /**
+     * @typedef WizardStep
+     * @property {string} class The CSS class applied to the step
+     * @property {boolean} [active] Denotes the active step. Should be set to true for the first step of the wizard
+     * @property {Backbone.View} constructor Constructor function for the step's view
+     * @property {object} [options] Options passed to the constructor
+     */
+    /**
+     * @typedef WizardOptions
+     * @property {function} [template] Overrides the default template
+     * @property {string} [columnClass=span12] Overrides the default columnClass
+     * @property {WizardStrings} strings Strings for the wizard
+     * @property {Array<WizardStep>} steps Steps for the wizard
+     * @property {object} [renderOptions] Additional options passed to the template
+     */
+    /**
+     * @name module:js-utils/js/wizard-custom.WizardCustom
+     * @desc Backbone wrapper around the jQuery steps plugin
+     * @constructor
+     * @param {WizardOptions} options
+     * @see http://www.jquery-steps.com/
+     */
+    return Backbone.View.extend(/** @lends module:js-utils/js/wizard-custom.WizardCustom.prototype */{
 
         /**
          * @desc Template function for the wizard
@@ -23,31 +48,6 @@ define([
          */
         columnClass: 'span12',
 
-        /**
-         * @typedef WizardStrings
-         * @property {string} last String displayed on the wizard's finish button
-         * @property {string} next String displayed on the wizard's next button
-         * @property {string} prev String displayed on the wizard's previous button
-         */
-        /**
-         * @typedef WizardStep
-         * @property {string} class The CSS class applied to the step
-         * @property {boolean} [active] Denotes the active step. Should be set to true for the first step of the wizard
-         * @property {Backbone.View} constructor Constructor function for the step's view
-         * @property {object} [options] Options passed to the constructor
-         */
-        /**
-         * @typedef WizardOptions
-         * @property {function} [template] Overrides the default template
-         * @property {string} [columnClass=span12] Overrides the default columnClass
-         * @property {WizardStrings} strings Strings for the wizard
-         * @property {Array<WizardStep>} steps Steps for the wizard
-         * @property {object} [renderOptions] Additional options passed to the template
-         */
-        /**
-         * Backbone initialize method
-         * @param {WizardOptions} options
-         */
         initialize: function(options){
             _.bindAll(this, 'handleStepChange');
 

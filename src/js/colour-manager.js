@@ -1,6 +1,5 @@
 /**
- * @module colour-manager
- * @desc Associates keys with colours to allow colours to be applied consistently to keys without clashes
+ * @module js-utils/js/colour-manager
  */
 define([
     'underscore'
@@ -122,7 +121,8 @@ define([
     };
 
     /**
-     * @desc Construct a new ColourManager
+     * @name module:js-utils/js/colour-manager.ColourManager
+     * @desc Associates keys with colours to allow colours to be applied consistently to keys without clashes
      * @constructor
      */
     var ColourManager = function() {
@@ -132,7 +132,7 @@ define([
         this.reset();
     };
 
-    _.extend(ColourManager.prototype, {
+    _.extend(ColourManager.prototype, /** @lends module:js-utils/js/colour-manager.ColourManager.prototype */{
         /**
          * @desc Reset the ColourManager, restoring the list of predefined colours
          */

@@ -1,8 +1,5 @@
 /**
- * @module footer
- * @desc View representing a page footer which can have multiple tabs and be minimised. The state of the footer is
- * stored in local storage
- * @extends Backbone.View
+ * @module js-utils/js/footer
  */
 define([
     'backbone',
@@ -12,7 +9,33 @@ define([
     'text!js-utils/templates/footer/footer-tab-view.html'
 ], function(Backbone, store, footerTemplate, tabTemplate, viewTemplate) {
 
-    return Backbone.View.extend({
+    /**
+     * @typedef FooterStrings
+     * @property {string} [clickToHide='Collapse footer.']
+     * @property {string} [clickToShow='Show more...']
+     */
+    /**
+     * @typedef FooterTabData
+     * @desc Describes a footer tab. In addition to the properties listed below, it requires a Backbone View for
+     * every component in the list of processors
+     * @property {string} key Identifier for the tab
+     */
+    /**
+     * @typedef FooterOptions
+     * @property {jQuery} $parent Parent element.  The show-footer class to this element when the footer is shown
+     * @property {object} vent Instance of vent-constructor
+     * @property {FooterStrings} strings Strings to use as tooltip labels
+     * @property {Array<FooterTabData>} tabData Defines the tabs in the footer
+     */
+    /**
+     * @name module:js-utils/js/footer.Footer
+     * @desc View representing a page footer which can have multiple tabs and be minimised. The state of the footer is
+     * stored in local storage
+     * @param {FooterOptions} options
+     * @constructor
+     * @extends Backbone.View
+     */
+    return Backbone.View.extend(/** @lends module:js-utils/js/footer.Footer.prototype */{
         /**
          * @desc Classes added to footer element
          * @type {string}
@@ -56,28 +79,6 @@ define([
             { selector: '.tab-content', component: 'view', template: _.template(viewTemplate, null, {variable: 'ctx'}), target: '.tab-pane' }
         ],
 
-        /**
-         * @typedef FooterStrings
-         * @property {string} [clickToHide='Collapse footer.']
-         * @property {string} [clickToShow='Show more...']
-         */
-        /**
-         * @typedef FooterTabData
-         * @desc Describes a footer tab. In addition to the properties listed below, it requires a Backbone View for
-         * every component in the list of processors
-         * @property {string} key Identifier for the tab
-         */
-        /**
-         * @typedef FooterOptions
-         * @property {jQuery} $parent Parent element.  The show-footer class to this element when the footer is shown
-         * @property {object} vent Instance of vent-constructor
-         * @property {FooterStrings} strings Strings to use as tooltip labels
-         * @property {Array<FooterTabData>} tabData Defines the tabs in the footer
-         */
-        /**
-         * @desc Backbone initialize method
-         * @param {FooterOptions} options
-         */
         initialize: function(options) {
             this.$parent = options.$parent;
             this.tabData = options.tabData;

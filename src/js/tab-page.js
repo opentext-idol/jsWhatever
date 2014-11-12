@@ -1,8 +1,5 @@
 /**
- * @module tab-page
- * @desc Wrapper around {@link module:lazy-tab-view|lazy-tab-view} which allows it to be used as a page
- * @abstract
- * @extends base-page
+ * @module js-utils/js/tab-page
  */
 define([
     'js-utils/js/base-page',
@@ -11,7 +8,14 @@ define([
     'underscore'
 ], function(BasePage, LazyTabView, template, _) {
 
-    return BasePage.extend({
+    /**
+     * @name module:js-utils/js/tab-page.TabPage
+     * @desc Wrapper around {@link module:lazy-tab-view|lazy-tab-view} which allows it to be used as a page
+     * @constructor
+     * @extends base-page
+     * @abstract
+     */
+    return BasePage.extend(/** @lends module:js-utils/js/tab-page.TabPage.prototype */{
 
         /**
          * @desc The base route of your application

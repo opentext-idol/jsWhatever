@@ -25,9 +25,6 @@ define([
          */
         vent: null,
 
-        /**
-         * @desc Backbone initialize method
-         */
         initialize: function() {
             _.bindAll(this, 'changePage', 'findPage');
 

@@ -1,8 +1,5 @@
 /**
- * @module confirm-view
- * @desc Creates a Bootstrap modal which presents a message and the option to click OK and Cancel. By default it uses
- * Bootstrap 2 classes, but can be overridden for Bootstrap 3
- * @extends Backbone.View
+ * @module js-utils/js/confirm-view
  */
 define([
     'backbone',
@@ -11,7 +8,36 @@ define([
     'bootstrap'
 ], function(Backbone, template){
 
-    return Backbone.View.extend({
+    /**
+     * @typedef ConfirmViewOptions
+     * @property {string} message Message to be displayed
+     * @property {string} title Modal title
+     * @property {string} [okText] Text for the OK button. Must be defined if showButtons or closable are set to
+     * true
+     * @property {string} [cancelText] Text for the Cancel button. Must be defined if showButtons is set to true
+     * @property {function} [okHandler] Function called when the OK button is clicked. If showButtons is set to
+     * true, this must be defined
+     * @property {function} [cancelHandler] Function called when the Cancel button is clicked
+     * @property {string} [modalClass] Class added to modal after rendering
+     * @property {string} [cancelClass=btn-danger] Cancel button class
+     * @property {string} [cancelIcon=icon-remove] Cancel button icon
+     * @property {boolean} [closable=true] Set to true if the modal can be closed. If show buttons is true the modal
+     * can still be closed using the buttons
+     * @property {string} [okClass=btn-success] OK button class
+     * @property {string} [okIcon=icon-ok] OK button icon
+     * @property {boolean} [showButtons=true] Set to true if the modal should have OK and Cancel buttons
+     * @property {string} [hiddenEvent=hidden] The Bootstrap event to listen for when the modal is hidden. Override
+     * if using Bootstrap 3
+     */
+    /**
+     * @name module:js-utils/js/confirm-view.ConfirmView
+     * @desc Creates a Bootstrap modal which presents a message and the option to click OK and Cancel. By default it
+     * uses Bootstrap 2 classes, but can be overridden for Bootstrap 3
+     * @constructor
+     * @param {ConfirmViewOptions} config
+     * @extends Backbone.View
+     */
+    return Backbone.View.extend(/** @lends module:js-utils/js/confirm-view.ConfirmView.prototype */{
         /**
          * @desc {function} Default template, which can be overridden
          */
@@ -22,32 +48,6 @@ define([
          */
         className: 'modal hide fade',
 
-        /**
-         * @typedef ConfirmViewOptions
-         * @property {string} message Message to be displayed
-         * @property {string} title Modal title
-         * @property {string} [okText] Text for the OK button. Must be defined if showButtons or closable are set to
-         * true
-         * @property {string} [cancelText] Text for the Cancel button. Must be defined if showButtons is set to true
-         * @property {function} [okHandler] Function called when the OK button is clicked. If showButtons is set to
-         * true, this must be defined
-         * @property {function} [cancelHandler] Function called when the Cancel button is clicked
-         * @property {string} [modalClass] Class added to modal after rendering
-         * @property {string} [cancelClass=btn-danger] Cancel button class
-         * @property {string} [cancelIcon=icon-remove] Cancel button icon
-         * @property {boolean} [closable=true] Set to true if the modal can be closed. If show buttons is true the modal
-         * can still be closed using the buttons
-         * @property {string} [okClass=btn-success] OK button class
-         * @property {string} [okIcon=icon-ok] OK button icon
-         * @property {boolean} [showButtons=true] Set to true if the modal should have OK and Cancel buttons
-         * @property {string} [hiddenEvent=hidden] The Bootstrap event to listen for when the modal is hidden. Override
-         * if using Bootstrap 3
-         */
-
-        /**
-         * @desc Backbone initialize method
-         * @param {ConfirmViewOptions} config
-         */
         initialize: function(config) {
             _.bindAll(this, 'remove');
 

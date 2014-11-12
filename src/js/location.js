@@ -1,5 +1,5 @@
 /**
- * @module location
+ * @module js-utils/js/location
  * @desc Wrapper around window.location, allowing for easier testing
  */
 define(function() {
@@ -10,7 +10,11 @@ define(function() {
     var port = window.location.port;
     var protocol = window.location.protocol;
 
-    return {
+    //noinspection UnnecessaryLocalVariableJS
+    /**
+     * @alias module:js-utils/js/location
+     */
+    var location = {
 
         /**
          * @returns {string} window.location.host
@@ -47,4 +51,6 @@ define(function() {
             return protocol;
         }
     };
+
+    return location;
 });

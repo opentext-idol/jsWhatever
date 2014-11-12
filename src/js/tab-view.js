@@ -1,31 +1,34 @@
 /**
- * @module tab-view
+ * @module js-utils/js/tab-view
  */
 define([
     'backbone',
     'jqueryui'
 ], function(Backbone) {
 
-    return Backbone.View.extend({
+    /**
+     * @typedef TabData
+     * @property {string} href The id of the tab
+     * @property {label} label The display name of the tab
+     * @property {Backbone.View} view The view representing the tab
+     */
+    /**
+     * @typedef TabViewOptions
+     * @property {Array<TabData>} tabs The tabs that comprise the view
+     * @property {Backbone.Router} router The router to use for navigation
+     * @property {Vent} vent The vent used for navigation
+     * @property {string} [appPrefix=page] The initial part of routes for the application
+     * @property {string} routePrefix The prefix for routes leading up to the tabView
+     */
+    /**
+     * @name module:js-utils/js/tab-view.TabView
+     * @desc Wrapper around the jQuery UI tabs widget
+     * @constructor
+     * @param {TabViewOptions} options
+     * @extends Backbone.View
+     */
+    return Backbone.View.extend(/** @lends module:js-utils/js/tab-view.TabView.prototype */{
 
-        /**
-         * @typedef TabData
-         * @property {string} href The id of the tab
-         * @property {label} label The display name of the tab
-         * @property {Backbone.View} view The view representing the tab
-         */
-        /**
-         * @typedef TabViewOptions
-         * @property {Array<TabData>} tabs The tabs that comprise the view
-         * @property {Backbone.Router} router The router to use for navigation
-         * @property {Vent} vent The vent used for navigation
-         * @property {string} [appPrefix=page] The initial part of routes for the application
-         * @property {string} routePrefix The prefix for routes leading up to the tabView
-         */
-        /**
-         * Backbone initialize method
-         * @param {TabViewOptions} options
-         */
         initialize: function(options) {
             _.bindAll(this, 'showTab', 'selectTab');
 

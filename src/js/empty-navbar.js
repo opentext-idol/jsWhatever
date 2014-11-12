@@ -1,6 +1,5 @@
 /**
- * @module empty-navbar
- * @desc Renders an empty top navbar that may contain a logout button
+ * @module js-utils/js/empty-navbar
  */
 define([
     'backbone',
@@ -11,27 +10,30 @@ define([
         showLogout: true
     };
 
-    return Backbone.View.extend({
+    /**
+     * @typedef EmptyNavbarStrings
+     * @type {object}
+     * @property {string} appName The name of the application
+     * @property {string} [logout] The label for the logout link. Must be defined if showLogout is true
+     */
+    /**
+     * @typedef EmptyNavbarOptions
+     * @type {object}
+     * @property {boolean} [showLogout=true] Set to true if a logout button should be displayed
+     * @property {string} [logoutUri] Href for the logout button. Must be defined if showLogout is true
+     * @property {EmptyNavbarStrings} strings
+     */
+    /**
+     * @name module:js-utils/js/empty-navbar.EmptyNavbar
+     * @desc Renders an empty top navbar that may contain a logout button
+     * @constructor
+     * @param {EmptyNavbarOptions} [options={showLogout: true}]
+     * @extends Backbone.View
+     */
+    return Backbone.View.extend(/** @lends module:js-utils/js/empty-navbar.EmptyNavbar.prototype */{
 
         template: _.template(template),
 
-        /**
-         * @typedef EmptyNavbarStrings
-         * @type {object}
-         * @property {string} appName The name of the application
-         * @property {string} [logout] The label for the logout link. Must be defined if showLogout is true
-         */
-        /**
-         * @typedef EmptyNavbarOptions
-         * @type {object}
-         * @property {boolean} [showLogout=true] Set to true if a logout button should be displayed
-         * @property {string} [logoutUri] Href for the logout button. Must be defined if showLogout is true
-         * @property {EmptyNavbarStrings} strings
-         */
-        /**
-         * @desc Backbone initialize method
-         * @param {EmptyNavbarOptions} [options={showLogout: true}]
-         */
         initialize: function (options) {
             this.options = _.extend({}, defaultOptions, options || {});
         },

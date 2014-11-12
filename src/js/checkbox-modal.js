@@ -1,25 +1,5 @@
 /**
- * @module checkbox-modal
- * @desc Bootstrap modal which displays tables containing checkboxes or radio buttons, which can be toggled individually or
- * through a global checkbox
- * @extends Backbone.View
- * @example
- * new CheckboxModal({
- *     i18n: i18n,
- *     vent: vent,
- *     parameters: {
- *         modalHeader: 'modalHeader'
- *     },
- *     tables: [{
- *         initialState: true,
- *         tableHeader: 'tableTitle',
- *         rows: [
- *             'one',
- *             'two',
- *             'three'
- *         ]
- *     }]
- * });
+ * @module js-utils/js/checkbox-modal
  */
 define([
     'backbone',
@@ -28,7 +8,32 @@ define([
     'text!js-utils/templates/checkbox-modal/checkbox-table.html'
 ], function(Backbone, ensureArray, checkboxModal, checkboxTable) {
 
-    return Backbone.View.extend({
+    /**
+     * @name module:js-utils/js/checkbox-modal.CheckboxModal
+     * @desc Bootstrap modal which displays tables containing checkboxes or radio buttons, which can be toggled individually or
+     * through a global checkbox
+     * @constructor
+     * @param {CheckboxModalOptions} init
+     * @extends Backbone.View
+     * @example
+     * new CheckboxModal({
+     *     i18n: i18n,
+     *     vent: vent,
+     *     parameters: {
+     *         modalHeader: 'modalHeader'
+     *     },
+     *     tables: [{
+     *         initialState: true,
+     *         tableHeader: 'tableTitle',
+     *         rows: [
+     *             'one',
+     *             'two',
+     *             'three'
+     *         ]
+     *     }]
+     * });
+     */
+    return Backbone.View.extend(/** @lends module:js-utils/js/checkbox-modal.CheckboxModal.prototype */{
         /**
          * @typedef CheckboxModalTable
          * @property {boolean|string[]} initialState The initial state of the checkboxes. Can be either a boolean, or a list of
@@ -55,7 +60,7 @@ define([
          */
         /**
          * Backbone initialize method
-         * @param {CheckboxModalOptions} init Options passed
+         * @param {CheckboxModalOptions} init
          */
         initialize: function(init) {
             _.bindAll(this, 'render', 'setRows', 'setRow', 'getSelectedRows', 'remove', 'resizeModal',

@@ -1,5 +1,5 @@
 /**
- * @module autoload-methods
+ * @module js-utils/js/autoload-methods
  * @desc Methods for Backbone models and collections which fetch themselves upon instantiation
  * @abstract
  */
@@ -26,14 +26,14 @@ define([
          * @param {Object} attributes initial model attributes
          * @param {AutoloadOptions} options
          */
-        initialize : function(attributes, options) {
+        initialize: function(attributes, options) {
             // We need our .loaded flag to be set true in a change listener since it's fired before the fetch()
             // completion handler fires; prevents loss of the first change event if we call this.onLoad from within
             // this.onLoad e.g. in #1018992. We still keep the fetch completion handler since it's not explicitly
             // mentioned in docs whether the handler or change() events fire first () so it might change in future.
             options = options || {};
 
-            var onLoaded = _.bind(function(){
+            var onLoaded = _.bind(function() {
                 this.off(this.eventName, onLoaded);
                 this.loaded = true;
             }, this);

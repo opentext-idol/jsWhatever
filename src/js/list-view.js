@@ -1,7 +1,5 @@
 /**
- * @module list-view
- * @desc View representing a Backbone.Collection. Re-renders items in response to changes in the collection
- * @extends Backbone.View
+ * @module js-utils/js/list-view
  */
 define([
     'backbone'
@@ -11,19 +9,23 @@ define([
         return true;
     };
 
-    return Backbone.View.extend({
-        /**
-         * @typedef ListViewOptions
-         * @property {Backbone.Collection} collection The collection containing the items to render
-         * @property {function} [itemFilter = function() { return true; }] Function which takes a model from the
-         * collection and returns true if it should be rendered
-         * @property {function} itemTemplate Template function, called once per model to render it
-         * @property {object} [itemTemplateOptions={}] Options passed to itemTemplate
-         */
-        /**
-         * @desc Backbone initialize method
-         * @param {ListViewOptions} options
-         */
+    /**
+     * @typedef ListViewOptions
+     * @property {Backbone.Collection} collection The collection containing the items to render
+     * @property {function} [itemFilter = function() { return true; }] Function which takes a model from the
+     * collection and returns true if it should be rendered
+     * @property {function} itemTemplate Template function, called once per model to render it
+     * @property {object} [itemTemplateOptions={}] Options passed to itemTemplate
+     */
+    /**
+     * @name module:js-utils/js/list-view.ListView
+     * @desc View representing a Backbone.Collection. Re-renders items in response to changes in the collection
+     * @constructor
+     * @param {ListViewOptions} options
+     * @extends Backbone.View
+     */
+    return Backbone.View.extend(/** @lends module:js-utils/js/list-view.ListView.prototype */{
+
         initialize: function(options) {
             this.itemFilter = options.itemFilter || defaultItemFilter;
             this.itemTemplate = options.itemTemplate;

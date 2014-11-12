@@ -1,14 +1,25 @@
 /**
- * @module navigation
- * @desc Wrapper around a Bootstrap navbar to handle updating the active link
- * @extends Backbone.View
+ * @module js-utils/js/navigation
  */
 define([
     'backbone',
     'text!js-utils/templates/navigation.html'
 ], function(Backbone, template) {
 
-    return Backbone.View.extend({
+    /**
+     * @typedef NavigationOptions
+     * @property {string} event This event is observed on the router to respond to navigation changes
+     * @property {Backbone.Router} router The router to observe for navigation events
+     * @property {AbstractPages} pages Instance of {@link module:abstract-pages|AbstractPages}
+     */
+    /**
+     * @name module:js-utils/js/navigation.Navigation
+     * @desc Wrapper around a Bootstrap navbar to handle updating the active link
+     * @constructor
+     * @param {NavigationOptions} options
+     * @extends Backbone.View
+     */
+    return Backbone.View.extend(/** @lends module:js-utils/js/navigation.Navigation.prototype */{
         /**
          * @desc Returns parameters which are passed to the template. Defaults to a no-op
          * @method
@@ -21,16 +32,6 @@ define([
          */
         template: _.template(template, undefined, {variable: 'ctx'}),
 
-        /**
-         * @typedef NavigationOptions
-         * @property {string} event This event is observed on the router to respond to navigation changes
-         * @property {Backbone.Router} router The router to observe for navigation events
-         * @property {AbstractPages} pages Instance of {@link module:abstract-pages|AbstractPages}
-         */
-        /**
-         * @desc Backbone initialize method
-         * @param {NavigationOptions} options
-         */
         initialize: function(options) {
             _.bindAll(this, 'navigate');
 

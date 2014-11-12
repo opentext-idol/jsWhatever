@@ -1,16 +1,20 @@
 /**
- * @module base-page
- * @desc Abstract base class representing a page. All application pages should extend from this or implement the same
- * methods.
- * Base pages will start hidden.
- * @extends Backbone.View
- * @abstract
+ * @module js-utils/js/base-page
  */
 define([
     'backbone'
 ], function(Backbone) {
 
-    return Backbone.View.extend({
+    /**
+     * @name module:js-utils/js/base-page.BasePage
+     * @desc Abstract base class representing a page. All application pages should extend from this or implement the
+     * same methods.
+     * Base pages will start hidden.
+     * @constructor
+     * @extends Backbone.View
+     * @abstract
+     */
+    return Backbone.View.extend(/** @lends module:js-utils/js/base-page.BasePage.prototype */{
 
         attributes: {
             style: 'display:none;'

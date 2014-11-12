@@ -1,9 +1,14 @@
+/**
+ * @module js-utils/js/spinner-utils
+ * @desc Utility functions for dealing with spinner classes
+ */
 define(function() {
     var spinnerClasses = 'icon-spinner icon-spin';
 
     //noinspection UnnecessaryLocalVariableJS
     /**
-     * @exports spinner-utils
+     * @alias module:js-utils/js/spinner-utils
+     * @type {{enableSpinner: Function, disableSpinner: Function}}
      */
     var spinnerUtils = {
         /**
