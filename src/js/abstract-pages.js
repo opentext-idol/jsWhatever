@@ -20,7 +20,8 @@ define([
         router: null,
 
         /**
-         * @desc Vent instance used when navigating
+         * @desc Instance of Vent used for navigation
+         * @type {module:js-utils/js/vent-constructor.Vent}
          * @abstract
          */
         vent: null,
@@ -46,7 +47,7 @@ define([
         /**
          * @desc Sets the value of this.pages to the list of page objects.
          * These must have a pageName and a constructor function.
-         * The constructors should extend {@link module:base-page}
+         * The constructors should extend {@link module:js-utils/js/base-page.BasePage|BasePage}
          * @abstract
          * @method
          * @example

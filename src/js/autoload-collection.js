@@ -8,7 +8,7 @@ define([
 
     /**
      * @name module:js-utils/js/autoload-collection.AutoloadCollection
-     * @desc A Backbone.Collection which incorporates {@link module:autoload-methods|AutoloadMethods}
+     * @desc A Backbone.Collection which incorporates {@link module:js-utils/js/autoload-methods|AutoloadMethods}
      * @constructor
      * @extends Backbone.Collection
      * @abstract

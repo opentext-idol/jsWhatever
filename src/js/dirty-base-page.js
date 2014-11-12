@@ -7,16 +7,17 @@ define([
 
     /**
      * @name module:js-utils/js/dirty-base-page.DirtyBasePage
-     * @desc A version of {@link module:base-page|base-page} which tracks dirty state. Call the renderIfVisible to
+     * @desc A version of {@link module:js-utils/js/base-page.BasePage|BasePage} which tracks dirty state. Call the renderIfVisible to
      * render the view only if it is visible, otherwise a dirty flag will be set to true and the view rendered at a
      * later date
      * @constructor
+     * @extends module:js-utils/js/base-page.BasePage
      * @abstract
      */
     return BasePage.extend(/** @lends module:js-utils/js/dirty-base-page.DirtyBasePage.prototype */{
 
         /**
-         * @desc Calls the render method if the page isVisible, otherwise sets the dirty flag to true
+         * @desc Calls the {@link js-utils/js/dirty-base-page.DirtyBasePage#render|render} method if the page isVisible, otherwise sets the dirty flag to true
          */
         renderIfVisible: function() {
             if(this.isVisible()) {
@@ -35,7 +36,7 @@ define([
         },
 
         /**
-         * @desc If the dirty flag is true, call dirtyRender
+         * @desc If the dirty flag is true, call {@link js-utils/js/dirty-base-page.DirtyBasePage#dirtyRender|dirtyRender}
          */
         update: function() {
             if (this.dirty) {
@@ -44,7 +45,7 @@ define([
         },
 
         /**
-         * @desc Default implementation of dirtyRender, which just calls render. Override this for your application
+         * @desc Default implementation of dirtyRender, which just calls {@link js-utils/js/dirty-base-page.DirtyBasePage#render|render}
          * @abstract
          */
         dirtyRender: function() {

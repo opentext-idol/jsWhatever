@@ -7,9 +7,9 @@ define([
 
     /**
      * @name module:js-utils/js/lazy-tab-view.LazyTabView
-     * @desc Version of {@link module:tab-view|tab-view} which doesn't render views until they are required.
+     * @desc Version of {@link module:js-utils/js/tab-view.TabView|TabView} which doesn't render views until they are required.
      * @constructor
-     * @extends tab-view
+     * @extends module:js-utils/js/tab-view.TabView
      */
     return TabView.extend(/** @lends module:js-utils/js/lazy-tab-view.LazyTabView.prototype */{
 

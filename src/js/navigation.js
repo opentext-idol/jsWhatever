@@ -10,7 +10,7 @@ define([
      * @typedef NavigationOptions
      * @property {string} event This event is observed on the router to respond to navigation changes
      * @property {Backbone.Router} router The router to observe for navigation events
-     * @property {AbstractPages} pages Instance of {@link module:abstract-pages|AbstractPages}
+     * @property {module:js-utils/js/abstract-pages.AbstractPages} pages Pages which will be linked to from the navbar
      */
     /**
      * @name module:js-utils/js/navigation.Navigation

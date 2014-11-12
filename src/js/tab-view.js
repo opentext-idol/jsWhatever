@@ -16,7 +16,7 @@ define([
      * @typedef TabViewOptions
      * @property {Array<TabData>} tabs The tabs that comprise the view
      * @property {Backbone.Router} router The router to use for navigation
-     * @property {Vent} vent The vent used for navigation
+     * @property {module:js-utils/js/vent-constructor.Vent} vent The vent used for navigation
      * @property {string} [appPrefix=page] The initial part of routes for the application
      * @property {string} routePrefix The prefix for routes leading up to the tabView
      */
@@ -82,7 +82,7 @@ define([
 
         /**
          * @desc Activates a tab by id
-         * @param {string} reqId The id of the tab
+         * @param {string} [reqId=this.selectedId] The id of the tab
          */
         selectTab: function(reqId) {
             var id = reqId || this.selectedId;

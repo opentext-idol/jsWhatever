@@ -7,7 +7,7 @@ define([
     //noinspection UnnecessaryLocalVariableJS
     /**
      * @alias module:js-utils/js/confirm
-     * @desc Creates and returns a new instance of {@link module:confirm-view|ConfirmView}
+     * @desc Creates and returns a new instance of {@link module:js-utils/js/confirm-view.ConfirmView|ConfirmView}
      * @param {ConfirmViewOptions} config Options passed to the confirm view
      */
     var confirm = function(config) {

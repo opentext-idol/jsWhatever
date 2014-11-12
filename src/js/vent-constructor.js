@@ -8,7 +8,7 @@ define([
          * @name module:js-utils/js/vent-constructor.Vent
          * @desc Constructs a new instance of vent.  Observes resize events on window
          * @param {Backbone.Router} router The router to use for navigation
-         * @constructs module:vent.Vent
+         * @constructor
          * @emits vent:resize When the window has resized. Fired at most once every 200ms
          */
         var Vent = function(router){

@@ -21,7 +21,7 @@ define([
         },
 
         /**
-         * @desc Shows the page and calls the update method
+         * @desc Shows the page and calls the {@link module:js-utils/js/base-page.BasePage#update|update} method
          */
         show: function() {
             this.$el.show();

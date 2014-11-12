@@ -10,9 +10,11 @@ define([
 
     /**
      * @name module:js-utils/js/tab-page.TabPage
-     * @desc Wrapper around {@link module:lazy-tab-view|lazy-tab-view} which allows it to be used as a page
+     * @desc Wrapper around {@link module:js-utils/js/lazy-tab-view.LazyTabView|LazyTabView} which allows it to be
+     * used as a page. The constructor calls initializeTabs, followed by filterTabs, then constructs an instance
+     * of each tab
      * @constructor
-     * @extends base-page
+     * @extends module:js-utils/js/base-page.BasePage
      * @abstract
      */
     return BasePage.extend(/** @lends module:js-utils/js/tab-page.TabPage.prototype */{
@@ -25,7 +27,8 @@ define([
         appPrefix: 'page',
 
         /**
-         * @desc Instance of VentConstructor used for navigation
+         * @desc Instance of Vent used for navigation
+         * @type {module:js-utils/js/vent-constructor.Vent}
          * @abstract
          */
         vent: null, // You need to set this
@@ -63,10 +66,6 @@ define([
          */
         template: _.template(template),
 
-        /**
-         * @desc Backbone initialize method. Calls initializeTabs, followed by filterTabs, then constructs an instance
-         * of each tab
-         */
         initialize: function() {
             this.initializeTabs();
 
@@ -92,7 +91,7 @@ define([
         filterTabs: $.noop, // Override this to filter this.tabs before creating page
 
         /**
-         * @desc Renders the view, creating an embedded {@link module:tab-view}
+         * @desc Renders the view, creating an embedded {@link module:js-utils/js/tab-view.TabView}
          */
         render: function() {
             this.$el.html(this.template({

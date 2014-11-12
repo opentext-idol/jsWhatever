@@ -33,6 +33,7 @@ define([
      * @desc Backbone wrapper around the jQuery steps plugin
      * @constructor
      * @param {WizardOptions} options
+     * @extends Backbone.View
      * @see http://www.jquery-steps.com/
      */
     return Backbone.View.extend(/** @lends module:js-utils/js/wizard-custom.WizardCustom.prototype */{

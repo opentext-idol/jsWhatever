@@ -7,7 +7,30 @@ define([
     'text!js-utils/templates/checkbox-modal/checkbox-modal.html',
     'text!js-utils/templates/checkbox-modal/checkbox-table.html'
 ], function(Backbone, ensureArray, checkboxModal, checkboxTable) {
-
+    /**
+     * @typedef CheckboxModalTable
+     * @property {boolean|string[]} initialState The initial state of the checkboxes. Can be either a boolean, or a list of
+     * row names which should start checked
+     * @property {string} tableHeader The i18n key for the table header.
+     * @property {string} [inputName] The name of the radio input. Only used if checkboxOrRadio is set to radio
+     * @property {string[]} rows The names of the rows.  These must be unique
+     */
+    /**
+     * @typedef CheckboxModalOptions
+     * @property {String} [templateModal] The template for the modal
+     * @property {String} [templateTableModal] The template for the table.
+     * @property {Array.<CheckboxModalTable>} tables The configuration for the tables
+     * @property {object} [parameters=[]] Additional parameters passed to templateModal
+     * @property {function} [okCallback=$.noop] Callback called when the OK button is pressed
+     * @property {string} [okIcon='icon-refresh'] Icon for the OK button
+     * @property {string} [okClass='btn-success'] Class for the OK button
+     * @property {string} [cancelClass=''] Class for the cancel button
+     * @property {boolean} [atLeastOneElementSelected=false] Set this to true if a checkbox
+     * @property {object} i18n Object containing i18n strings
+     * @property {module:js-utils/js/vent-constructor.Vent} vent Instance of Vent used to track resize events
+     * @property {string} [checkboxOrRadio=checkbox] Should be set to 'checkbox' or 'radio' according to the inputs
+     * used in your template
+     */
     /**
      * @name module:js-utils/js/checkbox-modal.CheckboxModal
      * @desc Bootstrap modal which displays tables containing checkboxes or radio buttons, which can be toggled individually or
@@ -34,34 +57,7 @@ define([
      * });
      */
     return Backbone.View.extend(/** @lends module:js-utils/js/checkbox-modal.CheckboxModal.prototype */{
-        /**
-         * @typedef CheckboxModalTable
-         * @property {boolean|string[]} initialState The initial state of the checkboxes. Can be either a boolean, or a list of
-         * row names which should start checked
-         * @property {string} tableHeader The i18n key for the table header.
-         * @property {string} [inputName] The name of the radio input. Only used if checkboxOrRadio is set to radio
-         * @property {string[]} rows The names of the rows.  These must be unique
-         */
-        /**
-         * @typedef CheckboxModalOptions
-         * @property {String} [templateModal] The template for the modal
-         * @property {String} [templateTableModal] The template for the table.
-         * @property {Array.<CheckboxModalTable>} tables The configuration for the tables
-         * @property {object} [parameters=[]] Additional parameters passed to templateModal
-         * @property {function} [okCallback=$.noop] Callback called when the OK button is pressed
-         * @property {string} [okIcon='icon-refresh'] Icon for the OK button
-         * @property {string} [okClass='btn-success'] Class for the OK button
-         * @property {string} [cancelClass=''] Class for the cancel button
-         * @property {boolean} [atLeastOneElementSelected=false] Set this to true if a checkbox
-         * @property {object} i18n Object containing i18n strings
-         * @property {object} vent Instance of VentConstructor. Used to track resize events
-         * @property {string} [checkboxOrRadio=checkbox] Should be set to 'checkbox' or 'radio' according to the inputs
-         * used in your template
-         */
-        /**
-         * Backbone initialize method
-         * @param {CheckboxModalOptions} init
-         */
+
         initialize: function(init) {
             _.bindAll(this, 'render', 'setRows', 'setRow', 'getSelectedRows', 'remove', 'resizeModal',
                 'getModalTemplateParams', 'getElementValue', 'restorePrevState', 'setGlobalCheckboxes');
