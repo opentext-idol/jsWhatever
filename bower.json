@@ -6,10 +6,11 @@
         "Tung Jin Chew <tung-jin.chew@hp.com>",
         "Liam Goodacre <liam.goodacre@hp.com>",
         "Matthew Gordon <matthew.gordon2@hp.com>",
-        "Xiaochen Guo <xiaochen.guo@hp.com>",
+        "Xiaochen Guo",
         "Alyona Ivanova <alyona.ivanova@hp.com>",
         "David Knipe <david.knipe@hp.com>",
-        "Jonathan Lancaster <jonathan.lancaster@hp.com>",
+        "Jonathan Lancaster",
+        "Luca Mandrioli",
         "Alex Scown <alex.scown@hp.com>"
     ],
     "description": "Collection of Javascript utilities used in HP Autonomy Frontend Projects",
