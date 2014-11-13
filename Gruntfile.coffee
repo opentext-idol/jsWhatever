@@ -148,7 +148,7 @@ module.exports = (grunt) ->
   grunt.loadNpmTasks 'grunt-coffeelint'
   grunt.loadNpmTasks 'grunt-jsdoc'
 
-  grunt.registerTask 'default', 'test'
+  grunt.registerTask 'default', ['lint', 'connect:server', 'jasmine:test', 'jasmine:coverage']
   grunt.registerTask 'test', ['connect:server', 'jasmine:test']
   grunt.registerTask 'browser-test', ['connect:server:keepalive']
   grunt.registerTask 'coverage', ['connect:server', 'jasmine:coverage']
