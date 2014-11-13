@@ -5,13 +5,15 @@ module.exports = (grunt) ->
   jasmineSpecRunner = 'spec-runner.html'
   coverageSpecRunner = 'coverage-runner.html'
 
-  sourcePath = 'src/main/exports/javascript-utils/js/**/*.js'
+  sourcePath = 'src/js/**/*.js'
 
-  testRequireConfig = 'src/test/js/js-test-require-config.js'
-  specs = 'src/test/js/spec/**/*.js'
+  documentation = 'doc'
+  testRequireConfig = 'test/js/js-test-require-config.js'
+  specs = 'test/js/spec/**/*.js'
   styles = 'bower_components/hp-autonomy-js-testing-utils/src/css/bootstrap-stub.css'
   serverPort = 8000
   host = "http://localhost:#{serverPort}/"
+  helpers = 'bower_components/hp-autonomy-js-testing-utils/src/js/jasmine-custom-matcher.js'
 
   grunt.initConfig
     pkg: grunt.file.readJSON 'package.json'
@@ -20,6 +22,7 @@ module.exports = (grunt) ->
       coverageSpecRunner
       'bin'
       '.grunt'
+      documentation
     ]
     connect:
       server:
@@ -29,6 +32,7 @@ module.exports = (grunt) ->
       test:
         src: sourcePath
         options:
+          helpers: helpers
           host: host
           keepRunner: true
           outfile: jasmineSpecRunner
@@ -40,6 +44,7 @@ module.exports = (grunt) ->
       coverage:
         src: sourcePath
         options:
+          helpers: helpers
           host: host
           keepRunner: true
           outfile: coverageSpecRunner
@@ -82,9 +87,7 @@ module.exports = (grunt) ->
     jshint:
       all: [
         sourcePath
-        'src/test/js/mock/*.js'
-        'src/test/js/spec/*.js'
-        'src/test/js/*.js'
+        specs
       ],
       options:
         asi: true
@@ -120,18 +123,34 @@ module.exports = (grunt) ->
           runs: false
           waits: false
           waitsFor: false
+          spyOn: false
+          xit: false
+          xdescribe: false
     coffeelint:
       app: [
         'Gruntfile.coffee'
       ]
+      options:
+        max_line_length:
+          level: 'ignore'
+    jsdoc:
+      dist:
+        src: ['src/**/*.js', 'README.md']
+        options:
+          destination: documentation
+          template: 'node_modules/ink-docstrap/template'
+          configure: 'jsdoc.conf.json'
 
   grunt.loadNpmTasks 'grunt-contrib-clean'
   grunt.loadNpmTasks 'grunt-contrib-connect'
   grunt.loadNpmTasks 'grunt-contrib-jasmine'
   grunt.loadNpmTasks 'grunt-contrib-jshint'
   grunt.loadNpmTasks 'grunt-coffeelint'
+  grunt.loadNpmTasks 'grunt-jsdoc'
 
-  grunt.registerTask 'default', 'test'
+  grunt.registerTask 'default', ['lint', 'connect:server', 'jasmine:test', 'jasmine:coverage']
   grunt.registerTask 'test', ['connect:server', 'jasmine:test']
+  grunt.registerTask 'browser-test', ['connect:server:keepalive']
   grunt.registerTask 'coverage', ['connect:server', 'jasmine:coverage']
   grunt.registerTask 'lint', ['jshint', 'coffeelint']
+  grunt.registerTask 'doc', ['jsdoc']
