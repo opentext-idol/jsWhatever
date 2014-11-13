@@ -18,7 +18,7 @@ define([
         this.update = _.bind(this.update, this);
     }
 
-    _.extends(Repeater.prototype, /** @lends module:js-utils/js/repeater.Repeater.prototype */{
+    _.extend(Repeater.prototype, /** @lends module:js-utils/js/repeater.Repeater.prototype */{
         /**
          * @desc Stops the timeout
          * @returns {Repeater} this
