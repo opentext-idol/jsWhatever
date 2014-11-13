@@ -1,6 +1,6 @@
-# javascript-utils
+# frontend-javascript-utils
 
-[![Build Status](https://travis-ci.org/hpautonomy/javascript-utils.svg?branch=master)](https://travis-ci.org/hpautonomy/javascript-utils)
+[![Build Status](https://travis-ci.org/hpautonomy/frontend-javascript-utils.svg?branch=master)](https://travis-ci.org/hpautonomy/frontend-javascript-utils)
 
 A collection of Javascript utilities using Backbone and Bootstrap 2.
 
