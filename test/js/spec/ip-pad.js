@@ -1,5 +1,5 @@
 define([
-    'js-utils/js/ip-pad'
+    'js-whatever/js/ip-pad'
 ], function(ipPad) {
 
     describe('IP Pad', function() {

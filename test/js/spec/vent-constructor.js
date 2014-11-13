@@ -1,5 +1,5 @@
 define([
-    'js-utils/js/vent-constructor',
+    'js-whatever/js/vent-constructor',
     'underscore'
 ], function(VentConstructor, _) {
 

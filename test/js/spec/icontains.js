@@ -1,5 +1,5 @@
 define([
-    'js-utils/js/icontains',
+    'js-whatever/js/icontains',
     'underscore'
 ], function () {
 

@@ -1,5 +1,5 @@
 define([
-    'js-utils/js/autoload-methods',
+    'js-whatever/js/autoload-methods',
     'js-testing/backbone-mock-factory'
 ], function(autoloadMethods, backboneMock) {
 

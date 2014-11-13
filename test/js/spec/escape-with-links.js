@@ -1,6 +1,6 @@
 define([
-	'js-utils/js/escape-with-links',
-	'js-utils/js/regex-replace',
+	'js-whatever/js/escape-with-links',
+	'js-whatever/js/regex-replace',
 	'sinon',
 	'underscore',
     'jasmine-sinon'

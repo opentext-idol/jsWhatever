@@ -1,5 +1,5 @@
 define([
-    'js-utils/js/tab-page',
+    'js-whatever/js/tab-page',
     'js-testing/backbone-mock-factory',
     'underscore'
 ], function(TabPage, backboneMockFactory, _) {

@@ -1,5 +1,5 @@
 define([
-    'js-utils/js/colour-manager'
+    'js-whatever/js/colour-manager'
 ], function (ColourManager) {
 
     var numberPredefined = 11;

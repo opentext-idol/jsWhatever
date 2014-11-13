@@ -1,5 +1,5 @@
 define([
-    'js-utils/js/ensure-array'
+    'js-whatever/js/ensure-array'
 ], function (ensureArray) {
 
     describe('Utility: Ensure Array', function () {

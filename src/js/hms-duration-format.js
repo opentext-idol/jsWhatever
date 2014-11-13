@@ -1,10 +1,10 @@
 /**
- * @module js-utils/js/hms-duration-format
+ * @module js-whatever/js/hms-duration-format
  */
 define(function() {
     //noinspection UnnecessaryLocalVariableJS
     /**
-     * @alias module:js-utils/js/hms-duration-format
+     * @alias module:js-whatever/js/hms-duration-format
      * @desc Formats a duration as a string comprising of days, hours, minutes and seconds
      * @param {number} duration The duration to format, in seconds
      * @param {DurationFormatStrings} strings Formatting strings to use

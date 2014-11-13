@@ -1,5 +1,5 @@
 define([
-    'js-utils/js/list-view',
+    'js-whatever/js/list-view',
     'backbone'
 ], function(ListView, Backbone) {
 

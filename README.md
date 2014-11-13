@@ -1,17 +1,17 @@
-# frontend-javascript-utils
+# jsWhatever
 
-[![Build Status](https://travis-ci.org/hpautonomy/frontend-javascript-utils.svg?branch=master)](https://travis-ci.org/hpautonomy/frontend-javascript-utils)
+[![Build Status](https://travis-ci.org/hpautonomy/jsWhatever.svg?branch=master)](https://travis-ci.org/hpautonomy/jsWhatever)
 
 A collection of Javascript utilities using Backbone and Bootstrap 2.
 
-This project exposes AMD modules. The path to the project root directory must be aliased as js-utils. The module names
+This project exposes AMD modules. The path to the project root directory must be aliased as js-whatever. The module names
 in the documentation reflect this.
 
 This repo uses git-flow. develop is the development branch. master is the last known good branch.
 
 ## Installation
 
-    bower install hp-autonomy-javascript-utils
+    bower install hp-autonomy-jsWhatever
 
 ## Grunt tasks
 * grunt : runs the lint, test, and coverage tasks

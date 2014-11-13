@@ -1,5 +1,5 @@
 define([
-    'js-utils/js/hms-duration-format'
+    'js-whatever/js/hms-duration-format'
 ], function(durationFormat){
 
     describe('Utility: HMSDurationFormat', function(){

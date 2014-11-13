@@ -1,6 +1,6 @@
 define([
-    'js-utils/js/checkbox-modal',
-    'text!js-utils/templates/checkbox-modal/radio-table.html',
+    'js-whatever/js/checkbox-modal',
+    'text!js-whatever/templates/checkbox-modal/radio-table.html',
     'jasmine-jquery'
 ], function(CheckboxModal, radioTemplate) {
 

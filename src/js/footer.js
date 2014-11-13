@@ -1,12 +1,12 @@
 /**
- * @module js-utils/js/footer
+ * @module js-whatever/js/footer
  */
 define([
     'backbone',
     'store',
-    'text!js-utils/templates/footer/footer.html',
-    'text!js-utils/templates/footer/footer-tab.html',
-    'text!js-utils/templates/footer/footer-tab-view.html'
+    'text!js-whatever/templates/footer/footer.html',
+    'text!js-whatever/templates/footer/footer-tab.html',
+    'text!js-whatever/templates/footer/footer-tab-view.html'
 ], function(Backbone, store, footerTemplate, tabTemplate, viewTemplate) {
 
     /**
@@ -28,14 +28,14 @@ define([
      * @property {Array<FooterTabData>} tabData Defines the tabs in the footer
      */
     /**
-     * @name module:js-utils/js/footer.Footer
+     * @name module:js-whatever/js/footer.Footer
      * @desc View representing a page footer which can have multiple tabs and be minimised. The state of the footer is
      * stored in local storage
      * @param {FooterOptions} options
      * @constructor
      * @extends Backbone.View
      */
-    return Backbone.View.extend(/** @lends module:js-utils/js/footer.Footer.prototype */{
+    return Backbone.View.extend(/** @lends module:js-whatever/js/footer.Footer.prototype */{
         /**
          * @desc Classes added to footer element
          * @type {string}

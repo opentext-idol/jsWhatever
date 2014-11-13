@@ -1,6 +1,6 @@
 define([
-    'js-utils/js/abstract-pages',
-    'js-utils/js/vent-constructor',
+    'js-whatever/js/abstract-pages',
+    'js-whatever/js/vent-constructor',
     'backbone',
     'js-testing/backbone-mock-factory'
 ], function(AbstractPages, Vent, Backbone, backboneMockFactory) {

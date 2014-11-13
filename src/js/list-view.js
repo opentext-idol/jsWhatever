@@ -1,5 +1,5 @@
 /**
- * @module js-utils/js/list-view
+ * @module js-whatever/js/list-view
  */
 define([
     'backbone'
@@ -18,13 +18,13 @@ define([
      * @property {object} [itemTemplateOptions={}] Options passed to itemTemplate
      */
     /**
-     * @name module:js-utils/js/list-view.ListView
+     * @name module:js-whatever/js/list-view.ListView
      * @desc View representing a Backbone.Collection. Re-renders items in response to changes in the collection
      * @constructor
      * @param {ListViewOptions} options
      * @extends Backbone.View
      */
-    return Backbone.View.extend(/** @lends module:js-utils/js/list-view.ListView.prototype */{
+    return Backbone.View.extend(/** @lends module:js-whatever/js/list-view.ListView.prototype */{
 
         initialize: function(options) {
             this.itemFilter = options.itemFilter || defaultItemFilter;

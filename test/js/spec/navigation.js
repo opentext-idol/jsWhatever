@@ -1,5 +1,5 @@
 define([
-    'js-utils/js/navigation'
+    'js-whatever/js/navigation'
 ], function(Navigation) {
 
     var router = jasmine.createSpyObj('router', ['on']);

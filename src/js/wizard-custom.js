@@ -1,10 +1,10 @@
 /**
- * @module js-utils/js/wizard-custom
+ * @module js-whatever/js/wizard-custom
  */
 define([
     'backbone',
     'underscore',
-    'text!js-utils/templates/wizard/wizard.html',
+    'text!js-whatever/templates/wizard/wizard.html',
     'jquery-steps'
 ], function(Backbone, _, template) {
     /**
@@ -29,14 +29,14 @@ define([
      * @property {object} [renderOptions] Additional options passed to the template
      */
     /**
-     * @name module:js-utils/js/wizard-custom.WizardCustom
+     * @name module:js-whatever/js/wizard-custom.WizardCustom
      * @desc Backbone wrapper around the jQuery steps plugin
      * @constructor
      * @param {WizardOptions} options
      * @extends Backbone.View
      * @see http://www.jquery-steps.com/
      */
-    return Backbone.View.extend(/** @lends module:js-utils/js/wizard-custom.WizardCustom.prototype */{
+    return Backbone.View.extend(/** @lends module:js-whatever/js/wizard-custom.WizardCustom.prototype */{
 
         /**
          * @desc Template function for the wizard

@@ -1,5 +1,5 @@
 define([
-    'js-utils/js/duration-format'
+    'js-whatever/js/duration-format'
 ], function(durationFormat){
 
     describe('Utility: durationFormat', function(){

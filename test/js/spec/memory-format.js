@@ -1,5 +1,5 @@
 define([
-    'js-utils/js/memory-format'
+    'js-whatever/js/memory-format'
 ], function(memoryFormat){
     describe('Utility: memoryFormat', function(){
         it('10 bytes', function(){

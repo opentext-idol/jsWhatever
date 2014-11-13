@@ -1,5 +1,5 @@
 define([
-    'js-utils/js/tab-view',
+    'js-whatever/js/tab-view',
     'backbone'
 ], function(TabView, Backbone) {
 

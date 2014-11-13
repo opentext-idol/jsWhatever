@@ -1,5 +1,5 @@
 define([
-    'js-utils/js/discrete-plural'
+    'js-whatever/js/discrete-plural'
 ], function(discretePlural) {
 
     describe('Discrete plural', function() {

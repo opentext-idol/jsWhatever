@@ -1,5 +1,5 @@
 /**
- * @module js-utils/js/discrete-plural
+ * @module js-whatever/js/discrete-plural
  */
 define(function() {
     //noinspection UnnecessaryLocalVariableJS
@@ -11,7 +11,7 @@ define(function() {
      * plural string for all other numbers.
      */
     /**
-     * @alias module:js-utils/js/discrete-plural
+     * @alias module:js-whatever/js/discrete-plural
      * @desc Generates a function which returns a pluralised form for a given number of items
      * @param {string} singular The singular form of the string
      * @param {string} plural The plural form of the string

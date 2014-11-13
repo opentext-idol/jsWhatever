@@ -1,25 +1,25 @@
 /**
- * @module js-utils/js/navigation
+ * @module js-whatever/js/navigation
  */
 define([
     'backbone',
-    'text!js-utils/templates/navigation.html'
+    'text!js-whatever/templates/navigation.html'
 ], function(Backbone, template) {
 
     /**
      * @typedef NavigationOptions
      * @property {string} event This event is observed on the router to respond to navigation changes
      * @property {Backbone.Router} router The router to observe for navigation events
-     * @property {module:js-utils/js/abstract-pages.AbstractPages} pages Pages which will be linked to from the navbar
+     * @property {module:js-whatever/js/abstract-pages.AbstractPages} pages Pages which will be linked to from the navbar
      */
     /**
-     * @name module:js-utils/js/navigation.Navigation
+     * @name module:js-whatever/js/navigation.Navigation
      * @desc Wrapper around a Bootstrap navbar to handle updating the active link
      * @constructor
      * @param {NavigationOptions} options
      * @extends Backbone.View
      */
-    return Backbone.View.extend(/** @lends module:js-utils/js/navigation.Navigation.prototype */{
+    return Backbone.View.extend(/** @lends module:js-whatever/js/navigation.Navigation.prototype */{
         /**
          * @desc Returns parameters which are passed to the template. Defaults to a no-op
          * @method

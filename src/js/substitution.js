@@ -1,11 +1,11 @@
 /**
- * @module js-utils/js/substitution
+ * @module js-whatever/js/substitution
  */
 define(['underscore'], function(_) {
 
     //noinspection UnnecessaryLocalVariableJS
     /**
-     * @alias module:js-utils/js/substitution
+     * @alias module:js-whatever/js/substitution
      * @desc Interpolates placeholders of the form {n} in strings, turning the strings into functions and allowing
      * arguments to be passed in to hide string concatenation
      * @param {object} i18n Object containing strings to interpolate

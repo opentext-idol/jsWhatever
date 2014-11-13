@@ -1,11 +1,11 @@
 /**
- * @module js-utils/js/repeater
+ * @module js-whatever/js/repeater
  */
 define([
     'underscore'
 ], function () {
     /**
-     * @name module:js-utils/js/repeater.Repeater
+     * @name module:js-whatever/js/repeater.Repeater
      * @desc Wrapper around setTimeout that allows for the control of the timeout
      * @param {function} f The function to be called
      * @param {number} interval The number of milliseconds between invocations of f
@@ -18,7 +18,7 @@ define([
         this.update = _.bind(this.update, this);
     }
 
-    _.extend(Repeater.prototype, /** @lends module:js-utils/js/repeater.Repeater.prototype */{
+    _.extend(Repeater.prototype, /** @lends module:js-whatever/js/repeater.Repeater.prototype */{
         /**
          * @desc Stops the timeout
          * @returns {Repeater} this

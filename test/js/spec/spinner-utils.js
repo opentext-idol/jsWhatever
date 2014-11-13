@@ -1,5 +1,5 @@
 define([
-    'js-utils/js/spinner-utils',
+    'js-whatever/js/spinner-utils',
     'jasmine-jquery'
 ], function(spinnerUtils) {
 

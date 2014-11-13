@@ -1,10 +1,10 @@
 /**
- * @module js-utils/js/ensure-array
+ * @module js-whatever/js/ensure-array
  */
 define(['underscore'], function(_){
     //noinspection UnnecessaryLocalVariableJS
     /**
-     * @alias module:js-utils/js/ensure-array
+     * @alias module:js-whatever/js/ensure-array
      * @desc Function which ensures an array is present. Useful for dealing with the results of JSON serialized
      * using the Badgerfish convention
      * @param {*} value Value to ensure is an array

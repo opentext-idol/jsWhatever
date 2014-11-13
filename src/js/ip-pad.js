@@ -1,10 +1,10 @@
 /**
- * @module js-utils/js/ip-pad
+ * @module js-whatever/js/ip-pad
  */
 define(function(){
     //noinspection UnnecessaryLocalVariableJS
     /**
-     * @alias module:js-utils/js/ip-pad
+     * @alias module:js-whatever/js/ip-pad
      * @desc Pads the components of an IPv4 address with leading zeros to allow them to be lexicographically sorted
      * @param {string} ip The IP address
      * @returns {string} The IP address with leading zeros

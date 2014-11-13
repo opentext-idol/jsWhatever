@@ -1,12 +1,12 @@
 /**
- * @module js-utils/js/select-element
+ * @module js-whatever/js/select-element
  */
 define([
     'jquery'
 ], function() {
     //noinspection UnnecessaryLocalVariableJS
     /**
-     * @alias module:js-utils/js/select-element
+     * @alias module:js-whatever/js/select-element
      * @desc Selects the text content of an element, allowing users to copy it to the clipboard. Works in all
      * browsers
      * @param {string|jQuery} selector The element to obtain the text of

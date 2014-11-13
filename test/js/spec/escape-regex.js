@@ -1,5 +1,5 @@
 define([
-    'js-utils/js/escape-regex'
+    'js-whatever/js/escape-regex'
 ], function (escapeRegex) {
     describe('Utility: escapeRegex', function () {
 

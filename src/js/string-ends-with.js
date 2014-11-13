@@ -1,5 +1,5 @@
 /**
- * @module js-utils/js/string-ends-with
+ * @module js-whatever/js/string-ends-with
  */
 define([
     'underscore'

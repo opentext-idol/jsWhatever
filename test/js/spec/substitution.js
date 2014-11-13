@@ -1,5 +1,5 @@
 define([
-    'js-utils/js/substitution'
+    'js-whatever/js/substitution'
 ], function(substitution) {
 
     describe('i18n substitution', function() {
