@@ -1,5 +1,5 @@
 /**
- * @module js-utils/js/listenable
+ * @module js-whatever/js/listenable
  */
 define([
     'jquery',
@@ -9,7 +9,7 @@ define([
     var DATA_KEY = 'listenable';
 
     /**
-     * @alias module:js-utils/js/listenable
+     * @alias module:js-whatever/js/listenable
      * @desc Allows jQuery wrapped objects to be used with backbone style events. e.g. listenTo and stopListening
      * @param {string|jQuery} el The element to be wrapped
      * @returns {{on: Function, off: Function}} A object which can be consumed by Backbone's listenTo and stopListening

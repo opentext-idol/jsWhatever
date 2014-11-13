@@ -1,17 +1,17 @@
 /**
- * @module js-utils/js/lazy-tab-view
+ * @module js-whatever/js/lazy-tab-view
  */
 define([
-    'js-utils/js/tab-view'
+    'js-whatever/js/tab-view'
 ], function(TabView) {
 
     /**
-     * @name module:js-utils/js/lazy-tab-view.LazyTabView
-     * @desc Version of {@link module:js-utils/js/tab-view.TabView|TabView} which doesn't render views until they are required.
+     * @name module:js-whatever/js/lazy-tab-view.LazyTabView
+     * @desc Version of {@link module:js-whatever/js/tab-view.TabView|TabView} which doesn't render views until they are required.
      * @constructor
-     * @extends module:js-utils/js/tab-view.TabView
+     * @extends module:js-whatever/js/tab-view.TabView
      */
-    return TabView.extend(/** @lends module:js-utils/js/lazy-tab-view.LazyTabView.prototype */{
+    return TabView.extend(/** @lends module:js-whatever/js/lazy-tab-view.LazyTabView.prototype */{
 
         /**
          * @desc Shows a tab in response to an event from the jQuery plugin. Renders a view if it hasn't been rendered

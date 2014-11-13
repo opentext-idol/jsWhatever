@@ -1,5 +1,5 @@
 /**
- * @module js-utils/js/tab-view
+ * @module js-whatever/js/tab-view
  */
 define([
     'backbone',
@@ -16,18 +16,18 @@ define([
      * @typedef TabViewOptions
      * @property {Array<TabData>} tabs The tabs that comprise the view
      * @property {Backbone.Router} router The router to use for navigation
-     * @property {module:js-utils/js/vent-constructor.Vent} vent The vent used for navigation
+     * @property {module:js-whatever/js/vent-constructor.Vent} vent The vent used for navigation
      * @property {string} [appPrefix=page] The initial part of routes for the application
      * @property {string} routePrefix The prefix for routes leading up to the tabView
      */
     /**
-     * @name module:js-utils/js/tab-view.TabView
+     * @name module:js-whatever/js/tab-view.TabView
      * @desc Wrapper around the jQuery UI tabs widget
      * @constructor
      * @param {TabViewOptions} options
      * @extends Backbone.View
      */
-    return Backbone.View.extend(/** @lends module:js-utils/js/tab-view.TabView.prototype */{
+    return Backbone.View.extend(/** @lends module:js-whatever/js/tab-view.TabView.prototype */{
 
         initialize: function(options) {
             _.bindAll(this, 'showTab', 'selectTab');

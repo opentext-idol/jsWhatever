@@ -1,13 +1,13 @@
 /**
- * @module js-utils/js/confirm
+ * @module js-whatever/js/confirm
  */
 define([
-    'js-utils/js/confirm-view'
+    'js-whatever/js/confirm-view'
 ], function(Confirm){
     //noinspection UnnecessaryLocalVariableJS
     /**
-     * @alias module:js-utils/js/confirm
-     * @desc Creates and returns a new instance of {@link module:js-utils/js/confirm-view.ConfirmView|ConfirmView}
+     * @alias module:js-whatever/js/confirm
+     * @desc Creates and returns a new instance of {@link module:js-whatever/js/confirm-view.ConfirmView|ConfirmView}
      * @param {ConfirmViewOptions} config Options passed to the confirm view
      */
     var confirm = function(config) {

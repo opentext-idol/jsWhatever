@@ -1,6 +1,6 @@
 define([
     'backbone',
-    'js-utils/js/listenable'
+    'js-whatever/js/listenable'
 ], function(Backbone, listenable) {
 
     describe('listenable', function() {

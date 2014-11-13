@@ -1,5 +1,5 @@
 /**
- * @module js-utils/js/spinner-utils
+ * @module js-whatever/js/spinner-utils
  * @desc Utility functions for dealing with spinner classes
  */
 define(function() {
@@ -7,7 +7,7 @@ define(function() {
 
     //noinspection UnnecessaryLocalVariableJS
     /**
-     * @alias module:js-utils/js/spinner-utils
+     * @alias module:js-whatever/js/spinner-utils
      * @type {{enableSpinner: Function, disableSpinner: Function}}
      */
     var spinnerUtils = {

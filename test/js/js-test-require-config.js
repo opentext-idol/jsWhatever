@@ -43,14 +43,14 @@ define(function() {
             }
         },
         // the jasmine grunt plugin loads all files based on their paths on disk
-        // this breaks imports beginning in real or js-utils
+        // this breaks imports beginning in real or js-whatever
         // map here fixes it
         // list mocks here, not above
         map: {
             '*': {
-                'js-utils': 'src',
-                'js-utils/js/lazy-tab-view': 'test/mock/lazy-tab-view',
-                'js-utils/js/regex-replace': 'test/mock/regex-replace',
+                'js-whatever': 'src',
+                'js-whatever/js/lazy-tab-view': 'test/mock/lazy-tab-view',
+                'js-whatever/js/regex-replace': 'test/mock/regex-replace',
                 'real': 'src'
             }
         }

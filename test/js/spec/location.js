@@ -1,5 +1,5 @@
 define([
-    'js-utils/js/location'
+    'js-whatever/js/location'
 ], function (location) {
 
     describe('Utility: `Location`', function () {

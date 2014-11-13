@@ -1,6 +1,6 @@
 define([
     'backbone',
-    'js-utils/js/footer',
+    'js-whatever/js/footer',
     'store',
     'bootstrap',
     'jasmine-jquery'

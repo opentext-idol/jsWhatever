@@ -1,5 +1,5 @@
 /**
- * @module js-utils/js/abstract-pages
+ * @module js-whatever/js/abstract-pages
  */
 define([
     'backbone',
@@ -7,12 +7,12 @@ define([
 ], function(Backbone, _) {
 
     /**
-     * @name module:js-utils/js/abstract-pages.AbstractPages
+     * @name module:js-whatever/js/abstract-pages.AbstractPages
      * @constructor
      * @desc Abstract base class for representing groups of pages
      * @extends Backbone.View
      */
-    return Backbone.View.extend(/** @lends module:js-utils/js/abstract-pages.AbstractPages.prototype */ {
+    return Backbone.View.extend(/** @lends module:js-whatever/js/abstract-pages.AbstractPages.prototype */ {
         /**
          * @desc Backbone.Router instance which is observed for navigation events
          * @abstract
@@ -21,7 +21,7 @@ define([
 
         /**
          * @desc Instance of Vent used for navigation
-         * @type {module:js-utils/js/vent-constructor.Vent}
+         * @type {module:js-whatever/js/vent-constructor.Vent}
          * @abstract
          */
         vent: null,
@@ -47,7 +47,7 @@ define([
         /**
          * @desc Sets the value of this.pages to the list of page objects.
          * These must have a pageName and a constructor function.
-         * The constructors should extend {@link module:js-utils/js/base-page.BasePage|BasePage}
+         * The constructors should extend {@link module:js-whatever/js/base-page.BasePage|BasePage}
          * @abstract
          * @method
          * @example

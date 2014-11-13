@@ -1,5 +1,5 @@
 define([
-    'js-utils/js/dirty-base-page'
+    'js-whatever/js/dirty-base-page'
 ], function(DirtyBasePage) {
 
     describe('Dirty base page', function() {

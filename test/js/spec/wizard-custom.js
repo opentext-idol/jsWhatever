@@ -1,5 +1,5 @@
 define([
-    'js-utils/js/wizard-custom',
+    'js-whatever/js/wizard-custom',
     'js-testing/backbone-mock-factory'
 ], function(Wizard, backboneMockFactory) {
 

@@ -1,5 +1,5 @@
 /**
- * @module js-utils/js/autoload-methods
+ * @module js-whatever/js/autoload-methods
  * @desc Methods for Backbone models and collections which fetch themselves upon instantiation
  * @abstract
  */

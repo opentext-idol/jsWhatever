@@ -1,5 +1,5 @@
 define([
-    'js-utils/js/repeater'
+    'js-whatever/js/repeater'
 ], function (Repeater) {
 
     describe('Utility: `Repeater`', function () {

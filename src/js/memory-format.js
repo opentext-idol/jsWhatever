@@ -1,10 +1,10 @@
 /**
- * @module js-utils/js/memory-format
+ * @module js-whatever/js/memory-format
  */
 define(function(){
     //noinspection UnnecessaryLocalVariableJS
     /**
-     * @alias module:js-utils/js/memory-format
+     * @alias module:js-whatever/js/memory-format
      * @desc Formats a number of bytes to one decimal place in the largest available unit
      * @param {number} bytes The number of bytes to format
      * @param {number} [multiple] The number of bytes will be multiplied by this before being formatted. Useful if

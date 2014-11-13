@@ -1,12 +1,12 @@
 /**
- * @module js-utils/js/escape-with-links
+ * @module js-whatever/js/escape-with-links
  */
 define([
-    'js-utils/js/regex-replace',
+    'js-whatever/js/regex-replace',
     'underscore'
 ], function(regexReplace, _){
     /**
-     * @alias module:js-utils/js/escape-with-links
+     * @alias module:js-whatever/js/escape-with-links
      * @desc HTML escapes a string, replacing any hyperlinks found with &lt;a&gt; tags
      * @param {string} text The text to escape
      * @param {boolean} catchSpaces Whether spaces should be treated as part of the link (true) or as the end of the

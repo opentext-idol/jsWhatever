@@ -1,5 +1,5 @@
 define([
-    'js-utils/js/string-ends-with'
+    'js-whatever/js/string-ends-with'
 ], function () {
 
     describe('Utility: stringEndsWith `_.endsWith` underscore mixin', function () {

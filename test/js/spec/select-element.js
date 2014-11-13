@@ -1,5 +1,5 @@
 define([
-    'js-utils/js/select-element'
+    'js-whatever/js/select-element'
 ], function (selectElement) {
 
     var getSelectedText = function () {

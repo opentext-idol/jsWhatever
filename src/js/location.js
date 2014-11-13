@@ -1,5 +1,5 @@
 /**
- * @module js-utils/js/location
+ * @module js-whatever/js/location
  * @desc Wrapper around window.location, allowing for easier testing
  */
 define(function() {
@@ -12,7 +12,7 @@ define(function() {
 
     //noinspection UnnecessaryLocalVariableJS
     /**
-     * @alias module:js-utils/js/location
+     * @alias module:js-whatever/js/location
      */
     var location = {
 

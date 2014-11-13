@@ -1,11 +1,11 @@
 /**
- * @module js-utils/js/checkbox-modal
+ * @module js-whatever/js/checkbox-modal
  */
 define([
     'backbone',
-    'js-utils/js/ensure-array',
-    'text!js-utils/templates/checkbox-modal/checkbox-modal.html',
-    'text!js-utils/templates/checkbox-modal/checkbox-table.html'
+    'js-whatever/js/ensure-array',
+    'text!js-whatever/templates/checkbox-modal/checkbox-modal.html',
+    'text!js-whatever/templates/checkbox-modal/checkbox-table.html'
 ], function(Backbone, ensureArray, checkboxModal, checkboxTable) {
     /**
      * @typedef CheckboxModalTable
@@ -27,12 +27,12 @@ define([
      * @property {string} [cancelClass=''] Class for the cancel button
      * @property {boolean} [atLeastOneElementSelected=false] Set this to true if a checkbox
      * @property {object} i18n Object containing i18n strings
-     * @property {module:js-utils/js/vent-constructor.Vent} vent Instance of Vent used to track resize events
+     * @property {module:js-whatever/js/vent-constructor.Vent} vent Instance of Vent used to track resize events
      * @property {string} [checkboxOrRadio=checkbox] Should be set to 'checkbox' or 'radio' according to the inputs
      * used in your template
      */
     /**
-     * @name module:js-utils/js/checkbox-modal.CheckboxModal
+     * @name module:js-whatever/js/checkbox-modal.CheckboxModal
      * @desc Bootstrap modal which displays tables containing checkboxes or radio buttons, which can be toggled individually or
      * through a global checkbox
      * @constructor
@@ -56,7 +56,7 @@ define([
      *     }]
      * });
      */
-    return Backbone.View.extend(/** @lends module:js-utils/js/checkbox-modal.CheckboxModal.prototype */{
+    return Backbone.View.extend(/** @lends module:js-whatever/js/checkbox-modal.CheckboxModal.prototype */{
 
         initialize: function(init) {
             _.bindAll(this, 'render', 'setRows', 'setRow', 'getSelectedRows', 'remove', 'resizeModal',

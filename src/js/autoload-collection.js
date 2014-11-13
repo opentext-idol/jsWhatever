@@ -1,14 +1,14 @@
 /**
- * @module js-utils/js/autoload-collection
+ * @module js-whatever/js/autoload-collection
  */
 define([
     'backbone',
-    'js-utils/js/autoload-methods'
+    'js-whatever/js/autoload-methods'
 ], function(Backbone, autoloadMethods) {
 
     /**
-     * @name module:js-utils/js/autoload-collection.AutoloadCollection
-     * @desc A Backbone.Collection which incorporates {@link module:js-utils/js/autoload-methods|AutoloadMethods}
+     * @name module:js-whatever/js/autoload-collection.AutoloadCollection
+     * @desc A Backbone.Collection which incorporates {@link module:js-whatever/js/autoload-methods|AutoloadMethods}
      * @constructor
      * @extends Backbone.Collection
      * @abstract

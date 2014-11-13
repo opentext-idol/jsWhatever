@@ -1,5 +1,5 @@
 /**
- * @module js-utils/js/duration-format
+ * @module js-whatever/js/duration-format
  */
 define([
     'underscore'
@@ -18,7 +18,7 @@ define([
      */
     //noinspection UnnecessaryLocalVariableJS
     /**
-     * @alias module:js-utils/js/duration-format
+     * @alias module:js-whatever/js/duration-format
      * @desc Rounds a duration to the specified precision. The duration is represented in terms of the largest
      * possible interval (from days, hours, minutes, seconds, milliseconds)
      * @param {number} ms The duration to format in milliseconds

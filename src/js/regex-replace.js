@@ -1,9 +1,9 @@
 /**
- * @module js-utils/js/regex-replace
+ * @module js-whatever/js/regex-replace
  */
 define(function(){
     /**
-     * @alias module:js-utils/js/regex-replace
+     * @alias module:js-whatever/js/regex-replace
      * @desc Version of 'string'.replace(regex, function(){}) which will apply noFn to the parts of the string that
      * don't match and yesFn to the parts which do match
      * @param {RegExp} regex

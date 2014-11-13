@@ -1,9 +1,9 @@
 /**
- * @module js-utils/js/empty-navbar
+ * @module js-whatever/js/empty-navbar
  */
 define([
     'backbone',
-    'text!js-utils/templates/empty-navbar.html'
+    'text!js-whatever/templates/empty-navbar.html'
 ], function(Backbone, template) {
 
     var defaultOptions = {
@@ -24,13 +24,13 @@ define([
      * @property {EmptyNavbarStrings} strings
      */
     /**
-     * @name module:js-utils/js/empty-navbar.EmptyNavbar
+     * @name module:js-whatever/js/empty-navbar.EmptyNavbar
      * @desc Renders an empty top navbar that may contain a logout button
      * @constructor
      * @param {EmptyNavbarOptions} [options={showLogout: true}]
      * @extends Backbone.View
      */
-    return Backbone.View.extend(/** @lends module:js-utils/js/empty-navbar.EmptyNavbar.prototype */{
+    return Backbone.View.extend(/** @lends module:js-whatever/js/empty-navbar.EmptyNavbar.prototype */{
 
         template: _.template(template),
 

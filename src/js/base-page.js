@@ -1,12 +1,12 @@
 /**
- * @module js-utils/js/base-page
+ * @module js-whatever/js/base-page
  */
 define([
     'backbone'
 ], function(Backbone) {
 
     /**
-     * @name module:js-utils/js/base-page.BasePage
+     * @name module:js-whatever/js/base-page.BasePage
      * @desc Abstract base class representing a page. All application pages should extend from this or implement the
      * same methods.
      * Base pages will start hidden.
@@ -14,14 +14,14 @@ define([
      * @extends Backbone.View
      * @abstract
      */
-    return Backbone.View.extend(/** @lends module:js-utils/js/base-page.BasePage.prototype */{
+    return Backbone.View.extend(/** @lends module:js-whatever/js/base-page.BasePage.prototype */{
 
         attributes: {
             style: 'display:none;'
         },
 
         /**
-         * @desc Shows the page and calls the {@link module:js-utils/js/base-page.BasePage#update|update} method
+         * @desc Shows the page and calls the {@link module:js-whatever/js/base-page.BasePage#update|update} method
          */
         show: function() {
             this.$el.show();

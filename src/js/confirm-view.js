@@ -1,9 +1,9 @@
 /**
- * @module js-utils/js/confirm-view
+ * @module js-whatever/js/confirm-view
  */
 define([
     'backbone',
-    'text!js-utils/templates/confirm.html',
+    'text!js-whatever/templates/confirm.html',
     'underscore',
     'bootstrap'
 ], function(Backbone, template){
@@ -30,14 +30,14 @@ define([
      * if using Bootstrap 3
      */
     /**
-     * @name module:js-utils/js/confirm-view.ConfirmView
+     * @name module:js-whatever/js/confirm-view.ConfirmView
      * @desc Creates a Bootstrap modal which presents a message and the option to click OK and Cancel. By default it
      * uses Bootstrap 2 classes, but can be overridden for Bootstrap 3
      * @constructor
      * @param {ConfirmViewOptions} config
      * @extends Backbone.View
      */
-    return Backbone.View.extend(/** @lends module:js-utils/js/confirm-view.ConfirmView.prototype */{
+    return Backbone.View.extend(/** @lends module:js-whatever/js/confirm-view.ConfirmView.prototype */{
         /**
          * @desc {function} Default template, which can be overridden
          */

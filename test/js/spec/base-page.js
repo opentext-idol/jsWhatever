@@ -1,5 +1,5 @@
 define([
-    'js-utils/js/base-page'
+    'js-whatever/js/base-page'
 ], function(BasePage) {
 
     describe('Base Page', function() {
