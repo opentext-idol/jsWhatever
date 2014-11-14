@@ -141,13 +141,13 @@ module.exports = (grunt) ->
           template: 'node_modules/ink-docstrap/template'
           configure: 'jsdoc.conf.json'
     'gh-pages':
-        options:
-          base: 'doc'
-          message: 'Update documentation'
-          user:
-            name: 'Travis CI Server'
-            email: 'alex.scown@hp.com'
-        src: '**/*'
+      src: '**/*'
+      options:
+        base: 'doc'
+        message: 'Update documentation'
+        user:
+          name: 'Travis CI Server'
+        email: 'alex.scown@hp.com'
 
   grunt.loadNpmTasks 'grunt-contrib-clean'
   grunt.loadNpmTasks 'grunt-contrib-connect'
