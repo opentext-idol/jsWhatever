@@ -140,19 +140,21 @@ module.exports = (grunt) ->
           destination: documentation
           template: 'node_modules/ink-docstrap/template'
           configure: 'jsdoc.conf.json'
-    githubPages:
-      target:
+    'gh-pages':
         options:
-          commitMessage: 'Update documentation'
-        src: 'doc'
-        dest: '_doc'
+          base: 'doc'
+          message: 'Update documentation'
+          user:
+            name: 'Travis CI Server'
+            email: 'alex.scown@hp.com'
+        src: '**/*'
 
   grunt.loadNpmTasks 'grunt-contrib-clean'
   grunt.loadNpmTasks 'grunt-contrib-connect'
   grunt.loadNpmTasks 'grunt-contrib-jasmine'
   grunt.loadNpmTasks 'grunt-contrib-jshint'
   grunt.loadNpmTasks 'grunt-coffeelint'
-  grunt.loadNpmTasks 'grunt-github-pages'
+  grunt.loadNpmTasks 'grunt-gh-pages'
   grunt.loadNpmTasks 'grunt-jsdoc'
 
   grunt.registerTask 'default', ['lint', 'connect:server', 'jasmine:test', 'jasmine:coverage']
@@ -161,4 +163,4 @@ module.exports = (grunt) ->
   grunt.registerTask 'coverage', ['connect:server', 'jasmine:coverage']
   grunt.registerTask 'lint', ['jshint', 'coffeelint']
   grunt.registerTask 'doc', ['jsdoc']
-  grunt.registerTask 'push-doc', ['doc', 'githubPages:target']
+  grunt.registerTask 'push-doc', ['doc', 'gh-pages']
