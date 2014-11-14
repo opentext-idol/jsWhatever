@@ -12,3 +12,7 @@ spec-runner.html
 coverage-runner.html
 .grunt/
 bin
+
+# Documentation
+doc/
+_doc/
