@@ -7,6 +7,8 @@ A collection of Javascript utilities using Backbone and Bootstrap 2.
 This project exposes AMD modules. The path to the project root directory must be aliased as js-whatever. The module names
 in the documentation reflect this.
 
+Documentation can be found [here](http://hpautonomy.github.io/jsWhatever).
+
 This repo uses git-flow. develop is the development branch. master is the last known good branch.
 
 ## Installation
