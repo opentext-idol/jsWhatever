@@ -3,7 +3,7 @@
 <html lang="en">
 <head>
 	<meta charset="utf-8">
-	<title>HP Autonomy Frontend Javascript Utils Index</title>
+	<title>HP Autonomy Frontend Javascript Utils Source: icontains.js</title>
 
 	<!--[if lt IE 9]>
 	<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -264,61 +264,40 @@
 	<div class="row-fluid">
 
 		
-		<div class="span8">
-			
+			<div class="span12">
+				
 				<div id="main">
 					
 
 
-	
-	<span class="page-title">Index</span>
-	
-	
-
-
-
-
-
-
-
-
-
-
-
-
-	
-	
-
-
-
-
-
-    <section class="readme-section">
-        <article><h1>jsWhatever</h1>
-<p><a href="https://travis-ci.org/hpautonomy/jsWhatever"><img src="https://travis-ci.org/hpautonomy/jsWhatever.svg?branch=master" alt="Build Status"></a></p>
-<p>A collection of Javascript utilities using Backbone and Bootstrap 2.</p>
-<p>This project exposes AMD modules. The path to the project root directory must be aliased as js-whatever. The module names
-in the documentation reflect this.</p>
-<p>This repo uses git-flow. develop is the development branch. master is the last known good branch.</p>
-<h2>Installation</h2>
-<pre><code>bower install hp-autonomy-jsWhatever</code></pre>
-<h2>Grunt tasks</h2>
-<ul>
-<li>grunt : runs the lint, test, and coverage tasks</li>
-<li>grunt test : Runs the Jasmine tests in Phantom JS</li>
-<li>grunt browser-test : Starts a server on localhost:8000, which can be used to run the Jasmine tests in the browser</li>
-<li>grunt coverage : Generates code coverage statistics</li>
-<li>grunt lint : Runs js-lint and coffeelint</li>
-<li>grunt doc : Generates project documentation</li>
-</ul>
-<h2>Is it any good?</h2>
-<p>Yes!</p>
-<h2>License</h2>
-<p>Copyright 2013-2014 Hewlett-Packard Development Company, L.P.</p>
-<p>Licensed under the MIT License (the &quot;License&quot;); you may not use this project except in compliance with the License.</p></article>
-    </section>
-
-
+		<h1 class="page-title">Source: icontains.js</h1>
+    
+<section>
+	<article>
+		<pre
+			class="sunlight-highlight-javascript linenums">/**
+ * @module js-whatever/js/icontains
+ * @desc jQuery pseudo selector to test if an element contains a particular string, ignoring case
+ * @example
+ * // &lt;div class="test">cats&lt;/div>
+ *
+ * var $test = $('.test');
+ *
+ * $test.filter(':icontains("cats")').length; // returns 1
+ * $test.filter(':icontains("CATS")').length; // returns 1
+ * $test.filter(':icontains("bears")').length; // returns 0
+ */
+define([
+    'jquery'
+], function(jQuery) {
+    jQuery.expr[':'].icontains = jQuery.expr.createPseudo(function(arg) {
+        return function(elem) {
+            return jQuery(elem).text().toUpperCase().indexOf(arg.toUpperCase()) >= 0;
+        };
+    });
+});</pre>
+	</article>
+</section>
 
 
 
@@ -343,10 +322,6 @@ in the documentation reflect this.</p>
 				</footer>
 			</div>
 
-			
-			<div class="span3">
-				<div id="toc"></div>
-			</div>
 			
 			<br clear="both">
 		</div>

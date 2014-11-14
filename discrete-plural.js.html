@@ -3,7 +3,7 @@
 <html lang="en">
 <head>
 	<meta charset="utf-8">
-	<title>HP Autonomy Frontend Javascript Utils Index</title>
+	<title>HP Autonomy Frontend Javascript Utils Source: discrete-plural.js</title>
 
 	<!--[if lt IE 9]>
 	<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -264,61 +264,57 @@
 	<div class="row-fluid">
 
 		
-		<div class="span8">
-			
+			<div class="span12">
+				
 				<div id="main">
 					
 
 
-	
-	<span class="page-title">Index</span>
-	
-	
+		<h1 class="page-title">Source: discrete-plural.js</h1>
+    
+<section>
+	<article>
+		<pre
+			class="sunlight-highlight-javascript linenums">/**
+ * @module js-whatever/js/discrete-plural
+ */
+define(function() {
+    //noinspection UnnecessaryLocalVariableJS
+    /**
+     * @typedef DiscretePluralFunction
+     * @type {function}
+     * @param {number} count The number of items
+     * @returns {string} The empty string for non-integer numbers. The singular string for the numbers 1 and -1. The
+     * plural string for all other numbers.
+     */
+    /**
+     * @alias module:js-whatever/js/discrete-plural
+     * @desc Generates a function which returns a pluralised form for a given number of items
+     * @param {string} singular The singular form of the string
+     * @param {string} plural The plural form of the string
+     * @returns {DiscretePluralFunction} The DiscretePluralFunction for the two strings
+     * @example
+     * var pluralFunction = discretePlural('kitten', 'kittens');
+     *
+     * pluralFunction(1); // returns '1 kitten'
+     * pluralFunction(-1); // returns '-1 kitten'
+     * pluralFunction(3); // returns '3 kittens'
+     * pluralFunction(1.5); //returns ''
+     */
+    var discretePlural = function(singular, plural) {
+        return function(count) {
+            if ((count % 1) !== 0) {
+                // prevents printing of fractional documents on flot axes
+                return '';
+            }
+            return count + (count === 1 || count === -1 ? ' ' + singular : ' ' + plural);
+        };
+    };
 
-
-
-
-
-
-
-
-
-
-
-
-	
-	
-
-
-
-
-
-    <section class="readme-section">
-        <article><h1>jsWhatever</h1>
-<p><a href="https://travis-ci.org/hpautonomy/jsWhatever"><img src="https://travis-ci.org/hpautonomy/jsWhatever.svg?branch=master" alt="Build Status"></a></p>
-<p>A collection of Javascript utilities using Backbone and Bootstrap 2.</p>
-<p>This project exposes AMD modules. The path to the project root directory must be aliased as js-whatever. The module names
-in the documentation reflect this.</p>
-<p>This repo uses git-flow. develop is the development branch. master is the last known good branch.</p>
-<h2>Installation</h2>
-<pre><code>bower install hp-autonomy-jsWhatever</code></pre>
-<h2>Grunt tasks</h2>
-<ul>
-<li>grunt : runs the lint, test, and coverage tasks</li>
-<li>grunt test : Runs the Jasmine tests in Phantom JS</li>
-<li>grunt browser-test : Starts a server on localhost:8000, which can be used to run the Jasmine tests in the browser</li>
-<li>grunt coverage : Generates code coverage statistics</li>
-<li>grunt lint : Runs js-lint and coffeelint</li>
-<li>grunt doc : Generates project documentation</li>
-</ul>
-<h2>Is it any good?</h2>
-<p>Yes!</p>
-<h2>License</h2>
-<p>Copyright 2013-2014 Hewlett-Packard Development Company, L.P.</p>
-<p>Licensed under the MIT License (the &quot;License&quot;); you may not use this project except in compliance with the License.</p></article>
-    </section>
-
-
+    return discretePlural;
+});</pre>
+	</article>
+</section>
 
 
 
@@ -343,10 +339,6 @@ in the documentation reflect this.</p>
 				</footer>
 			</div>
 
-			
-			<div class="span3">
-				<div id="toc"></div>
-			</div>
 			
 			<br clear="both">
 		</div>

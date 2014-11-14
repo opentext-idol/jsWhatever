@@ -3,7 +3,7 @@
 <html lang="en">
 <head>
 	<meta charset="utf-8">
-	<title>HP Autonomy Frontend Javascript Utils Index</title>
+	<title>HP Autonomy Frontend Javascript Utils Source: memory-format.js</title>
 
 	<!--[if lt IE 9]>
 	<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -264,61 +264,65 @@
 	<div class="row-fluid">
 
 		
-		<div class="span8">
-			
+			<div class="span12">
+				
 				<div id="main">
 					
 
 
-	
-	<span class="page-title">Index</span>
-	
-	
+		<h1 class="page-title">Source: memory-format.js</h1>
+    
+<section>
+	<article>
+		<pre
+			class="sunlight-highlight-javascript linenums">/**
+ * @module js-whatever/js/memory-format
+ */
+define(function(){
+    //noinspection UnnecessaryLocalVariableJS
+    /**
+     * @alias module:js-whatever/js/memory-format
+     * @desc Formats a number of bytes to one decimal place in the largest available unit
+     * @param {number} bytes The number of bytes to format
+     * @param {number} [multiple] The number of bytes will be multiplied by this before being formatted. Useful if
+     * the value you need to format is not in bytes
+     * @returns {string} A formatted string
+     * @example
+     * memoryFormat(10); // returns '10 B'
+     * memoryFormat(1024); // returns '1.0 KB'
+     * memoryFormat(2, 1024); // returns '2.0 KB'
+     */
+    var memoryFormat = function(bytes, multiple) {
+        if (multiple) {
+            bytes *= multiple;
+        }
 
+        if (!isFinite(bytes)) {
+            return String(bytes);
+        }
 
+        var magnitude = Math.abs(bytes);
 
+        if (magnitude >= 1099511627776) {
+            return (bytes / 1099511627776).toFixed(1) + ' TB';
+        }
+        else if (magnitude >= 1073741824) {
+            return (bytes / 1073741824).toFixed(1) + ' GB';
+        }
+        else if (magnitude >= 1048576) {
+            return (bytes / 1048576).toFixed(1) + ' MB';
+        }
+        else if (magnitude >= 1024) {
+            return (bytes / 1024).toFixed(1) + ' KB';
+        }
 
+        return Number(bytes).toFixed(0) + ' B';
+    };
 
-
-
-
-
-
-
-
-	
-	
-
-
-
-
-
-    <section class="readme-section">
-        <article><h1>jsWhatever</h1>
-<p><a href="https://travis-ci.org/hpautonomy/jsWhatever"><img src="https://travis-ci.org/hpautonomy/jsWhatever.svg?branch=master" alt="Build Status"></a></p>
-<p>A collection of Javascript utilities using Backbone and Bootstrap 2.</p>
-<p>This project exposes AMD modules. The path to the project root directory must be aliased as js-whatever. The module names
-in the documentation reflect this.</p>
-<p>This repo uses git-flow. develop is the development branch. master is the last known good branch.</p>
-<h2>Installation</h2>
-<pre><code>bower install hp-autonomy-jsWhatever</code></pre>
-<h2>Grunt tasks</h2>
-<ul>
-<li>grunt : runs the lint, test, and coverage tasks</li>
-<li>grunt test : Runs the Jasmine tests in Phantom JS</li>
-<li>grunt browser-test : Starts a server on localhost:8000, which can be used to run the Jasmine tests in the browser</li>
-<li>grunt coverage : Generates code coverage statistics</li>
-<li>grunt lint : Runs js-lint and coffeelint</li>
-<li>grunt doc : Generates project documentation</li>
-</ul>
-<h2>Is it any good?</h2>
-<p>Yes!</p>
-<h2>License</h2>
-<p>Copyright 2013-2014 Hewlett-Packard Development Company, L.P.</p>
-<p>Licensed under the MIT License (the &quot;License&quot;); you may not use this project except in compliance with the License.</p></article>
-    </section>
-
-
+    return memoryFormat;
+});</pre>
+	</article>
+</section>
 
 
 
@@ -343,10 +347,6 @@ in the documentation reflect this.</p>
 				</footer>
 			</div>
 
-			
-			<div class="span3">
-				<div id="toc"></div>
-			</div>
 			
 			<br clear="both">
 		</div>

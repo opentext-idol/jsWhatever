@@ -3,7 +3,7 @@
 <html lang="en">
 <head>
 	<meta charset="utf-8">
-	<title>HP Autonomy Frontend Javascript Utils Index</title>
+	<title>HP Autonomy Frontend Javascript Utils Module: js-whatever/js/memory-format</title>
 
 	<!--[if lt IE 9]>
 	<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -270,56 +270,289 @@
 					
 
 
+	<h1 class="page-title">Module: js-whatever/js/memory-format</h1>
+<section>
+
+<header>
+    <h2>
+    js-whatever/js/memory-format
+    </h2>
+    
+</header>
+
+<article>
+    <div class="container-overview">
+    
+        
+<dt>
+    <h4 class="name" id="module:js-whatever/js/memory-format"><span class="type-signature"></span>require("js-whatever/js/memory-format")<span class="signature">(bytes, <span class="optional">multiple</span>)</span><span class="type-signature"> &rarr; {string}</span></h4>
+    
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        <p>Formats a number of bytes to one decimal place in the largest available unit</p>
+    </div>
+    
+
+    
+    
+    
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+
+		<th>Type</th>
+
+		
+		<th>Argument</th>
+		
+
+		
+
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+
+	<tbody>
 	
-	<span class="page-title">Index</span>
+
+        <tr>
+            
+                <td class="name"><code>bytes</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"><p>The number of bytes to format</p></td>
+        </tr>
+
 	
+
+        <tr>
+            
+                <td class="name"><code>multiple</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"><p>The number of bytes will be multiplied by this before being formatted. Useful if
+the value you need to format is not in bytes</p></td>
+        </tr>
+
+	
+	</tbody>
+</table>
+
+    
+    
+    
+<dl class="details">
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
 	
 
 
 
+	
+	<dt class="tag-source">Source:</dt>
+	<dd class="tag-source">
+		<ul class="dummy">
+			<li>
+				<a href="memory-format.js.html">memory-format.js</a>,
+				 <a href="memory-format.js.html#sunlight-1-line-18">line 18</a>
+			</li>
+		</ul>
+	</dd>
+	
+
+	
+
+	
+
+	
+</dl>
+
+    
+    
+
+    
+
+    
+    
+    
+    
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    <p>A formatted string</p>
+</div>
 
 
 
+<dl>
+	<dt>
+		Type
+	</dt>
+	<dd>
+		
+<span class="param-type">string</span>
 
 
+	</dd>
+</dl>
 
+
+        
+    
+    
+        <h5>Example</h5>
+        
+    <pre class="sunlight-highlight-javascript">memoryFormat(10); &#x2F;&#x2F; returns &#x27;10 B&#x27;
+memoryFormat(1024); &#x2F;&#x2F; returns &#x27;1.0 KB&#x27;
+memoryFormat(2, 1024); &#x2F;&#x2F; returns &#x27;2.0 KB&#x27;</pre>
+
+
+    
+</dd>
+
+    
+
+    
+        
+
+        
+<dl class="details">
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
 
 
 
 	
+	<dt class="tag-source">Source:</dt>
+	<dd class="tag-source">
+		<ul class="dummy">
+			<li>
+				<a href="memory-format.js.html">memory-format.js</a>,
+				 <a href="memory-format.js.html#sunlight-1-line-1">line 1</a>
+			</li>
+		</ul>
+	</dd>
 	
 
+	
+
+	
+
+	
+</dl>
 
 
+        
+    
+    </div>
 
+    
 
-    <section class="readme-section">
-        <article><h1>jsWhatever</h1>
-<p><a href="https://travis-ci.org/hpautonomy/jsWhatever"><img src="https://travis-ci.org/hpautonomy/jsWhatever.svg?branch=master" alt="Build Status"></a></p>
-<p>A collection of Javascript utilities using Backbone and Bootstrap 2.</p>
-<p>This project exposes AMD modules. The path to the project root directory must be aliased as js-whatever. The module names
-in the documentation reflect this.</p>
-<p>This repo uses git-flow. develop is the development branch. master is the last known good branch.</p>
-<h2>Installation</h2>
-<pre><code>bower install hp-autonomy-jsWhatever</code></pre>
-<h2>Grunt tasks</h2>
-<ul>
-<li>grunt : runs the lint, test, and coverage tasks</li>
-<li>grunt test : Runs the Jasmine tests in Phantom JS</li>
-<li>grunt browser-test : Starts a server on localhost:8000, which can be used to run the Jasmine tests in the browser</li>
-<li>grunt coverage : Generates code coverage statistics</li>
-<li>grunt lint : Runs js-lint and coffeelint</li>
-<li>grunt doc : Generates project documentation</li>
-</ul>
-<h2>Is it any good?</h2>
-<p>Yes!</p>
-<h2>License</h2>
-<p>Copyright 2013-2014 Hewlett-Packard Development Company, L.P.</p>
-<p>Licensed under the MIT License (the &quot;License&quot;); you may not use this project except in compliance with the License.</p></article>
-    </section>
+    
 
+    
 
+    
 
+    
+
+    
+
+    
+
+    
+
+    
+</article>
+
+</section>
 
 
 

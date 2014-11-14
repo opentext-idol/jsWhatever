@@ -3,7 +3,7 @@
 <html lang="en">
 <head>
 	<meta charset="utf-8">
-	<title>HP Autonomy Frontend Javascript Utils Index</title>
+	<title>HP Autonomy Frontend Javascript Utils Source: confirm-view.js</title>
 
 	<!--[if lt IE 9]>
 	<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -264,61 +264,175 @@
 	<div class="row-fluid">
 
 		
-		<div class="span8">
-			
+			<div class="span12">
+				
 				<div id="main">
 					
 
 
-	
-	<span class="page-title">Index</span>
-	
-	
+		<h1 class="page-title">Source: confirm-view.js</h1>
+    
+<section>
+	<article>
+		<pre
+			class="sunlight-highlight-javascript linenums">/**
+ * @module js-whatever/js/confirm-view
+ */
+define([
+    'backbone',
+    'text!js-whatever/templates/confirm.html',
+    'underscore',
+    'bootstrap'
+], function(Backbone, template){
 
+    /**
+     * @typedef ConfirmViewOptions
+     * @property {string} message Message to be displayed
+     * @property {string} title Modal title
+     * @property {string} [okText] Text for the OK button. Must be defined if showButtons or closable are set to
+     * true
+     * @property {string} [cancelText] Text for the Cancel button. Must be defined if showButtons is set to true
+     * @property {function} [okHandler] Function called when the OK button is clicked. If showButtons is set to
+     * true, this must be defined
+     * @property {function} [cancelHandler] Function called when the Cancel button is clicked
+     * @property {string} [modalClass] Class added to modal after rendering
+     * @property {string} [cancelClass=btn-danger] Cancel button class
+     * @property {string} [cancelIcon=icon-remove] Cancel button icon
+     * @property {boolean} [closable=true] Set to true if the modal can be closed. If show buttons is true the modal
+     * can still be closed using the buttons
+     * @property {string} [okClass=btn-success] OK button class
+     * @property {string} [okIcon=icon-ok] OK button icon
+     * @property {boolean} [showButtons=true] Set to true if the modal should have OK and Cancel buttons
+     * @property {string} [hiddenEvent=hidden] The Bootstrap event to listen for when the modal is hidden. Override
+     * if using Bootstrap 3
+     */
+    /**
+     * @name module:js-whatever/js/confirm-view.ConfirmView
+     * @desc Creates a Bootstrap modal which presents a message and the option to click OK and Cancel. By default it
+     * uses Bootstrap 2 classes, but can be overridden for Bootstrap 3
+     * @constructor
+     * @param {ConfirmViewOptions} config
+     * @extends Backbone.View
+     */
+    return Backbone.View.extend(/** @lends module:js-whatever/js/confirm-view.ConfirmView.prototype */{
+        /**
+         * @desc {function} Default template, which can be overridden
+         */
+        template: _.template(template),
 
+        /**
+         * @desc {string} Initial classes for the modal
+         */
+        className: 'modal hide fade',
 
+        initialize: function(config) {
+            _.bindAll(this, 'remove');
 
+            this.config = _.defaults(config, {
+                cancelClass: 'btn-danger',
+                cancelIcon: 'icon-remove',
+                closable: true,
+                okClass: 'btn-success',
+                okIcon: 'icon-ok',
+                showButtons: true,
+                hiddenEvent: 'hidden'
+            });
 
+            if(!this.config.message) {
+                throw 'Confirm Error: message must be defined';
+            }
 
+            if(!this.config.title) {
+                throw 'Confirm Error: title must be defined in input';
+            }
 
+            if(this.config.showButtons && !this.config.okHandler) {
+                throw 'Confirm Error: okHandler must be defined when buttons are shown';
+            }
 
+            if(this.config.showButtons && (!this.config.okText || !this.config.cancelText)) {
+                throw 'Confirm Error: strings must be defined for the ok and cancel buttons when buttons are shown';
+            }
 
+            if(this.config.closable && !this.config.okText) {
+                throw 'Confirm Error: okText string must be defined if closable is true';
+            }
 
+            this.$el.on('shown', _.bind(function() {
+                document.activeElement.blur();
+                this.$('.okButton').focus();
+            }, this));
 
+            this.render();
+        },
 
-	
-	
+        /**
+         * @desc Renders the modal and add listeners to the buttons. Links with the class 'route' will cause the modal
+         * to hide.
+         */
+        render: function() {
+            var config = this.config;
 
+            this.$el.html(this.template({
+                config: config
+            }));
 
+            if (config.modalClass) {
+                this.$el.addClass(config.modalClass);
+            }
 
+            if(!config.closable) {
+                this.$el.data('backdrop', 'static').addClass('undismissable-modal');
+            }
 
+            this.$el.modal().on(this.config.hiddenEvent, this.remove);
 
-    <section class="readme-section">
-        <article><h1>jsWhatever</h1>
-<p><a href="https://travis-ci.org/hpautonomy/jsWhatever"><img src="https://travis-ci.org/hpautonomy/jsWhatever.svg?branch=master" alt="Build Status"></a></p>
-<p>A collection of Javascript utilities using Backbone and Bootstrap 2.</p>
-<p>This project exposes AMD modules. The path to the project root directory must be aliased as js-whatever. The module names
-in the documentation reflect this.</p>
-<p>This repo uses git-flow. develop is the development branch. master is the last known good branch.</p>
-<h2>Installation</h2>
-<pre><code>bower install hp-autonomy-jsWhatever</code></pre>
-<h2>Grunt tasks</h2>
-<ul>
-<li>grunt : runs the lint, test, and coverage tasks</li>
-<li>grunt test : Runs the Jasmine tests in Phantom JS</li>
-<li>grunt browser-test : Starts a server on localhost:8000, which can be used to run the Jasmine tests in the browser</li>
-<li>grunt coverage : Generates code coverage statistics</li>
-<li>grunt lint : Runs js-lint and coffeelint</li>
-<li>grunt doc : Generates project documentation</li>
-</ul>
-<h2>Is it any good?</h2>
-<p>Yes!</p>
-<h2>License</h2>
-<p>Copyright 2013-2014 Hewlett-Packard Development Company, L.P.</p>
-<p>Licensed under the MIT License (the &quot;License&quot;); you may not use this project except in compliance with the License.</p></article>
-    </section>
+            this.$('.modal-body a.route').click(_.bind(function(){
+                this.$el.modal('hide');
+            }, this));
 
+            if (config.okHandler) {
+                //pass in value to be used as jquery binding
+                var okButton = this.$('.okButton');
+                okButton.click(_.wrap(config.okHandler, _.bind(this.handleButton, this, okButton.get(0))));
+            }
 
+            if (config.cancelHandler) {
+                var cancelButton = this.$('.cancelButton');
+                cancelButton.click(_.wrap(config.cancelHandler, _.bind(this.handleButton, this, cancelButton.get(0))));
+            }
+        },
+
+        /**
+         * @desc Calls a handler function with a given element as the context
+         * @param element The element which has been clicked
+         * @param handler The handler function
+         * @protected
+         */
+        handleButton: function(element, handler) {
+            // don't want to pass element or handler to the handler
+            var args = _.toArray(arguments).slice(2);
+
+            //wait for popup or we exceed the call stack size if okHandler opens another modal (such as load mask)
+            this.$el.on(this.config.hiddenEvent, function() {
+                handler.apply(element, args);
+            });
+        },
+
+        /**
+         * @desc Hides the modal and removes it from the DOM
+         */
+        remove: function () {
+            if (this.$el && this.$el.hasClass('in')) {
+                this.$el.modal('hide');
+            }
+
+            Backbone.View.prototype.remove.call(this);
+        }
+    });
+});</pre>
+	</article>
+</section>
 
 
 
@@ -343,10 +457,6 @@ in the documentation reflect this.</p>
 				</footer>
 			</div>
 
-			
-			<div class="span3">
-				<div id="toc"></div>
-			</div>
 			
 			<br clear="both">
 		</div>

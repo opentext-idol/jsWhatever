@@ -3,7 +3,7 @@
 <html lang="en">
 <head>
 	<meta charset="utf-8">
-	<title>HP Autonomy Frontend Javascript Utils Index</title>
+	<title>HP Autonomy Frontend Javascript Utils Source: string-ends-with.js</title>
 
 	<!--[if lt IE 9]>
 	<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -264,61 +264,54 @@
 	<div class="row-fluid">
 
 		
-		<div class="span8">
-			
+			<div class="span12">
+				
 				<div id="main">
 					
 
 
-	
-	<span class="page-title">Index</span>
-	
-	
+		<h1 class="page-title">Source: string-ends-with.js</h1>
+    
+<section>
+	<article>
+		<pre
+			class="sunlight-highlight-javascript linenums">/**
+ * @module js-whatever/js/string-ends-with
+ */
+define([
+    'underscore'
+], function() {
+    _.mixin({
+        /**
+         * @desc Tests if the given string ends with any of the given suffices. Provided as an underscore mixin
+         * @param {string} string The string to test
+         * @param {string|String[]} suffices The suffices to test for
+         * @returns {boolean} true if the given string ends with any of the given suffices, false otherwise
+         * @example
+         * _.endsWith('hello world', 'world'); // returns true
+         * _.endsWith('hello world', 'hello'); // returns false
+         * _.endsWith('hello world', ['hello', 'world']); // returns true
+         */
+        endsWith: function(string, suffices) {
+            if(_.isString(string) && (_.isArray(suffices) || _.isString(suffices))){
+                var length = string.length;
 
+                if(!_.isArray(suffices)) {
+                    suffices = [suffices];
+                }
 
+                return _.some(suffices, function(suffix) {
+                    return string.indexOf(suffix, length - suffix.length) !== -1;
+                });
+            }
 
-
-
-
-
-
-
-
-
-
-	
-	
-
-
-
-
-
-    <section class="readme-section">
-        <article><h1>jsWhatever</h1>
-<p><a href="https://travis-ci.org/hpautonomy/jsWhatever"><img src="https://travis-ci.org/hpautonomy/jsWhatever.svg?branch=master" alt="Build Status"></a></p>
-<p>A collection of Javascript utilities using Backbone and Bootstrap 2.</p>
-<p>This project exposes AMD modules. The path to the project root directory must be aliased as js-whatever. The module names
-in the documentation reflect this.</p>
-<p>This repo uses git-flow. develop is the development branch. master is the last known good branch.</p>
-<h2>Installation</h2>
-<pre><code>bower install hp-autonomy-jsWhatever</code></pre>
-<h2>Grunt tasks</h2>
-<ul>
-<li>grunt : runs the lint, test, and coverage tasks</li>
-<li>grunt test : Runs the Jasmine tests in Phantom JS</li>
-<li>grunt browser-test : Starts a server on localhost:8000, which can be used to run the Jasmine tests in the browser</li>
-<li>grunt coverage : Generates code coverage statistics</li>
-<li>grunt lint : Runs js-lint and coffeelint</li>
-<li>grunt doc : Generates project documentation</li>
-</ul>
-<h2>Is it any good?</h2>
-<p>Yes!</p>
-<h2>License</h2>
-<p>Copyright 2013-2014 Hewlett-Packard Development Company, L.P.</p>
-<p>Licensed under the MIT License (the &quot;License&quot;); you may not use this project except in compliance with the License.</p></article>
-    </section>
-
-
+            return false;
+        }
+    });
+});
+</pre>
+	</article>
+</section>
 
 
 
@@ -343,10 +336,6 @@ in the documentation reflect this.</p>
 				</footer>
 			</div>
 
-			
-			<div class="span3">
-				<div id="toc"></div>
-			</div>
 			
 			<br clear="both">
 		</div>
