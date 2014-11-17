@@ -5,8 +5,12 @@ branches:
   only:
   - master
   - develop
+env:
+  global:
+    - secure: "Z+ldEVR92Gi8WTxSaMijTW57Qp8PI52c4flfsMl2FA4oMrHzoHS7GVIR1CdKnsZli161HAaiWRwwSUmKxQzBsPpHVymZoZYt6Uqjbbz+8FIIkpSrGS65VDlHoRd6MPrEp/mFLKgYpZNoTmT6g4/CRRmLx39gh9X6Zgywh3gzzuA="
 before_install:
 - npm install -g grunt-cli
 - npm install -g bower
 - bower install
-script: bash travis.sh
+script: grunt
+after_script: bash travis.sh
