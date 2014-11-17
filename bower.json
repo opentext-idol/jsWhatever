@@ -1,6 +1,5 @@
 {
-    "name": "hp-autonomy-frontend-javascript-utils",
-    "private": true,
+    "name": "hp-autonomy-jsWhatever",
     "authors": [
         "Brian Beckett <brian.beckett@hp.com>",
         "Tung Jin Chew <tung-jin.chew@hp.com>",
