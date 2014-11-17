@@ -141,13 +141,20 @@ module.exports = (grunt) ->
           template: 'node_modules/ink-docstrap/template'
           configure: 'jsdoc.conf.json'
     'gh-pages':
-      src: '**/*'
-      options:
-        base: 'doc'
-        message: 'Update documentation'
-        user:
-          name: 'Travis CI Server'
-        email: 'alex.scown@hp.com'
+      'default':
+        src: '**/*'
+        options:
+          base: 'doc'
+          message: 'Update documentation'
+      travis:
+        src: '**/*'
+        options:
+          base: 'doc'
+          message: 'Update documentation'
+          repo: 'https://' + process.env.GH_TOKEN + '@github.com/' + process.env.TRAVIS_REPO_SLUG
+          user:
+            name: 'Travis CI Server'
+            email: 'alex.scown@hp.com'
 
   grunt.loadNpmTasks 'grunt-contrib-clean'
   grunt.loadNpmTasks 'grunt-contrib-connect'
@@ -163,4 +170,5 @@ module.exports = (grunt) ->
   grunt.registerTask 'coverage', ['connect:server', 'jasmine:coverage']
   grunt.registerTask 'lint', ['jshint', 'coffeelint']
   grunt.registerTask 'doc', ['jsdoc']
-  grunt.registerTask 'push-doc', ['doc', 'gh-pages']
+  grunt.registerTask 'push-doc', ['doc', 'gh-pages:default']
+  grunt.registerTask 'push-doc-travis', ['doc', 'gh-pages:travis']
