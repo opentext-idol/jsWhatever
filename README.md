@@ -13,7 +13,7 @@ This repo uses git-flow. develop is the development branch. master is the last k
 
 ## Installation
 
-    bower install hp-autonomy-jsWhatever
+    bower install hp-autonomy-js-whatever
 
 ## Grunt tasks
 * grunt : runs the lint, test, and coverage tasks
