@@ -14,7 +14,8 @@ define([
      * @property {Backbone.Collection} collection The collection containing the items to render
      * @property {function} [itemFilter = function() { return true; }] Function which takes a model from the
      * collection and returns true if it should be rendered
-     * @property {function} itemTemplate Template function, called once per model to render it
+     * @property {function} itemTemplate Template function, called once per model to render it. This template should
+     * have only one top level element, otherwise sorting your list will result in a combinatorial explosion
      * @property {object} [itemTemplateOptions={}] Options passed to itemTemplate
      */
     /**
