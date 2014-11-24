@@ -22,5 +22,9 @@ define([
         it('should retrieve the correct protocol', function () {
             expect(location.protocol()).toBe(window.location.protocol);
         });
+
+        it('should retrieve the correct search', function () {
+            expect(location.search()).toBe(window.location.search);
+        });
     });
 });
