@@ -9,6 +9,7 @@ define(function() {
     var pathname = window.location.pathname;
     var port = window.location.port;
     var protocol = window.location.protocol;
+    var search = window.location.search;
 
     //noinspection UnnecessaryLocalVariableJS
     /**
@@ -49,6 +50,13 @@ define(function() {
          */
         protocol: function() {
             return protocol;
+        },
+
+        /**
+         * @returns {string} window.location.search
+         */
+        search: function() {
+            return search;
         }
     };
 
