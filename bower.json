@@ -22,7 +22,8 @@
         "node_modules",
         "bower_components",
         "test",
-        "bin"
+        "bin",
+        "travis.sh"
     ],
     "dependencies": {
         "backbone": "~1.1.2",
