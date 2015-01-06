@@ -4,7 +4,7 @@ define(function() {
         paths: {
             // lib
             backbone: 'bower_components/backbone/backbone',
-            bootstrap: 'bower_components/bootstrap/js/bootstrap',
+            bootstrap: 'bower_components/bootstrap/bootstrap/js/bootstrap',
             'jasmine-jquery': 'bower_components/jasmine-jquery/lib/jasmine-jquery',
             'jasmine-sinon': 'bower_components/jasmine-sinon/lib/jasmine-sinon',
             jquery: 'bower_components/jquery/jquery',
