@@ -11,6 +11,7 @@ define([
     'js-whatever/js/list-item-view'
 ], function(Backbone, ListItemView) {
 
+    // TODO: ListViewOptions.useCollectionChange is deprecated and should be removed in a later version
     /**
      * @typedef module:js-whatever/js/list-view.ListView~ListViewOptions
      * @property {Backbone.Collection} collection The collection containing the items to render
@@ -47,13 +48,9 @@ define([
             this.listenTo(this.collection, 'sort', this.onSort);
             this.listenTo(this.collection, 'reset', this.render);
 
-            // TODO: This is deprecated and should be removed in a later version
             var useCollectionChange = _.isUndefined(options.useCollectionChange) ? true : options.useCollectionChange;
 
-            if (
-                (_.isUndefined(options.collectionChangeEvents) && useCollectionChange) ||
-                (_.isUndefined(options.collectionChangeEvents) || options.collectionChangeEvents === true)
-            ) {
+            if ((_.isUndefined(options.collectionChangeEvents) && useCollectionChange) || options.collectionChangeEvents === true) {
                 this.listenTo(this.collection, 'change', function(model) {
                     this.views[model.cid].render();
                 });
