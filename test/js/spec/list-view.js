@@ -20,6 +20,26 @@ define([
             ], {comparator: 'age'});
         });
 
+        it('should call the correct method on the correctItemView on model change events when constructed with a collectionChangeEvents map', function() {
+            var ItemView = mockFactory.getView(['changeAge']);
+
+            var listView = new ListView({
+                collection: this.collection,
+                collectionChangeEvents: {age: 'changeAge'},
+                ItemView: ItemView
+            });
+
+            listView.render();
+
+            this.collection.get('Fred').set('age', 33);
+
+            var fredView = ItemView.instances[0];
+            expect(fredView.constructorArgs[0].model.id).toEqual('Fred');
+            expect(fredView.changeAge).toHaveBeenCalled();
+
+            expect(ItemView.instances[1].changeAge).not.toHaveBeenCalled();
+        });
+
         describe('with default ItemView', function() {
             beforeEach(function() {
                 this.list = new ListView({

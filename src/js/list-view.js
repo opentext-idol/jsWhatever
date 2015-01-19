@@ -14,8 +14,14 @@ define([
     /**
      * @typedef module:js-whatever/js/list-view.ListView~ListViewOptions
      * @property {Backbone.Collection} collection The collection containing the items to render
-     * @property {boolean} [useCollectionChange=true] Whether to re-render the associated ItemView when the collection
-     * fires a change event. This is more efficient than creating one change listener for each model.
+     * @property {boolean} [useCollectionChange=true] (Deprecated, use collectionChangeEvents instead) Whether to re-render
+     * the associated ItemView when the collection fires a change event. This is more efficient than creating one change
+     * listener for each model.
+     * @property {Object.<String, String>|Boolean} [collectionChangeEvents=true] If true, re-renders the associated ItemView
+     * when the collection fires a change event. If an object, the keys are model attributes to listen to change events
+     * for and the values are the names of functions to call on the associated ItemView when they occur. The callbacks
+     * are passed the same arguments triggered by the collection. If false, no change listener is created. This is much
+     * more efficient than creating one change listener for each model.
      * @property {function} [ItemView=ListItemView] The Backbone.View constructor to instantiate for each model
      * @property {object} [itemOptions={}] The options to pass to the ItemView constructor in addition to the model
      * @property {String[]} [proxyEvents=[]] Events to proxy from ItemViews, prefixed with 'item:'
@@ -41,8 +47,23 @@ define([
             this.listenTo(this.collection, 'sort', this.onSort);
             this.listenTo(this.collection, 'reset', this.render);
 
-            if (options.useCollectionChange || _.isUndefined(options.useCollectionChange)) {
-                this.listenTo(this.collection, 'change', this.onChange);
+            // TODO: This is deprecated and should be removed in a later version
+            var useCollectionChange = _.isUndefined(options.useCollectionChange) ? true : options.useCollectionChange;
+
+            if (
+                (_.isUndefined(options.collectionChangeEvents) && useCollectionChange) ||
+                (_.isUndefined(options.collectionChangeEvents) || options.collectionChangeEvents === true)
+            ) {
+                this.listenTo(this.collection, 'change', function(model) {
+                    this.views[model.cid].render();
+                });
+            } else if (!_.isUndefined(options.collectionChangeEvents)) {
+                _.each(options.collectionChangeEvents, function(methodName, attribute) {
+                    this.listenTo(this.collection, 'change:' + attribute, function(model) {
+                        var view = this.views[model.cid];
+                        view[methodName].apply(view, arguments);
+                    });
+                }, this);
             }
         },
 
@@ -86,14 +107,6 @@ define([
         onAdd: function(model) {
             var view = this.createItemView(model);
             this.$el.append(view.el);
-        },
-
-        /**
-         * @desc Callback called when the collection fires a change event. Re-renders the associated ItemView.
-         * @param {Backbone.Model} model The model that was changed
-         */
-        onChange: function(model) {
-            this.views[model.cid].render();
         },
 
         /**
