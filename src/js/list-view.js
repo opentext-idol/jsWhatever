@@ -7,91 +7,68 @@
  * @module js-whatever/js/list-view
  */
 define([
-    'backbone'
-], function(Backbone) {
-
-    var defaultItemFilter = function() {
-        return true;
-    };
+    'backbone',
+    'js-whatever/js/list-item-view'
+], function(Backbone, ListItemView) {
 
     /**
-     * @typedef ListViewOptions
+     * @typedef module:js-whatever/js/list-view.ListView~ListViewOptions
      * @property {Backbone.Collection} collection The collection containing the items to render
-     * @property {function} [itemFilter = function() { return true; }] Function which takes a model from the
-     * collection and returns true if it should be rendered
-     * @property {function} itemTemplate Template function, called once per model to render it. This template should
-     * have only one top level element, otherwise sorting your list will result in a combinatorial explosion
-     * @property {object} [itemTemplateOptions={}] Options passed to itemTemplate
+     * @property {boolean} [useCollectionChange=true] Whether to re-render the associated ItemView when the collection
+     * fires a change event. This is more efficient than creating one change listener for each model.
+     * @property {function} [ItemView=ListItemView] The Backbone.View constructor to instantiate for each model
+     * @property {object} [itemOptions={}] The options to pass to the ItemView constructor in addition to the model
      */
     /**
      * @name module:js-whatever/js/list-view.ListView
-     * @desc View representing a Backbone.Collection. Re-renders items in response to changes in the collection
+     * @desc View representing a Backbone.Collection. Renders one ItemView for each model, and re-renders in response
+     * to collection events
      * @constructor
-     * @param {ListViewOptions} options
+     * @param {module:js-whatever/js/list-view.ListView~ListViewOptions} options
      * @extends Backbone.View
      */
     return Backbone.View.extend(/** @lends module:js-whatever/js/list-view.ListView.prototype */{
-
         initialize: function(options) {
-            this.itemFilter = options.itemFilter || defaultItemFilter;
-            this.itemTemplate = options.itemTemplate;
-            this.itemTemplateOptions = options.itemTemplateOptions || {};
+            this.itemOptions = options.itemOptions || {};
+            this.ItemView = options.ItemView || ListItemView;
+
+            this.views = {};
 
             this.listenTo(this.collection, 'add', this.onAdd);
-            this.listenTo(this.collection, 'change', this.onChange);
             this.listenTo(this.collection, 'remove', this.onRemove);
             this.listenTo(this.collection, 'sort', this.onSort);
             this.listenTo(this.collection, 'reset', this.render);
+
+            if (options.useCollectionChange || _.isUndefined(options.useCollectionChange)) {
+                this.listenTo(this.collection, 'change', this.onChange);
+            }
         },
 
         render: function() {
-            this.$el.empty();
-            this.collection.each(this.onAdd, this);
+            this.removeViews();
+            var $fragment = $(document.createDocumentFragment());
+
+            this.collection.each(function(model) {
+                var view = this.createItemView(model);
+                $fragment.append(view.el);
+            }, this);
+
+            this.$el.append($fragment);
             return this;
         },
 
         /**
-         * @desc Call this function each time the filter conditions update. Removes renderings of views which no longer
-         * match the filter, and adds ones which do
+         * @desc Instantiates and renders an ItemView for the given model. Adds it to the map of model cid to ItemView.
+         * @param model The model which needs a view
+         * @returns {ItemView} The new ItemView
          */
-        filter: function() {
-            var $previous;
+        createItemView: function(model) {
+            var view = this.views[model.cid] = new this.ItemView(_.extend({
+                model: model
+            }, this.itemOptions));
 
-            this.collection.each(function(model) {
-                var $item = this.$('[data-cid="' + model.cid + '"]');
-                var matchesFilter = this.itemFilter(model);
-
-                if (matchesFilter) {
-                    if (!$item.length) {
-                        $item = this.getItem(model);
-                    }
-
-                    if ($previous) {
-                        $previous = $item.insertAfter($previous);
-                    } else {
-                        $previous = $item.prependTo(this.$el);
-                    }
-                } else {
-                    if ($item.length) {
-                        $item.remove();
-                    }
-                }
-            }, this);
-        },
-
-        /**
-         * @desc Returns an HTML rendering of a model
-         * @param {Backbone.Model} model The model to render
-         * @returns {jQuery} A jQuery object
-         * @protected
-         */
-        getItem: function(model) {
-            var $item = $(this.itemTemplate(_.extend({
-                data: _.clone(model.attributes)
-            }, this.itemTemplateOptions)));
-
-            $item.attr('data-cid', model.cid);
-            return $item;
+            view.render();
+            return view;
         },
 
         /**
@@ -99,29 +76,16 @@ define([
          * @param {Backbone.Model} model The model added to the collection
          */
         onAdd: function(model) {
-            if (this.itemFilter(model)) {
-                this.$el.append(this.getItem(model));
-            }
+            var view = this.createItemView(model);
+            this.$el.append(view.el);
         },
 
         /**
-         * @desc Callback called when a model fires a change event
-         * @param {Backbone.Model} model The model that fired the change event
+         * @desc Callback called when the collection fires a change event. Re-renders the associated ItemView.
+         * @param {Backbone.Model} model The model that was changed
          */
         onChange: function(model) {
-            var $existing = this.$('[data-cid="' + model.cid + '"]');
-
-            if (this.itemFilter(model)) {
-                var $item = this.getItem(model);
-
-                if ($existing.length) {
-                    $existing.replaceWith($item);
-                } else {
-                    this.$el.append($item);
-                }
-            } else {
-                $existing.remove();
-            }
+            this.views[model.cid].render();
         },
 
         /**
@@ -129,27 +93,41 @@ define([
          * @param {Backbone.Model} model The model that was removed from the collection
          */
         onRemove: function(model) {
-            this.$('[data-cid="' + model.cid + '"]').remove();
+            this.views[model.cid].remove();
         },
 
         /**
-         * @desc Callback called when the collection is sorted. This will reorder the model renderings to reflect the
-         * new collection order
+         * @desc Callback called when the collection is sorted. This will reorder the ItemViews to reflect the new
+         * collection order
          */
         onSort: function() {
             var $previous;
 
             this.collection.each(function(model) {
-                var $model = this.$('[data-cid="' + model.cid + '"]');
+                var $item = this.views[model.cid].$el;
 
-                if ($model.length) {
-                    if ($previous) {
-                        $previous = $model.insertAfter($previous);
-                    } else {
-                        $previous = $model.prependTo(this.$el);
-                    }
+                if ($previous) {
+                    $previous = $item.insertAfter($previous);
+                } else {
+                    $previous = $item.prependTo(this.$el);
                 }
             }, this);
+        },
+
+        /**
+         * @desc Backbone.View remove method. Also calls each ItemView's remove method.
+         */
+        remove: function() {
+            this.removeViews();
+            Backbone.View.prototype.remove.call(this);
+        },
+
+        /**
+         * @desc Call each ItemView's remove method and reset the map of views.
+         */
+        removeViews: function() {
+            _.invoke(this.views, 'remove');
+            this.views = {};
         }
     });
 
