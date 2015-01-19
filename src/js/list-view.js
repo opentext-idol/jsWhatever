@@ -18,6 +18,7 @@ define([
      * fires a change event. This is more efficient than creating one change listener for each model.
      * @property {function} [ItemView=ListItemView] The Backbone.View constructor to instantiate for each model
      * @property {object} [itemOptions={}] The options to pass to the ItemView constructor in addition to the model
+     * @property {String[]} [proxyEvents=[]] Events to proxy from ItemViews, prefixed with 'item:'
      */
     /**
      * @name module:js-whatever/js/list-view.ListView
@@ -31,6 +32,7 @@ define([
         initialize: function(options) {
             this.itemOptions = options.itemOptions || {};
             this.ItemView = options.ItemView || ListItemView;
+            this.proxyEvents = options.proxyEvents || [];
 
             this.views = {};
 
@@ -67,6 +69,12 @@ define([
                 model: model
             }, this.itemOptions));
 
+            _.each(this.proxyEvents, function(event) {
+                this.listenTo(view, event, function() {
+                    this.trigger.apply(this, ['item:' + event].concat(Array.prototype.slice.call(arguments, 0)));
+                });
+            }, this);
+
             view.render();
             return view;
         },
@@ -93,7 +101,9 @@ define([
          * @param {Backbone.Model} model The model that was removed from the collection
          */
         onRemove: function(model) {
-            this.views[model.cid].remove();
+            var view = this.views[model.cid];
+            view.remove();
+            this.stopListening(view);
         },
 
         /**
