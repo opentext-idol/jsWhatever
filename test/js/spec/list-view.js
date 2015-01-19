@@ -20,7 +20,7 @@ define([
             ], {comparator: 'age'});
         });
 
-        it('should call the correct method on the correctItemView on model change events when constructed with a collectionChangeEvents map', function() {
+        it('should call the correct method on the correct ItemView on model change events when constructed with a collectionChangeEvents map', function() {
             var ItemView = mockFactory.getView(['changeAge']);
 
             var listView = new ListView({
