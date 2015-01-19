@@ -92,6 +92,10 @@
 						</li>
 						
 						<li>
+							<a href="filtering-collection.html">js-whatever/js/filtering-collection</a>
+						</li>
+						
+						<li>
 							<a href="footer.html">js-whatever/js/footer</a>
 						</li>
 						
@@ -109,6 +113,10 @@
 						
 						<li>
 							<a href="lazy-tab-view.html">js-whatever/js/lazy-tab-view</a>
+						</li>
+						
+						<li>
+							<a href="list-item-view.html">js-whatever/js/list-item-view</a>
 						</li>
 						
 						<li>
@@ -218,11 +226,19 @@
 						</li>
 						
 						<li>
+							<a href="filtering-collection.FilteringCollection.html">js-whatever/js/filtering-collection.FilteringCollection</a>
+						</li>
+						
+						<li>
 							<a href="footer.Footer.html">js-whatever/js/footer.Footer</a>
 						</li>
 						
 						<li>
 							<a href="lazy-tab-view.LazyTabView.html">js-whatever/js/lazy-tab-view.LazyTabView</a>
+						</li>
+						
+						<li>
+							<a href="list-item-view.ListItemView.html">js-whatever/js/list-item-view.ListItemView</a>
 						</li>
 						
 						<li>
@@ -297,7 +313,8 @@
     
     
     <div class="description">
-        <p>View representing a Backbone.Collection. Re-renders items in response to changes in the collection</p>
+        <p>View representing a Backbone.Collection. Renders one ItemView for each model, and re-renders in response
+to collection events</p>
     </div>
     
 
@@ -337,7 +354,7 @@
             <td class="type">
             
                 
-<span class="param-type"><a href="global.html#ListViewOptions">ListViewOptions</a></span>
+<span class="param-type"><a href="list-view.ListView.html#ListViewOptions">module:js-whatever/js/list-view.ListView~ListViewOptions</a></span>
 
 
             
@@ -384,7 +401,7 @@
 		<ul class="dummy">
 			<li>
 				<a href="list-view.js.html">list-view.js</a>,
-				 <a href="list-view.js.html#sunlight-1-line-18">line 18</a>
+				 <a href="list-view.js.html#sunlight-1-line-15">line 15</a>
 			</li>
 		</ul>
 	</dd>
@@ -438,7 +455,7 @@
         <dl>
             
 <dt>
-    <h4 class="name" id="filter"><span class="type-signature"></span>filter<span class="signature">()</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="createItemView"><span class="type-signature"></span>createItemView<span class="signature">(model)</span><span class="type-signature"> &rarr; {ItemView}</span></h4>
     
     
 </dt>
@@ -446,84 +463,7 @@
     
     
     <div class="description">
-        <p>Call this function each time the filter conditions update. Removes renderings of views which no longer
-match the filter, and adds ones which do</p>
-    </div>
-    
-
-    
-    
-    
-    
-    
-    
-    
-<dl class="details">
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-	<dt class="tag-source">Source:</dt>
-	<dd class="tag-source">
-		<ul class="dummy">
-			<li>
-				<a href="list-view.js.html">list-view.js</a>,
-				 <a href="list-view.js.html#sunlight-1-line-57">line 57</a>
-			</li>
-		</ul>
-	</dd>
-	
-
-	
-
-	
-
-	
-</dl>
-
-    
-    
-
-    
-
-    
-    
-    
-    
-    
-    
-    
-</dd>
-
-        
-            
-<dt>
-    <h4 class="name" id="getItem"><span class="type-signature">&lt;protected> </span>getItem<span class="signature">(model)</span><span class="type-signature"> &rarr; {jQuery}</span></h4>
-    
-    
-</dt>
-<dd>
-    
-    
-    <div class="description">
-        <p>Returns an HTML rendering of a model</p>
+        <p>Instantiates and renders an ItemView for the given model. Adds it to the map of model cid to ItemView.</p>
     </div>
     
 
@@ -562,18 +502,13 @@ match the filter, and adds ones which do</p>
 
             <td class="type">
             
-                
-<span class="param-type">Backbone.Model</span>
-
-
-            
             </td>
 
             
 
             
 
-            <td class="description last"><p>The model to render</p></td>
+            <td class="description last"><p>The model which needs a view</p></td>
         </tr>
 
 	
@@ -610,7 +545,7 @@ match the filter, and adds ones which do</p>
 		<ul class="dummy">
 			<li>
 				<a href="list-view.js.html">list-view.js</a>,
-				 <a href="list-view.js.html#sunlight-1-line-88">line 88</a>
+				 <a href="list-view.js.html#sunlight-1-line-65">line 65</a>
 			</li>
 		</ul>
 	</dd>
@@ -637,7 +572,7 @@ match the filter, and adds ones which do</p>
     
             
 <div class="param-desc">
-    <p>A jQuery object</p>
+    <p>The new ItemView</p>
 </div>
 
 
@@ -648,7 +583,7 @@ match the filter, and adds ones which do</p>
 	</dt>
 	<dd>
 		
-<span class="param-type">jQuery</span>
+<span class="param-type">ItemView</span>
 
 
 	</dd>
@@ -758,7 +693,7 @@ match the filter, and adds ones which do</p>
 		<ul class="dummy">
 			<li>
 				<a href="list-view.js.html">list-view.js</a>,
-				 <a href="list-view.js.html#sunlight-1-line-101">line 101</a>
+				 <a href="list-view.js.html#sunlight-1-line-78">line 78</a>
 			</li>
 		</ul>
 	</dd>
@@ -796,7 +731,7 @@ match the filter, and adds ones which do</p>
     
     
     <div class="description">
-        <p>Callback called when a model fires a change event</p>
+        <p>Callback called when the collection fires a change event. Re-renders the associated ItemView.</p>
     </div>
     
 
@@ -846,7 +781,7 @@ match the filter, and adds ones which do</p>
 
             
 
-            <td class="description last"><p>The model that fired the change event</p></td>
+            <td class="description last"><p>The model that was changed</p></td>
         </tr>
 
 	
@@ -883,7 +818,7 @@ match the filter, and adds ones which do</p>
 		<ul class="dummy">
 			<li>
 				<a href="list-view.js.html">list-view.js</a>,
-				 <a href="list-view.js.html#sunlight-1-line-111">line 111</a>
+				 <a href="list-view.js.html#sunlight-1-line-87">line 87</a>
 			</li>
 		</ul>
 	</dd>
@@ -1008,7 +943,7 @@ match the filter, and adds ones which do</p>
 		<ul class="dummy">
 			<li>
 				<a href="list-view.js.html">list-view.js</a>,
-				 <a href="list-view.js.html#sunlight-1-line-131">line 131</a>
+				 <a href="list-view.js.html#sunlight-1-line-95">line 95</a>
 			</li>
 		</ul>
 	</dd>
@@ -1046,8 +981,8 @@ match the filter, and adds ones which do</p>
     
     
     <div class="description">
-        <p>Callback called when the collection is sorted. This will reorder the model renderings to reflect the
-new collection order</p>
+        <p>Callback called when the collection is sorted. This will reorder the ItemViews to reflect the new
+collection order</p>
     </div>
     
 
@@ -1085,7 +1020,159 @@ new collection order</p>
 		<ul class="dummy">
 			<li>
 				<a href="list-view.js.html">list-view.js</a>,
-				 <a href="list-view.js.html#sunlight-1-line-139">line 139</a>
+				 <a href="list-view.js.html#sunlight-1-line-103">line 103</a>
+			</li>
+		</ul>
+	</dd>
+	
+
+	
+
+	
+
+	
+</dl>
+
+    
+    
+
+    
+
+    
+    
+    
+    
+    
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="remove"><span class="type-signature"></span>remove<span class="signature">()</span><span class="type-signature"></span></h4>
+    
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        <p>Backbone.View remove method. Also calls each ItemView's remove method.</p>
+    </div>
+    
+
+    
+    
+    
+    
+    
+    
+    
+<dl class="details">
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+	<dt class="tag-source">Source:</dt>
+	<dd class="tag-source">
+		<ul class="dummy">
+			<li>
+				<a href="list-view.js.html">list-view.js</a>,
+				 <a href="list-view.js.html#sunlight-1-line-120">line 120</a>
+			</li>
+		</ul>
+	</dd>
+	
+
+	
+
+	
+
+	
+</dl>
+
+    
+    
+
+    
+
+    
+    
+    
+    
+    
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="removeViews"><span class="type-signature"></span>removeViews<span class="signature">()</span><span class="type-signature"></span></h4>
+    
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        <p>Call each ItemView's remove method and reset the map of views.</p>
+    </div>
+    
+
+    
+    
+    
+    
+    
+    
+    
+<dl class="details">
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+	<dt class="tag-source">Source:</dt>
+	<dd class="tag-source">
+		<ul class="dummy">
+			<li>
+				<a href="list-view.js.html">list-view.js</a>,
+				 <a href="list-view.js.html#sunlight-1-line-128">line 128</a>
 			</li>
 		</ul>
 	</dd>
@@ -1116,6 +1203,245 @@ new collection order</p>
     
 
     
+        <h3 class="subsection-title">Type Definitions</h3>
+
+        <dl>
+                
+<dt class="name" id="ListViewOptions">
+    <h4>ListViewOptions</h4>
+
+    
+</dt>
+<dd>
+    
+
+    
+
+    
+<dl class="details">
+	
+
+	<h5 class="subsection-title">Properties:</h5>
+
+	<dl>
+
+<table class="props table table-striped">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+
+		<th>Type</th>
+
+		
+		<th>Argument</th>
+		
+
+		
+		<th>Default</th>
+		
+
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+
+	<tbody>
+	
+
+        <tr>
+            
+                <td class="name"><code>collection</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Backbone.Collection</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last"><p>The collection containing the items to render</p></td>
+        </tr>
+
+	
+
+        <tr>
+            
+                <td class="name"><code>useCollectionChange</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">boolean</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    true
+                
+                </td>
+            
+
+            <td class="description last"><p>Whether to re-render the associated ItemView when the collection
+fires a change event. This is more efficient than creating one change listener for each model.</p></td>
+        </tr>
+
+	
+
+        <tr>
+            
+                <td class="name"><code>ItemView</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">function</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    ListItemView
+                
+                </td>
+            
+
+            <td class="description last"><p>The Backbone.View constructor to instantiate for each model</p></td>
+        </tr>
+
+	
+
+        <tr>
+            
+                <td class="name"><code>itemOptions</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">object</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    {}
+                
+                </td>
+            
+
+            <td class="description last"><p>The options to pass to the ItemView constructor in addition to the model</p></td>
+        </tr>
+
+	
+	</tbody>
+</table>
+</dl>
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+	<dt class="tag-source">Source:</dt>
+	<dd class="tag-source">
+		<ul class="dummy">
+			<li>
+				<a href="list-view.js.html">list-view.js</a>,
+				 <a href="list-view.js.html#sunlight-1-line-14">line 14</a>
+			</li>
+		</ul>
+	</dd>
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+</dd>
+
+            </dl>
+    
 
     
 </article>
@@ -1138,7 +1464,7 @@ new collection order</p>
 					
 		<span class="jsdoc-message">
 		Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.2.2</a>
-		on Mon Jan 19th 10:30 2015 using the <a
+		on Mon Jan 19th 10:44 2015 using the <a
 			href="https://github.com/terryweiss/docstrap">DocStrap template</a>.
 		</span>
 				</footer>
