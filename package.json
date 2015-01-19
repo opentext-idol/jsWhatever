@@ -1,7 +1,6 @@
 {
   "name": "hp-autonomy-frontend-javascript-utils",
   "repository": "https://github.com/hpautonomy/jsWhatever",
-  "version": "1.0.0",
   "devDependencies": {
     "coffeelint": "^1.6.0",
     "grunt": "^0.4.5",
