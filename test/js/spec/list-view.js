@@ -135,6 +135,15 @@ define([
 
                 expect(this.eventArguments.length).toBe(1);
             });
+
+            it('should stop proxying events when the ListView is removed', function() {
+                this.listView.remove();
+
+                this.ItemView.instances[0].trigger('my-event');
+                this.ItemView.instances[1].trigger('my-event');
+
+                expect(this.eventArguments.length).toBe(0);
+            });
         });
     });
 

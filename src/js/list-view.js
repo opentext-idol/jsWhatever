@@ -102,8 +102,7 @@ define([
          */
         onRemove: function(model) {
             var view = this.views[model.cid];
-            view.remove();
-            this.stopListening(view);
+            this.removeView(view);
         },
 
         /**
@@ -133,10 +132,19 @@ define([
         },
 
         /**
+         * Remove the view and stopListening to it
+         * @param view The view to remove
+         */
+        removeView: function(view) {
+            view.remove();
+            this.stopListening(view);
+        },
+
+        /**
          * @desc Call each ItemView's remove method and reset the map of views.
          */
         removeViews: function() {
-            _.invoke(this.views, 'remove');
+            _.each(this.views, this.removeView, this);
             this.views = {};
         }
     });
