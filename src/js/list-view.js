@@ -26,6 +26,7 @@ define([
      * @property {function} [ItemView=ListItemView] The Backbone.View constructor to instantiate for each model
      * @property {object} [itemOptions={}] The options to pass to the ItemView constructor in addition to the model
      * @property {String[]} [proxyEvents=[]] Events to proxy from ItemViews, prefixed with 'item:'
+	 * @property {String} [headerHtml] Optional HTML to render at the top of the list.
      */
     /**
      * @name module:js-whatever/js/list-view.ListView
@@ -40,6 +41,7 @@ define([
             this.itemOptions = options.itemOptions || {};
             this.ItemView = options.ItemView || ListItemView;
             this.proxyEvents = options.proxyEvents || [];
+            this.headerHtml = options.headerHtml;
 
             this.views = {};
 
@@ -68,12 +70,17 @@ define([
             this.removeViews();
             var $fragment = $(document.createDocumentFragment());
 
+            if (this.headerHtml) {
+                $fragment.append(this.headerHtml);
+				this.$header = $fragment.children().last();
+            }
+
             this.collection.each(function(model) {
                 var view = this.createItemView(model);
                 $fragment.append(view.el);
             }, this);
 
-            this.$el.append($fragment);
+            this.$el.html($fragment);
             return this;
         },
 
@@ -120,7 +127,7 @@ define([
          * collection order
          */
         onSort: function() {
-            var $previous;
+            var $previous = this.$header;
 
             this.collection.each(function(model) {
                 var $item = this.views[model.cid].$el;
