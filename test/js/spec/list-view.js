@@ -40,7 +40,40 @@ define([
             expect(ItemView.instances[1].changeAge).not.toHaveBeenCalled();
         });
 
-        describe('with default ItemView', function() {
+        it('should display the headerHtml before the ItemViews if specified', function() {
+            var listView = new ListView({
+                collection: this.collection,
+                headerHtml: '<option>funky</option><option>monkey</option>',
+                itemOptions: {
+                    tagName: 'option',
+                    template: _.template('<%=data.id%>')
+                }
+            });
+
+            listView.render();
+
+            var $options = listView.$('option');
+            expect($options).toHaveLength(4);
+            expect($options.eq(0)).toHaveText('funky');
+            expect($options.eq(1)).toHaveText('monkey');
+            expect($options.eq(2)).toHaveText('Fred');
+            expect($options.eq(3)).toHaveText('George');
+
+            this.collection.comparator = function(model) {
+				return - model.get('age');
+			};
+			
+			this.collection.sort();
+			
+			$options = listView.$('option');
+            expect($options).toHaveLength(4);
+            expect($options.eq(0)).toHaveText('funky');
+            expect($options.eq(1)).toHaveText('monkey');
+			expect($options.eq(2)).toHaveText('George');
+            expect($options.eq(3)).toHaveText('Fred');
+        });
+
+        describe('with default ItemView and no headerHtml', function() {
             beforeEach(function() {
                 this.list = new ListView({
                     collection: this.collection,
