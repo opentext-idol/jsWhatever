@@ -73,6 +73,21 @@ define([
             expect($options.eq(3)).toHaveText('Fred');
         });
 
+        it('handles a collection remove event before rendering', function() {
+            var list = new ListView({
+				collection: this.collection,
+				itemOptions: {
+					template: itemTemplate,
+					templateOptions: itemTemplateOptions
+				}
+			});
+			
+			this.collection.remove('Fred');
+			list.render();
+			
+			expect(list.$('p')).toHaveLength(1);
+        });
+
         describe('with default ItemView and no headerHtml', function() {
             beforeEach(function() {
                 this.list = new ListView({

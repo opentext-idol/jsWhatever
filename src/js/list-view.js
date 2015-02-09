@@ -119,7 +119,10 @@ define([
          */
         onRemove: function(model) {
             var view = this.views[model.cid];
-            this.removeView(view);
+			
+			if (view) {
+				this.removeView(view);
+			}
         },
 
         /**
