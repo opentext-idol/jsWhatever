@@ -27,6 +27,7 @@ define([
      * @property {object} [itemOptions={}] The options to pass to the ItemView constructor in addition to the model
      * @property {String[]} [proxyEvents=[]] Events to proxy from ItemViews, prefixed with 'item:'
      * @property {String} [headerHtml] Optional HTML to render at the top of the list.
+     * @property {String} [footerHtml] Optional HTML to render at the bottom of the list.
      */
     /**
      * @name module:js-whatever/js/list-view.ListView
@@ -41,6 +42,7 @@ define([
             this.itemOptions = options.itemOptions || {};
             this.ItemView = options.ItemView || ListItemView;
             this.proxyEvents = options.proxyEvents || [];
+            this.footerHtml = options.footerHtml;
             this.headerHtml = options.headerHtml;
 
             this.views = {};
@@ -80,6 +82,12 @@ define([
                 $fragment.append(view.el);
             }, this);
 
+            if (this.footerHtml) {
+                var $footer = $(this.footerHtml);
+                this.$footer = $footer.first();
+                $fragment.append($footer);
+            }
+
             this.$el.html($fragment);
             return this;
         },
@@ -110,7 +118,12 @@ define([
          */
         onAdd: function(model) {
             var view = this.createItemView(model);
-            this.$el.append(view.el);
+
+            if (this.$footer) {
+                view.$el.insertBefore(this.$footer);
+            } else {
+                this.$el.append(view.el);
+            }
         },
 
         /**
