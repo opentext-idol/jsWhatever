@@ -26,7 +26,7 @@ define([
      * @property {function} [ItemView=ListItemView] The Backbone.View constructor to instantiate for each model
      * @property {object} [itemOptions={}] The options to pass to the ItemView constructor in addition to the model
      * @property {String[]} [proxyEvents=[]] Events to proxy from ItemViews, prefixed with 'item:'
-	 * @property {String} [headerHtml] Optional HTML to render at the top of the list.
+     * @property {String} [headerHtml] Optional HTML to render at the top of the list.
      */
     /**
      * @name module:js-whatever/js/list-view.ListView
@@ -72,7 +72,7 @@ define([
 
             if (this.headerHtml) {
                 $fragment.append(this.headerHtml);
-				this.$header = $fragment.children().last();
+                this.$header = $fragment.children().last();
             }
 
             this.collection.each(function(model) {
@@ -119,10 +119,10 @@ define([
          */
         onRemove: function(model) {
             var view = this.views[model.cid];
-			
-			if (view) {
-				this.removeView(view);
-			}
+
+            if (view) {
+                this.removeView(view);
+            }
         },
 
         /**
@@ -133,12 +133,16 @@ define([
             var $previous = this.$header;
 
             this.collection.each(function(model) {
-                var $item = this.views[model.cid].$el;
+                var view = this.views[model.cid];
 
-                if ($previous) {
-                    $previous = $item.insertAfter($previous);
-                } else {
-                    $previous = $item.prependTo(this.$el);
+                if (view) {
+                    var $item = view.$el;
+
+                    if ($previous) {
+                        $previous = $item.insertAfter($previous);
+                    } else {
+                        $previous = $item.prependTo(this.$el);
+                    }
                 }
             }, this);
         },

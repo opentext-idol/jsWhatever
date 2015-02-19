@@ -88,6 +88,26 @@ define([
 			expect(list.$('p')).toHaveLength(1);
         });
 
+        it('handles a collection sort event before rendering', function() {
+            this.collection.get('Fred').set('age', 50);
+
+            var list = new ListView({
+                collection: this.collection,
+                itemOptions: {
+                    template: itemTemplate,
+                    templateOptions: itemTemplateOptions
+                }
+            });
+
+            this.collection.sort();
+            list.render();
+
+            var $ps = list.$('p');
+            expect($ps).toHaveLength(2);
+            expect($ps.eq(0)).toHaveId('item-George');
+            expect($ps.eq(1)).toHaveId('item-Fred');
+        });
+
         describe('with default ItemView and no headerHtml', function() {
             beforeEach(function() {
                 this.list = new ListView({
