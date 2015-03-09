@@ -143,6 +143,21 @@ define([
             expect($ps.eq(1)).toHaveId('item-Fred');
         });
 
+        it('handles a collection change event before rendering', function() {
+            var list = new ListView({
+                collection: this.collection,
+                itemOptions: {
+                    template: itemTemplate,
+                    templateOptions: itemTemplateOptions
+                }
+            });
+
+            this.collection.get('Fred').set('age', 33);
+            list.render();
+
+            expect(list.$('#item-Fred')).toHaveText('33');
+        });
+
         describe('with default ItemView and no headerHtml', function() {
             beforeEach(function() {
                 this.list = new ListView({
