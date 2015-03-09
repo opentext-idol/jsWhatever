@@ -56,13 +56,14 @@ define([
 
             if ((_.isUndefined(options.collectionChangeEvents) && useCollectionChange) || options.collectionChangeEvents === true) {
                 this.listenTo(this.collection, 'change', function(model) {
-                    this.views[model.cid].render();
+                    var view = this.views[model.cid];
+                    view && view.render();
                 });
             } else if (!_.isUndefined(options.collectionChangeEvents)) {
                 _.each(options.collectionChangeEvents, function(methodName, attribute) {
                     this.listenTo(this.collection, 'change:' + attribute, function(model) {
                         var view = this.views[model.cid];
-                        view[methodName].apply(view, arguments);
+                        view && view[methodName].apply(view, arguments);
                     });
                 }, this);
             }
