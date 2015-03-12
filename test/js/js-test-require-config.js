@@ -23,7 +23,7 @@ define(function() {
             test: 'test/js',
 
             // mock
-            store: 'test/js/mock/store',
+            store: 'bower_components/hp-autonomy-js-testing-utils/src/js/store',
             jqueryui: 'test/js/mock/lib/jquery-ui'
         },
         shim: {
