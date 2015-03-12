@@ -39,6 +39,6 @@
         "sinon": "http://sinonjs.org/releases/sinon-1.9.1.js",
         "jasmine-jquery": "~1.5.8",
         "jasmine-sinon": "~0.3.1",
-        "hp-autonomy-js-testing-utils": "~1.0.1"
+        "hp-autonomy-js-testing-utils": "~1.1.0"
     }
 }
