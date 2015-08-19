@@ -3,7 +3,7 @@
 <html lang="en">
 <head>
 	<meta charset="utf-8">
-	<title>HP Autonomy jsWhatever Module: js-whatever/js/filtering-collection</title>
+	<title>HP Autonomy jsWhatever Source: escape-hod-identifier.js</title>
 
 	<!--[if lt IE 9]>
 	<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -284,102 +284,48 @@
 	<div class="row-fluid">
 
 		
-		<div class="span8">
-			
+			<div class="span12">
+				
 				<div id="main">
 					
 
 
-	<h1 class="page-title">Module: js-whatever/js/filtering-collection</h1>
+		<h1 class="page-title">Source: escape-hod-identifier.js</h1>
+    
 <section>
+	<article>
+		<pre
+			class="sunlight-highlight-javascript linenums">/*
+ * Copyright 2013-2015 Hewlett-Packard Development Company, L.P.
+ * Licensed under the MIT License (the "License"); you may not use this file except in compliance with the License.
+ */
 
-<header>
-    <h2>
-    js-whatever/js/filtering-collection
-    </h2>
-    
-</header>
+/**
+ * @module js-whatever/js/escape-hod-identifier
+ */
+define(function() {
 
-<article>
-    <div class="container-overview">
-    
+    var regExp = /([\\:])/g;
 
-    
-        
+    //noinspection UnnecessaryLocalVariableJS
+    /**
+     * @alias module:js-whatever/js/escape-hod-identifier
+     * @desc Escape colons in HOD identifiers. HOD identifiers (domain names, application names, index names etc) can be
+     * concatenated with colons. In these cases, : must become \: and \ must become \\.
+     * @param {string} input The input string
+     * @return {string} The escaped string
+     */
+    var escapeHodIdentifier = function escapeHodIdentifier(input) {
+        return input.replace(regExp, '\\$&');
+    };
 
-        
-<dl class="details">
-	
+    return escapeHodIdentifier;
 
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-	<dt class="tag-source">Source:</dt>
-	<dd class="tag-source">
-		<ul class="dummy">
-			<li>
-				<a href="filtering-collection.js.html">filtering-collection.js</a>,
-				 <a href="filtering-collection.js.html#sunlight-1-line-1">line 1</a>
-			</li>
-		</ul>
-	</dd>
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-        
-    
-    </div>
-
-    
-
-    
-
-    
-
-    
-        <h3 class="subsection-title">Classes</h3>
-
-        <dl>
-            <dt><a href="filtering-collection.FilteringCollection.html">FilteringCollection</a></dt>
-            <dd></dd>
-        </dl>
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</article>
-
+});
+</pre>
+	</article>
 </section>
+
 
 
 
@@ -403,10 +349,6 @@
 				</footer>
 			</div>
 
-			
-			<div class="span3">
-				<div id="toc"></div>
-			</div>
 			
 			<br clear="both">
 		</div>
