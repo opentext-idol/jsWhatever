@@ -5,8 +5,9 @@
 
 define([
     'js-whatever/js/vent-constructor',
-    'underscore'
-], function(VentConstructor, _) {
+    'underscore',
+    'sinon'
+], function(VentConstructor, _, sinon) {
 
     describe('Vent constructor', function() {
 
