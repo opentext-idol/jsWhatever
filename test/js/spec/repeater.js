@@ -4,16 +4,16 @@
  */
 
 define([
-    'js-whatever/js/repeater'
-], function (Repeater) {
+    'js-whatever/js/repeater',
+    'sinon'
+], function(Repeater, sinon) {
 
-    describe('Utility: `Repeater`', function () {
-
-        it('should not update if not started', function () {
+    describe('Repeater', function() {
+        it('should not update if not started', function() {
             var clock = sinon.useFakeTimers();
             var counter = 0;
 
-            new Repeater(function () {
+            new Repeater(function() {
                 counter += 1;
             }, 500);
 
@@ -26,11 +26,11 @@ define([
             clock.restore();
         });
 
-        it('should update if started and at the correct intervals', function () {
+        it('should update if started and at the correct intervals', function() {
             var clock = sinon.useFakeTimers();
             var counter = 0;
 
-            new Repeater(function () {
+            new Repeater(function() {
                 counter += 1;
             }, 500).start();
 
@@ -47,11 +47,11 @@ define([
             clock.restore();
         });
 
-        it('should stop when required', function () {
+        it('should stop when required', function() {
             var clock = sinon.useFakeTimers();
             var counter = 0;
 
-            var model = new Repeater(function () {
+            var model = new Repeater(function() {
                 counter += 1;
             }, 500).start();
 
@@ -70,11 +70,11 @@ define([
             clock.restore();
         });
 
-        it('should update without starting when requested', function () {
+        it('should update without starting when requested', function() {
             var clock = sinon.useFakeTimers();
             var counter = 0;
 
-            var model = new Repeater(function () {
+            var model = new Repeater(function() {
                 counter += 1;
             }, 500);
 
@@ -91,11 +91,11 @@ define([
             clock.restore();
         });
 
-        it('should update and continue repeating when requested', function () {
+        it('should update and continue repeating when requested', function() {
             var clock = sinon.useFakeTimers();
             var counter = 0;
 
-            var model = new Repeater(function () {
+            var model = new Repeater(function() {
                 counter += 1;
             }, 500).start();
 
@@ -117,5 +117,6 @@ define([
 
             clock.restore();
         });
-    })
+    });
+
 });
