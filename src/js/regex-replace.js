@@ -7,6 +7,7 @@
  * @module js-whatever/js/regex-replace
  */
 define(function(){
+
     /**
      * @alias module:js-whatever/js/regex-replace
      * @desc Version of 'string'.replace(regex, function(){}) which will apply noFn to the parts of the string that
@@ -26,7 +27,7 @@ define(function(){
      * regexReplace(/\d+/g, '12345abc678', wrapper, _.identity); // returns '{12345}abc{678}'
      * regexReplace(/\d+/g, '12345abc', _.identity, wrapper); // returns '12345{abc}'
      */
-    var regexReplace = function regexReplace(regex, text, yesFn, noFn) {
+    function regexReplace(regex, text, yesFn, noFn) {
         if (!regex.global || !yesFn || !noFn) {
             throw new Error('regex must be global, yesFn and noFn must be defined');
         }
@@ -40,9 +41,11 @@ define(function(){
         /* jshint -W084 */
         while (match = regex.exec(text)) {
             var offset = regex.lastIndex - match[0].length;
+
             if (lastIndex < offset) {
                 output += noFn(text.substring(lastIndex, offset));
             }
+
             output += yesFn.apply(this, match);
             lastIndex = regex.lastIndex;
         }
@@ -53,7 +56,8 @@ define(function(){
         }
 
         return output;
-    };
+    }
 
     return regexReplace;
+
 });
