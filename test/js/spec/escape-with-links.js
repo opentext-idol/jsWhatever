@@ -4,9 +4,8 @@
  */
 
 define([
-    'js-whatever/js/escape-with-links',
-    'underscore'
-], function (escapeWithLinks, _) {
+    'js-whatever/js/escape-with-links'
+], function (escapeWithLinks) {
 
     describe('escapeWithLinks', function () {
         it('returns undefined when the input is undefined', function() {
