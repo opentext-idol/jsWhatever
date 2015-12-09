@@ -10,6 +10,9 @@ define([
     'js-whatever/js/regex-replace',
     'underscore'
 ], function(regexReplace, _){
+
+    var template = _.template('<a class="<%-className%>" target="<%-target%>" href="<%-href%>"><%-text%></a>');
+
     /**
      * @alias module:js-whatever/js/escape-with-links
      * @desc HTML escapes a string, replacing any hyperlinks found with &lt;a&gt; tags
@@ -20,9 +23,11 @@ define([
      * @param {string} className The class to put on the &lt;a&gt; tag of any links found
      * @returns {string} The original string, HTML escaped and with links wrapped in &lt;a&gt; tags
      */
-    var escapeWithLinks = function escapeWithLinks(text, catchSpaces, target, className) {
-        var regex = /\(?https?:\/\/[-A-Za-z0-9+&@#/%?=~_()|!:,.;']*[-A-Za-z0-9+&@#/%=~_()|]/ig;
-        var regexSpaces = /\(?https?:\/\/[-A-Za-z0-9+&@#/%?=~_()|!:,.;'\s]*[-A-Za-z0-9+&@#/%=~_()|]/ig;
+    function escapeWithLinks(text, catchSpaces, target, className) {
+        // /\u0080-\uFFFF/ matches any non-ASCII unicode character. These are not technically valid in a URI, but can
+        // be escaped using encodeURI.
+        var regex = /\(?https?:\/\/[-A-Za-z0-9\u0080-\uFFFF+&@#/%?=~_()|!:,.;']*[-A-Za-z0-9\u0080-\uFFFF+&@#/%=~_()|]/ig;
+        var regexSpaces = /\(?https?:\/\/[-A-Za-z0-9\u0080-\uFFFF+&@#/%?=~_()|!:,.;'\s]*[-A-Za-z0-9\u0080-\uFFFF+&@#/%=~_()|]/ig;
 
         if (_.isUndefined(target) || _.isNull(target)) {
             target = '_blank';
@@ -44,19 +49,24 @@ define([
             // Check for links wrapped in brackets
             if (url[0] === '(' && url[url.length - 1] === ')') {
                 url = url.substring(1, url.length - 1);
-                wrapLink = true
+                wrapLink = true;
             }
 
-            var escapedURL = _.escape(url);
-            var link = '<a class="' + className + '" target="' + target + '" href="' + escapedURL + '">' + escapedURL + '</a>';
+            var link = template({
+                className: className,
+                target: target,
+                href: encodeURI(url),
+                text: url
+            });
 
             if (wrapLink) {
-                link = '(' + link + ')'
+                link = '(' + link + ')';
             }
 
             return link;
         }, _.escape);
-    };
+    }
 
     return escapeWithLinks;
+
 });

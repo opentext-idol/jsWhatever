@@ -55,7 +55,6 @@ define(function() {
             '*': {
                 'js-whatever': 'src',
                 'js-whatever/js/lazy-tab-view': 'test/mock/lazy-tab-view',
-                'js-whatever/js/regex-replace': 'test/mock/regex-replace',
                 'real': 'src'
             }
         }
