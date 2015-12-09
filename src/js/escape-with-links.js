@@ -11,6 +11,8 @@ define([
     'underscore'
 ], function(regexReplace, _){
 
+    var template = _.template('<a class="<%-className%>" target="<%-target%>" href="<%-href%>"><%-text%></a>');
+
     /**
      * @alias module:js-whatever/js/escape-with-links
      * @desc HTML escapes a string, replacing any hyperlinks found with &lt;a&gt; tags
@@ -22,8 +24,10 @@ define([
      * @returns {string} The original string, HTML escaped and with links wrapped in &lt;a&gt; tags
      */
     function escapeWithLinks(text, catchSpaces, target, className) {
-        var regex = /\(?https?:\/\/[-A-Za-z0-9+&@#/%?=~_()|!:,.;']*[-A-Za-z0-9+&@#/%=~_()|]/ig;
-        var regexSpaces = /\(?https?:\/\/[-A-Za-z0-9+&@#/%?=~_()|!:,.;'\s]*[-A-Za-z0-9+&@#/%=~_()|]/ig;
+        // /\u0080-\uFFFF/ matches any non-ASCII unicode character. These are not technically valid in a URI, but can
+        // be escaped using encodeURI.
+        var regex = /\(?https?:\/\/[-A-Za-z0-9\u0080-\uFFFF+&@#/%?=~_()|!:,.;']*[-A-Za-z0-9\u0080-\uFFFF+&@#/%=~_()|]/ig;
+        var regexSpaces = /\(?https?:\/\/[-A-Za-z0-9\u0080-\uFFFF+&@#/%?=~_()|!:,.;'\s]*[-A-Za-z0-9\u0080-\uFFFF+&@#/%=~_()|]/ig;
 
         if (_.isUndefined(target) || _.isNull(target)) {
             target = '_blank';
@@ -48,8 +52,12 @@ define([
                 wrapLink = true;
             }
 
-            var escapedURL = _.escape(url);
-            var link = '<a class="' + className + '" target="' + target + '" href="' + escapedURL + '">' + escapedURL + '</a>';
+            var link = template({
+                className: className,
+                target: target,
+                href: encodeURI(url),
+                text: url
+            });
 
             if (wrapLink) {
                 link = '(' + link + ')';

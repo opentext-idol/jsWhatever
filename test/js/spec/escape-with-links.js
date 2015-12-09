@@ -29,12 +29,20 @@ define([
             expect(escapeWithLinks('')).toBe('');
         });
 
-        it('recognises links with non-latin characters', function() {
-            var href = 'https://hi.wikipedia.org/wiki/भारतीय_विशिष्ट_पहचान_प्राधिकरण';
+        it('recognises links with non-latin characters and uriEncodes the href attribute', function() {
+            var href = 'https://hi.wikipedia.org/wiki/\u092d\u093e\u0930\u0924\u0940\u092f\u005f\u0935\u093f\u0936\u093f\u0937\u094d\u091f\u005f\u092a\u0939\u091a\u093e\u0928\u005f\u092a\u094d\u0930\u093e\u0927\u093f\u0915\u0930\u0923';
             var input = '& ' + href;
-            var expectedOutput = '&amp; <a class="hyperlink" target="_blank" href="' + href + '">' + href + '</a>';
+            var expectedOutput = '&amp; <a class="hyperlink" target="_blank" href="' + encodeURI(href) + '">' + href + '</a>';
 
             expect(escapeWithLinks(input, false, null, 'hyperlink')).toBe(expectedOutput);
+        });
+
+        it('recognises links with non-latin characters and spaces, and uriEncodes the href attribute', function() {
+            var href = 'http://www.example.com/\u092d\u093e\u0930\ \u0940\u092f';
+            var input = '& ' + href;
+            var expectedOutput = '&amp; <a class="hyperlink" target="_blank" href="' + encodeURI(href) + '">' + href + '</a>';
+
+            expect(escapeWithLinks(input, true, null, 'hyperlink')).toBe(expectedOutput);
         });
 
         describe('for http links with spaces in them', function() {
@@ -43,28 +51,28 @@ define([
             });
 
             it('with a target, and a className appropriate output is returned', function () {
-                var expectedOutput = 'before <a class="demoClassName" target="demoTarget" href="http://example with spaces.com/ after">http://example with spaces.com/ after</a>';
+                var expectedOutput = 'before <a class="demoClassName" target="demoTarget" href="http://example%20with%20spaces.com/%20after">http://example with spaces.com/ after</a>';
                 var output = escapeWithLinks(this.input, true, 'demoTarget', 'demoClassName');
 
                 expect(output).toBe(expectedOutput);
             });
 
             it('with a target, and no className appropriate output is returned', function () {
-                var expectedOutput = 'before <a class="autoLink" target="demoTarget" href="http://example with spaces.com/ after">http://example with spaces.com/ after</a>';
+                var expectedOutput = 'before <a class="autoLink" target="demoTarget" href="http://example%20with%20spaces.com/%20after">http://example with spaces.com/ after</a>';
                 var output = escapeWithLinks(this.input, true, 'demoTarget', null);
 
                 expect(output).toBe(expectedOutput);
             });
 
             it('with no target, and a className appropriate output is returned', function () {
-                var expectedOutput = 'before <a class="demoClassName" target="_blank" href="http://example with spaces.com/ after">http://example with spaces.com/ after</a>';
+                var expectedOutput = 'before <a class="demoClassName" target="_blank" href="http://example%20with%20spaces.com/%20after">http://example with spaces.com/ after</a>';
                 var output = escapeWithLinks(this.input, true, null, 'demoClassName');
 
                 expect(output).toBe(expectedOutput);
             });
 
             it('with no target, and no className appropriate output is returned', function () {
-                var expectedOutput = 'before <a class="autoLink" target="_blank" href="http://example with spaces.com/ after">http://example with spaces.com/ after</a>';
+                var expectedOutput = 'before <a class="autoLink" target="_blank" href="http://example%20with%20spaces.com/%20after">http://example with spaces.com/ after</a>';
                 var output = escapeWithLinks(this.input, true, null, null);
 
                 expect(output).toBe(expectedOutput);
@@ -111,28 +119,28 @@ define([
             });
 
             it('with a target, and a className appropriate output is returned', function () {
-                var expectedOutput = 'before <a class="demoClassName" target="demoTarget" href="https://example with spaces.com/ after">https://example with spaces.com/ after</a>';
+                var expectedOutput = 'before <a class="demoClassName" target="demoTarget" href="https://example%20with%20spaces.com/%20after">https://example with spaces.com/ after</a>';
                 var output = escapeWithLinks(this.input, true, 'demoTarget', 'demoClassName');
 
                 expect(output).toBe(expectedOutput);
             });
 
             it('with a target, and no className appropriate output is returned', function () {
-                var expectedOutput = 'before <a class="autoLink" target="demoTarget" href="https://example with spaces.com/ after">https://example with spaces.com/ after</a>';
+                var expectedOutput = 'before <a class="autoLink" target="demoTarget" href="https://example%20with%20spaces.com/%20after">https://example with spaces.com/ after</a>';
                 var output = escapeWithLinks(this.input, true, 'demoTarget', null);
 
                 expect(output).toBe(expectedOutput);
             });
 
             it('with no target, and a className appropriate output is returned', function () {
-                var expectedOutput = 'before <a class="demoClassName" target="_blank" href="https://example with spaces.com/ after">https://example with spaces.com/ after</a>';
+                var expectedOutput = 'before <a class="demoClassName" target="_blank" href="https://example%20with%20spaces.com/%20after">https://example with spaces.com/ after</a>';
                 var output = escapeWithLinks(this.input, true, null, 'demoClassName');
 
                 expect(output).toBe(expectedOutput);
             });
 
             it('with no target, and no className appropriate output is returned', function () {
-                var expectedOutput = 'before <a class="autoLink" target="_blank" href="https://example with spaces.com/ after">https://example with spaces.com/ after</a>';
+                var expectedOutput = 'before <a class="autoLink" target="_blank" href="https://example%20with%20spaces.com/%20after">https://example with spaces.com/ after</a>';
                 var output = escapeWithLinks(this.input, true, null, null);
 
                 expect(output).toBe(expectedOutput);
@@ -195,7 +203,7 @@ define([
         describe('corner cases', function() {
             it('should handle bare wikipedia links', function() {
                 var input = "https://en.wikipedia.org/wiki/Nirvana_(band)#In Utero, final months, and Cobain's death";
-                var expectedOutput = '<a class="autoLink" target="_blank" href="https://en.wikipedia.org/wiki/Nirvana_(band)#In Utero, final months, and Cobain&#x27;s death">https://en.wikipedia.org/wiki/Nirvana_(band)#In Utero, final months, and Cobain&#x27;s death</a>';
+                var expectedOutput = '<a class="autoLink" target="_blank" href="https://en.wikipedia.org/wiki/Nirvana_(band)#In%20Utero,%20final%20months,%20and%20Cobain&#x27;s%20death">https://en.wikipedia.org/wiki/Nirvana_(band)#In Utero, final months, and Cobain&#x27;s death</a>';
 
                 expect(escapeWithLinks(input, true)).toBe(expectedOutput);
             });
