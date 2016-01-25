@@ -53,6 +53,7 @@ define([
          * @desc Sets the value of this.pages to the list of page objects.
          * These must have a pageName and a constructor function.
          * The constructors should extend {@link module:js-whatever/js/base-page.BasePage|BasePage}
+         * A page marked with defaultPage will be used if the given page is not found.
          * @abstract
          * @method
          * @example
@@ -61,6 +62,7 @@ define([
          *     pageName: 'foo'
          * }, {
          *     constructor: Bar,
+         *     defaultPage: true,
          *     pageName: 'bar'
          * }]
          */
@@ -79,7 +81,13 @@ define([
          * @returns {Object} The page object with the given name
          */
         findPage: function(pageName) {
-            return _.findWhere(this.pages, { pageName: pageName });
+            var page = _.findWhere(this.pages, { pageName: pageName });
+
+            if (!page) {
+                page = _.findWhere(this.pages, { defaultPage: true });
+            }
+
+            return page;
         },
 
         /**
