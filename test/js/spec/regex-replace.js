@@ -4,57 +4,65 @@
  */
 
 define([
-    'real/js/regex-replace',
+    'js-whatever/js/regex-replace',
     'underscore'
-], function (regexReplace) {
+], function (regexReplace, _) {
 
-    describe('Utility: regexReplace', function () {
-        var nonGlobalReg = /[^]/;
-        var globalReg = /[^]/g;
-        var encase = function (left, right) {
-            return function (value) {
-                return [left, value, right].join('');
-            };
+    var nonGlobalRegex = /[^]/;
+    var globalRegex = /[^]/g;
+
+    function encase(left, right) {
+        return function(value) {
+            return left + value + right;
         };
+    }
 
-        it('should error when given invalid input', function () {
-
-            expect(function () {
+    describe('regexReplace', function () {
+        it('throws when given no arguments', function() {
+            expect(function() {
                 regexReplace();
-            }).toThrow();
-
-            expect(function () {
-                regexReplace(void 0, '', _.identity);
-            }).toThrow();
-
-            expect(function () {
-                regexReplace(nonGlobalReg, '');
-            }).toThrow();
-
-            expect(function () {
-                regexReplace(globalReg, '');
-            }).toThrow();
-
-            expect(function () {
-                regexReplace(globalReg, '', _.identity);
-            }).toThrow();
-
-            expect(function () {
-                regexReplace(globalReg, '', void 0, _.identity);
-            }).toThrow();
-
-            expect(function () {
-                regexReplace(nonGlobalReg, '', _.identity, _.identity);
             }).toThrow();
         });
 
+        it('throws when called with no first argument', function() {
+            expect(function() {
+                regexReplace(undefined, '', _.identity);
+            }).toThrow();
+        });
+
+        it('throws when called without a regex', function() {
+            expect(function() {
+                regexReplace(undefined, '', _.identity, _.identity);
+            }).toThrow();
+        });
+
+        it('throws when called without a yes function', function() {
+            expect(function() {
+                regexReplace(globalRegex, '', undefined, _.identity);
+            }).toThrow();
+        });
+
+        it('throws when called without a no function', function() {
+            expect(function() {
+                regexReplace(globalRegex, '', _.identity, undefined);
+            }).toThrow();
+        });
+
+        it('throws when called with a non-global regex', function() {
+            expect(function() {
+                regexReplace(nonGlobalRegex, '', _.identity, _.identity);
+            }).toThrow();
+        });
 
         it('should not error when given valid input', function () {
             expect(function () {
-                regexReplace(globalReg, '', _.identity, _.identity);
+                regexReplace(globalRegex, '', _.identity, _.identity);
             }).not.toThrow();
         });
 
+        it('returns the empty string when text is the empty string', function() {
+            expect(regexReplace(globalRegex, '', _.identity, _.identity)).toBe('');
+        });
 
         describe('should correctly apply functions where appropriate', function () {
             it('for digit sequences', function () {
@@ -66,7 +74,6 @@ define([
                 expect(regexReplace(pattern, input, digits, notDigits)).toBe(output);
             });
 
-
             it('for pattern with alternation', function () {
                 var cat = encase('<', '>');
                 var other = encase('[other:', ']');
@@ -75,7 +82,6 @@ define([
                 var output = '[other:ab]<caat>[other:12ca]<doooog>[other:a36]<caaaat>';
                 expect(regexReplace(pattern, input, cat, other)).toBe(output);
             });
-
 
             it('for pattern with groups', function () {
                 var cat = function (value, group) { return '<cat ' + group.length + ' a\'s>'; };
@@ -86,7 +92,6 @@ define([
                 expect(regexReplace(pattern, input, cat, other)).toBe(output);
             });
 
-
             it('for full pattern match', function () {
                 var match = encase('{', '}');
                 var other = encase('[oops:', ']');
@@ -96,7 +101,6 @@ define([
                 expect(regexReplace(pattern, input, match, other)).toBe(output);
             });
 
-
             it('for full separated pattern matches', function () {
                 var match = encase('{', '}');
                 var other = encase('[oops:', ']');
@@ -105,7 +109,6 @@ define([
                 var output = '{0}{1}{2}{3}{4}{5}{6}{7}{8}{9}';
                 expect(regexReplace(pattern, input, match, other)).toBe(output);
             });
-
 
             it('for no pattern match', function () {
                 var match = encase('[oops:', ']');
@@ -117,4 +120,5 @@ define([
             });
         });
     });
+
 });
