@@ -1,13 +1,13 @@
 # jsWhatever
 
-[![Build Status](https://travis-ci.org/hpautonomy/jsWhatever.svg?branch=master)](https://travis-ci.org/hpautonomy/jsWhatever)
+[![Build Status](https://travis-ci.org/hpe-idol/jsWhatever.svg?branch=master)](https://travis-ci.org/hpe-idol/jsWhatever)
 
 A collection of Javascript utilities using Backbone and Bootstrap 2.
 
 This project exposes AMD modules. The path to the project root directory must be aliased as js-whatever. The module names
 in the documentation reflect this.
 
-Documentation can be found [here](http://hpautonomy.github.io/jsWhatever).
+Documentation can be found [here](http://hpe-idol.github.io/jsWhatever).
 
 This repo uses git-flow. develop is the development branch. master is the last known good branch.
 
@@ -28,5 +28,6 @@ Yes!
 
 ## License
 Copyright 2013-2015 Hewlett-Packard Development Company, L.P.
+Copyright 2015-2016 Hewlett Packard Enterprise Development LP
 
 Licensed under the MIT License (the "License"); you may not use this project except in compliance with the License.
