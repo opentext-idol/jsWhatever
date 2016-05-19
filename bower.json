@@ -1,16 +1,16 @@
 {
     "name": "hp-autonomy-js-whatever",
     "authors": [
-        "Brian Beckett <brian.beckett@hp.com>",
-        "Tung Jin Chew <tung-jin.chew@hp.com>",
-        "Liam Goodacre <liam.goodacre@hp.com>",
-        "Matthew Gordon <matthew.gordon2@hp.com>",
+        "Brian Beckett <brian.beckett@hpe.com>",
+        "Tung Jin Chew <tung-jin.chew@hpe.com>",
+        "Liam Goodacre <liam.goodacre@hpe.com>",
+        "Matthew Gordon <matthew.gordon2@hpe.com>",
         "Xiaochen Guo",
-        "Alyona Ivanova <alyona.ivanova@hp.com>",
-        "David Knipe <david.knipe@hp.com>",
+        "Alyona Ivanova <alyona.ivanova@hpe.com>",
+        "David Knipe <david.knipe@hpe.com>",
         "Jonathan Lancaster",
         "Luca Mandrioli",
-        "Alex Scown <alex.scown@hp.com>"
+        "Alex Scown <alex.scown@hpe.com>"
     ],
     "description": "Collection of Javascript utilities used in HP Autonomy Frontend Projects",
     "moduleType": [
