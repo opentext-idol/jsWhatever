@@ -5,6 +5,7 @@ branches:
   only:
   - master
   - develop
+  - legacy-v1
 env:
   global:
     - secure: "vS+h1idk2ex+6tjgtPTkJ6MXCYk0IyhlMuVjyBGMeS3gHftL8FGi2aaHXwb0ffwv1Oi2pNamJFu4zDo4q82cK6SsAMvrlN3DnsaLkWODRXoajEIcDcudGC8B7M1gJSfIskw3dLys35oaftcrZe377muIpWxvJQ/OpFCsYVl5JsY="
