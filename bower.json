@@ -32,16 +32,16 @@
     "bootstrap": "hp-autonomy-bootstrap-2#2.3.2",
     "requirejs": "2.1.22",
     "requirejs-text": "2.0.15",
-    "jquery": "1.8.3",
+    "jquery": "components/jquery#1.10.2",
     "underscore": "1.7.0"
   },
   "devDependencies": {
     "sinon": "http://sinonjs.org/releases/sinon-1.9.1.js",
     "jasmine-jquery": "2.1.1",
-    "hp-autonomy-js-testing-utils": "2.1.0"
+    "hp-autonomy-js-testing-utils": "2.2.0"
   },
   "resolutions": {
-    "jquery": "1.8.3",
-    "jasmine": "2.4"
+    "jasmine": "2.4",
+    "jquery": "1.10.2"
   }
 }
