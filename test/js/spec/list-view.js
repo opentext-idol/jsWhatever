@@ -252,7 +252,7 @@ define([
                 var eventArguments = this.eventArguments = [];
 
                 this.listView.on('item:my-event', function() {
-                    eventArguments.push(arguments);
+                    eventArguments.push(_.toArray(arguments));
                 });
             });
 

@@ -36,8 +36,9 @@ define([
         it('should call router.navigate with trigger: true', function() {
             this.vent.navigate('foo/bar');
 
-            expect(this.router.navigate.calls[0].args[0]).toEqual('foo/bar');
-            expect(this.router.navigate.calls[0].args[1].trigger).toBe(true);
+            var args = this.router.navigate.calls.argsFor(0);
+            expect(args[0]).toEqual('foo/bar');
+            expect(args[1].trigger).toBe(true);
         });
 
     });

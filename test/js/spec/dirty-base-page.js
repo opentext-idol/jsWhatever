@@ -14,7 +14,7 @@ define([
 
         describe('renderIfVisible', function() {
             it('should call render when visible', function() {
-                spyOn(this.page, 'isVisible').andReturn(true);
+                spyOn(this.page, 'isVisible').and.returnValue(true);
                 spyOn(this.page, 'render');
 
                 this.page.renderIfVisible();
@@ -23,7 +23,7 @@ define([
             });
 
             it('should mark the page dirty when not visible', function() {
-                spyOn(this.page, 'isVisible').andReturn(false);
+                spyOn(this.page, 'isVisible').and.returnValue(false);
                 spyOn(this.page, 'render');
                 spyOn(this.page, 'setDirty');
 

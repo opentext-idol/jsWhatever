@@ -118,11 +118,11 @@ define([
         });
 
         it('should fire a resize event' ,function() {
-            expect(this.mockVent.fireResize.callCount).toEqual(1);
+            expect(this.mockVent.fireResize.calls.count()).toEqual(1);
 
             this.$toggle.click();
 
-            expect(this.mockVent.fireResize.callCount).toEqual(2);
+            expect(this.mockVent.fireResize.calls.count()).toEqual(2);
         });
     });
 

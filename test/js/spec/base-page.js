@@ -10,16 +10,17 @@ define([
     describe('Base Page', function() {
 
         beforeEach(function() {
-            this.addMatchers({
+            jasmine.addMatchers({
                 toBeVisible: function() {
-                    this.message = function() {
-                        return [
-                            'Expected ' + jasmine.pp(this.actual) + 'to be visible',
-                            'Expected ' + jasmine.pp(this.actual) + 'not to be visible'
-                        ];
-                    };
-
-                    return this.actual.$el.css('display') !== 'none';
+                    return {
+                        compare: function(actual) {
+                            var pass = actual.$el.css('display') !== 'none';
+                            return {
+                                message: 'Expected ' + jasmine.pp(actual) + (pass ? ' not ' : '') + 'to be visible',
+                                pass: pass
+                            }
+                        }
+                    }
                 }
             });
 

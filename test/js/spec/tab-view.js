@@ -49,17 +49,17 @@ define([
         });
 
         it('should initialize correctly', function() {
-            expect($.fn.tabs.calls[0].args[0]).toEqual({
+            expect($.fn.tabs.calls.argsFor(0)[0]).toEqual({
                 activate: this.tabView.showTab,
                 active: -1
             });
 
-            expect($.fn.tabs.calls[1].args).toEqual(['option', 'active', 0]);
+            expect($.fn.tabs.calls.argsFor(1)).toEqual(['option', 'active', 0]);
             expect(this.vent.navigate).not.toHaveBeenCalled();
         });
 
         it('should show the correct tab on "selectTab', function() {
-            $.fn.tabs.reset();
+            $.fn.tabs.calls.reset();
             this.tabView.selectTab('macaque');
 
             expect($.fn.tabs).toHaveBeenCalledWith('option', 'active', 2);

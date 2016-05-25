@@ -20,7 +20,7 @@ define([
         eventName: 'change'
     });
 
-    AutoloadTest.prototype.fetch = jasmine.createSpy('fetch').andCallFake(function(options) {
+    AutoloadTest.prototype.fetch = jasmine.createSpy('fetch').and.callFake(function(options) {
         options.success();
     });
 
