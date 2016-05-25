@@ -1,44 +1,47 @@
 {
-    "name": "hp-autonomy-js-whatever",
-    "authors": [
-        "Brian Beckett <brian.beckett@hpe.com>",
-        "Tung Jin Chew <tung-jin.chew@hpe.com>",
-        "Liam Goodacre <liam.goodacre@hpe.com>",
-        "Matthew Gordon <matthew.gordon2@hpe.com>",
-        "Xiaochen Guo",
-        "Alyona Ivanova <alyona.ivanova@hpe.com>",
-        "David Knipe <david.knipe@hpe.com>",
-        "Jonathan Lancaster",
-        "Luca Mandrioli",
-        "Alex Scown <alex.scown@hpe.com>"
-    ],
-    "description": "Collection of Javascript utilities used in HP Autonomy Frontend Projects",
-    "moduleType": [
-        "amd"
-    ],
-    "license": "MIT",
-    "ignore": [
-        "**/.*",
-        "node_modules",
-        "bower_components",
-        "test",
-        "bin",
-        "travis.sh"
-    ],
-    "dependencies": {
-        "backbone": "1.1.2",
-        "store-js": "1.3.16",
-        "jquery-steps": "1.1.0",
-        "bootstrap": "hp-autonomy-bootstrap-2#2.3.2",
-        "requirejs": "2.1.15",
-        "requirejs-text": "2.0.12",
-        "jquery": "components/jquery#1.10.0",
-        "underscore": "1.7.0"
-    },
-    "devDependencies": {
-        "sinon": "http://sinonjs.org/releases/sinon-1.9.1.js",
-        "jasmine-jquery": "1.5.8",
-        "jasmine-sinon": "0.3.1",
-        "hp-autonomy-js-testing-utils": "1.1.0"
-    }
+  "name": "hp-autonomy-js-whatever",
+  "authors": [
+    "Brian Beckett <brian.beckett@hpe.com>",
+    "Tung Jin Chew <tung-jin.chew@hpe.com>",
+    "Liam Goodacre <liam.goodacre@hpe.com>",
+    "Matthew Gordon <matthew.gordon2@hpe.com>",
+    "Xiaochen Guo",
+    "Alyona Ivanova <alyona.ivanova@hpe.com>",
+    "David Knipe <david.knipe@hpe.com>",
+    "Jonathan Lancaster",
+    "Luca Mandrioli",
+    "Alex Scown <alex.scown@hpe.com>"
+  ],
+  "description": "Collection of Javascript utilities used in HP Autonomy Frontend Projects",
+  "moduleType": [
+    "amd"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "bin",
+    "travis.sh"
+  ],
+  "dependencies": {
+    "backbone": "1.1.2",
+    "store-js": "1.3.20",
+    "jquery-steps": "1.1.0",
+    "bootstrap": "hp-autonomy-bootstrap-2#2.3.2",
+    "requirejs": "2.1.22",
+    "requirejs-text": "2.0.15",
+    "jquery": "1.8.3",
+    "underscore": "1.7.0"
+  },
+  "devDependencies": {
+    "sinon": "http://sinonjs.org/releases/sinon-1.9.1.js",
+    "jasmine-jquery": "2.1.1",
+    "hp-autonomy-js-testing-utils": "2.1.0"
+  },
+  "resolutions": {
+    "jquery": "1.8.3",
+    "jasmine": "2.4"
+  }
 }

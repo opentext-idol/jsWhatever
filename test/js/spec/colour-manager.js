@@ -18,13 +18,26 @@ define([
         beforeEach(function() {
             this.colourManager = new ColourManager();
 
-            this.addMatchers({
+            jasmine.addMatchers({
                 toContainADuplicate: function() {
-                    var values = _.values(this.actual);
-                    return _.unique(values).length !== values.length;
+                    return {
+                        compare: function(actual) {
+                            var values = _.values(actual);
+
+                            return {
+                                pass: _.unique(values).length !== values.length
+                            }
+                        }
+                    }
                 },
                 toBeAHexColour: function() {
-                    return /^#[0-9a-f]{6}$/.exec(this.actual);
+                    return {
+                        compare: function(actual) {
+                            return {
+                                pass: /^#[0-9a-f]{6}$/.exec(actual)
+                            }
+                        }
+                    }
                 }
             });
         });

@@ -50,8 +50,8 @@ define([
         });
 
         afterEach(function() {
-            router.on.reset();
-            vent.navigate.reset();
+            router.on.calls.reset();
+            vent.navigate.calls.reset();
         });
 
         describe('initialize', function() {
