@@ -28,6 +28,7 @@ define([
      * @property {String[]} [proxyEvents=[]] Events to proxy from ItemViews, prefixed with 'item:'
      * @property {String} [headerHtml] Optional HTML to render at the top of the list.
      * @property {String} [footerHtml] Optional HTML to render at the bottom of the list.
+     * @property {number} [maxSize] If defined, caps the number of item views at the value of maxSize
      */
     /**
      * @name module:js-whatever/js/list-view.ListView
@@ -44,6 +45,17 @@ define([
             this.proxyEvents = options.proxyEvents || [];
             this.footerHtml = options.footerHtml;
             this.headerHtml = options.headerHtml;
+
+            this.maxSize = options.maxSize;
+
+            if (options.maxSize) {
+                this.transformedCollection = _.bind(function() {
+                    return this.collection.chain().first(options.maxSize)
+                }, this)
+            }
+            else {
+                this.transformedCollection = _.constant(this.collection);
+            }
 
             this.views = {};
 
@@ -78,7 +90,7 @@ define([
                 this.$header = $fragment.children().last();
             }
 
-            this.collection.each(function(model) {
+            this.transformedCollection().each(function(model) {
                 var view = this.createItemView(model);
                 $fragment.append(view.el);
             }, this);
@@ -116,14 +128,30 @@ define([
         /**
          * @desc Callback called when a model is added to the collection
          * @param {Backbone.Model} model The model added to the collection
+         * @param {Backbone.Collection} collection The collection
          */
-        onAdd: function(model) {
-            var view = this.createItemView(model);
+        onAdd: function(model, collection) {
+            // if we have maxSize, is the model in the interesting range
+            if (!this.maxSize || this.transformedCollection().indexOf(model).value() >= 0) {
+                var view = this.createItemView(model);
 
-            if (this.$footer) {
-                view.$el.insertBefore(this.$footer);
-            } else {
-                this.$el.append(view.el);
+                if (this.$footer) {
+                    view.$el.insertBefore(this.$footer);
+                } else {
+                    this.$el.append(view.el);
+                }
+            }
+
+            // if a model was added in the interesting range, another model may need to be pushed out
+            // always false if maxSize is undefined
+            if (_.size(this.views) > this.maxSize) {
+                _.each(this.views, function(view) {
+                    var index = this.collection.indexOf(view.model);
+
+                    if (index >= this.maxSize) {
+                        this.removeView(view);
+                    }
+                }, this)
             }
         },
 
@@ -136,6 +164,20 @@ define([
 
             if (view) {
                 this.removeView(view);
+                delete this.views[model.cid];
+            }
+
+            if (_.size(this.views) < this.maxSize && this.collection.size() >= this.maxSize) {
+                // if we've removed a view, the next model in the collection should have a view made
+                var nextModel = this.collection.at(this.maxSize - 1);
+
+                var newView = this.createItemView(nextModel);
+
+                if (this.$footer) {
+                    newView.$el.insertBefore(this.$footer);
+                } else {
+                    this.$el.append(newView.el);
+                }
             }
         },
 
@@ -146,16 +188,31 @@ define([
         onSort: function() {
             var $previous = this.$header;
 
-            this.collection.each(function(model) {
+            this.transformedCollection().each(function(model, index) {
                 var view = this.views[model.cid];
 
                 if (view) {
-                    var $item = view.$el;
+                    if (!this.maxSize || index < this.maxSize) {
+                        var $item = view.$el;
+
+                        if ($previous) {
+                            $previous = $item.insertAfter($previous);
+                        } else {
+                            $previous = $item.prependTo(this.$el);
+                        }
+                    }
+                    else if (this.maxSize) {
+                        this.removeView(view);
+                        delete this.views[model.cid];
+                    }
+                }
+                else if (index < this.maxSize) {
+                    var newView = this.createItemView(model);
 
                     if ($previous) {
-                        $previous = $item.insertAfter($previous);
+                        $previous = newView.$el.insertAfter($previous);
                     } else {
-                        $previous = $item.prependTo(this.$el);
+                        $previous = newView.$el.prependTo(this.$el);
                     }
                 }
             }, this);
