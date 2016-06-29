@@ -130,7 +130,7 @@ define([
          * @param {Backbone.Model} model The model added to the collection
          * @param {Backbone.Collection} collection The collection
          */
-        onAdd: function(model, collection) {
+        onAdd: function(model) {
             // if we have maxSize, is the model in the interesting range
             if (!this.maxSize || this.transformedCollection().indexOf(model).value() >= 0) {
                 var view = this.createItemView(model);
