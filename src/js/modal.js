@@ -1,9 +1,10 @@
 define([
     'backbone',
+    'underscore',
     'jquery',
     'text!js-whatever/templates/modal.html',
     'bootstrap'
-], function(Backbone, $, modalHtml) {
+], function(Backbone, _, $, modalHtml) {
 
     var modalTemplate = _.template(modalHtml);
 
@@ -26,6 +27,9 @@ define([
             this.contentView = options.contentView;
             this.title = options.title;
             this.secondaryButtonText = options.secondaryButtonText;
+
+            this.showFooter = !_.isUndefined(options.showFooter) ? options.showFooter : true;
+
             this.render();
         },
 
@@ -36,6 +40,7 @@ define([
                 actionButtonClass: this.actionButtonClass,
                 actionButtonText: this.actionButtonText,
                 secondaryButtonText: this.secondaryButtonText,
+                showFooter: this.showFooter,
                 title: this.title
             })).modal();
 

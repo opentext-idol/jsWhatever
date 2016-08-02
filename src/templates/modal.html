@@ -8,11 +8,13 @@
       <h4 class="modal-title"><%-title%></h4>
     </div>
     <div class="modal-body"></div>
-    <div class="modal-footer">
-      <% if(actionButtonText) { %>
-      <button type="button" class="btn btn-w-m modal-action-button <%=actionButtonClass%>"><%-actionButtonText%></button>
-      <% } %>
-      <button type="button" class="btn btn-white btn-w-m" data-dismiss="modal"><%=secondaryButtonText%></button>
-    </div>
+    <% if (showFooter) { %>
+      <div class="modal-footer">
+        <% if(actionButtonText) { %>
+          <button type="button" class="btn btn-w-m modal-action-button <%=actionButtonClass%>"><%-actionButtonText%></button>
+        <% } %>
+        <button type="button" class="btn btn-white btn-w-m" data-dismiss="modal"><%=secondaryButtonText%></button>
+      </div>
+    <% } %>
   </div>
 </div>
