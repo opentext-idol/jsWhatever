@@ -1,10 +1,10 @@
 define([
     'backbone',
-    'underscore',
     'jquery',
     'text!js-whatever/templates/modal.html',
     'bootstrap'
-], function(Backbone, _, $, modalHtml) {
+], function(Backbone, $, modalHtml) {
+    'use strict';
 
     var modalTemplate = _.template(modalHtml);
 
@@ -31,6 +31,14 @@ define([
             this.showFooter = !_.isUndefined(options.showFooter) ? options.showFooter : true;
 
             this.render();
+
+            this.listenTo(this.contentView, 'primary-button-disable', function() {
+                this.$('.modal-footer .button-primary').addClass('not-clickable disabled');
+            });
+
+            this.listenTo(this.contentView, 'primary-button-enable', function() {
+                this.$('.modal-footer .button-primary').removeClass('not-clickable disabled');
+            });
         },
 
         render: function() {
