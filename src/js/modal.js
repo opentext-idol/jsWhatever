@@ -1,9 +1,10 @@
 define([
     'backbone',
+    'underscore',
     'jquery',
     'text!js-whatever/templates/modal.html',
     'bootstrap'
-], function(Backbone, $, modalHtml) {
+], function(Backbone, _, $, modalHtml) {
     'use strict';
 
     var modalTemplate = _.template(modalHtml);
