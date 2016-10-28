@@ -3,7 +3,7 @@
 <html lang="en">
 <head>
 	<meta charset="utf-8">
-	<title>HP Autonomy jsWhatever Module: js-whatever/js/escape-regex</title>
+	<title>HP Autonomy jsWhatever Source: model-any-changed-attribute-listener.js</title>
 
 	<!--[if lt IE 9]>
 	<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -288,243 +288,57 @@
 	<div class="row-fluid">
 
 		
-		<div class="span8">
-			
+			<div class="span12">
+				
 				<div id="main">
 					
 
 
-	<h1 class="page-title">Module: js-whatever/js/escape-regex</h1>
+		<h1 class="page-title">Source: model-any-changed-attribute-listener.js</h1>
+    
 <section>
-
-<header>
-    <h2>
-    js-whatever/js/escape-regex
-    </h2>
-    
-</header>
-
-<article>
-    <div class="container-overview">
-    
-        
-<dt>
-    <h4 class="name" id="module:js-whatever/js/escape-regex"><span class="type-signature"></span>require("js-whatever/js/escape-regex")<span class="signature">(str)</span><span class="type-signature"> &rarr; {string}</span></h4>
-    
-    
-</dt>
-<dd>
-    
-    
-    <div class="description">
-        <p>Escapes regular expression characters in strings to allow them to be used with new RegExp()</p>
-    </div>
-    
-
-    
-    
-    
-    
-    
-        <h5>Parameters:</h5>
-        
-
-<table class="params table table-striped">
-    <thead>
-	<tr>
-		
-		<th>Name</th>
-		
-
-		<th>Type</th>
-
-		
-
-		
-
-		<th class="last">Description</th>
-	</tr>
-	</thead>
-
-	<tbody>
-	
-
-        <tr>
-            
-                <td class="name"><code>str</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>The string to escape</p></td>
-        </tr>
-
-	
-	</tbody>
-</table>
-
-    
-    
-    
-<dl class="details">
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-	<dt class="tag-source">Source:</dt>
-	<dd class="tag-source">
-		<ul class="dummy">
-			<li>
-				<a href="escape-regex.js.html">escape-regex.js</a>,
-				 <a href="escape-regex.js.html#sunlight-1-line-17">line 17</a>
-			</li>
-		</ul>
-	</dd>
-	
-
-	
-
-	
-
-	
-</dl>
-
-    
-    
-
-    
-
-    
-    
-    
-    
-    
-    <h5>Returns:</h5>
-    
-            
-<div class="param-desc">
-    <p>The input string with regular expression characters escaped</p>
-</div>
-
-
-
-<dl>
-	<dt>
-		Type
-	</dt>
-	<dd>
-		
-<span class="param-type">string</span>
-
-
-	</dd>
-</dl>
-
-
-        
-    
-    
-</dd>
-
-    
-
-    
-        
-
-        
-<dl class="details">
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-	<dt class="tag-source">Source:</dt>
-	<dd class="tag-source">
-		<ul class="dummy">
-			<li>
-				<a href="escape-regex.js.html">escape-regex.js</a>,
-				 <a href="escape-regex.js.html#sunlight-1-line-3">line 3</a>
-			</li>
-		</ul>
-	</dd>
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-        
-    
-    </div>
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</article>
-
+	<article>
+		<pre
+			class="sunlight-highlight-javascript linenums">/*
+ * Copyright 2016 Hewlett-Packard Development Company, L.P.
+ * Licensed under the MIT License (the "License"); you may not use this file except in compliance with the License.
+ */
+
+/**
+ * @module js-whatever/js/model-any-changed-attribute-listener
+ */
+define(function() {
+    /**
+     * @alias module:js-whatever/js/model-any-changed-attribute-listener
+     * @desc Listen to change events on the given model, calling the callback if one of the given attributes has
+     * changed. The callback is called with standard Backbone change event arguments in the context of the listener.
+     * @param {Backbone.Events} listener
+     * @param {Backbone.Model} model
+     * @param {String[]} attributes
+     * @param {Function} callback
+     * @returns {Function} The change callback added as a listener on the model; useful for removing the callback later
+     */
+    var addChangeListener = function(listener, model, attributes, callback) {
+        var inTargetAttributes = _.partial(_.contains, attributes);
+
+        function changeCallback() {
+            var changedAttributes = _.keys(model.changedAttributes());
+
+            if(_.any(changedAttributes, inTargetAttributes)) {
+                callback.apply(listener, arguments);
+            }
+        }
+
+        listener.listenTo(model, 'change', changeCallback);
+        return changeCallback;
+    };
+
+    return addChangeListener;
+});
+</pre>
+	</article>
 </section>
+
 
 
 
@@ -548,10 +362,6 @@
 				</footer>
 			</div>
 
-			
-			<div class="span3">
-				<div id="toc"></div>
-			</div>
 			
 			<br clear="both">
 		</div>

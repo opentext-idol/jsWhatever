@@ -3,7 +3,7 @@
 <html lang="en">
 <head>
 	<meta charset="utf-8">
-	<title>HP Autonomy jsWhatever Module: js-whatever/js/escape-regex</title>
+	<title>HP Autonomy jsWhatever Module: js-whatever/js/model-any-changed-attribute-listener</title>
 
 	<!--[if lt IE 9]>
 	<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -294,12 +294,12 @@
 					
 
 
-	<h1 class="page-title">Module: js-whatever/js/escape-regex</h1>
+	<h1 class="page-title">Module: js-whatever/js/model-any-changed-attribute-listener</h1>
 <section>
 
 <header>
     <h2>
-    js-whatever/js/escape-regex
+    js-whatever/js/model-any-changed-attribute-listener
     </h2>
     
 </header>
@@ -309,7 +309,7 @@
     
         
 <dt>
-    <h4 class="name" id="module:js-whatever/js/escape-regex"><span class="type-signature"></span>require("js-whatever/js/escape-regex")<span class="signature">(str)</span><span class="type-signature"> &rarr; {string}</span></h4>
+    <h4 class="name" id="module:js-whatever/js/model-any-changed-attribute-listener"><span class="type-signature"></span>require("js-whatever/js/model-any-changed-attribute-listener")<span class="signature">(listener, model, attributes, callback)</span><span class="type-signature"> &rarr; {function}</span></h4>
     
     
 </dt>
@@ -317,7 +317,8 @@
     
     
     <div class="description">
-        <p>Escapes regular expression characters in strings to allow them to be used with new RegExp()</p>
+        <p>Listen to change events on the given model, calling the callback if one of the given attributes has
+changed. The callback is called with standard Backbone change event arguments in the context of the listener.</p>
     </div>
     
 
@@ -351,13 +352,13 @@
 
         <tr>
             
-                <td class="name"><code>str</code></td>
+                <td class="name"><code>listener</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">string</span>
+<span class="param-type">Backbone.Events</span>
 
 
             
@@ -367,7 +368,76 @@
 
             
 
-            <td class="description last"><p>The string to escape</p></td>
+            <td class="description last"></td>
+        </tr>
+
+	
+
+        <tr>
+            
+                <td class="name"><code>model</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Backbone.Model</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+	
+
+        <tr>
+            
+                <td class="name"><code>attributes</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String[]</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+	
+
+        <tr>
+            
+                <td class="name"><code>callback</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">function</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
         </tr>
 
 	
@@ -403,8 +473,8 @@
 	<dd class="tag-source">
 		<ul class="dummy">
 			<li>
-				<a href="escape-regex.js.html">escape-regex.js</a>,
-				 <a href="escape-regex.js.html#sunlight-1-line-17">line 17</a>
+				<a href="model-any-changed-attribute-listener.js.html">model-any-changed-attribute-listener.js</a>,
+				 <a href="model-any-changed-attribute-listener.js.html#sunlight-1-line-20">line 20</a>
 			</li>
 		</ul>
 	</dd>
@@ -431,7 +501,7 @@
     
             
 <div class="param-desc">
-    <p>The input string with regular expression characters escaped</p>
+    <p>The change callback added as a listener on the model; useful for removing the callback later</p>
 </div>
 
 
@@ -442,7 +512,7 @@
 	</dt>
 	<dd>
 		
-<span class="param-type">string</span>
+<span class="param-type">function</span>
 
 
 	</dd>
@@ -486,8 +556,8 @@
 	<dd class="tag-source">
 		<ul class="dummy">
 			<li>
-				<a href="escape-regex.js.html">escape-regex.js</a>,
-				 <a href="escape-regex.js.html#sunlight-1-line-3">line 3</a>
+				<a href="model-any-changed-attribute-listener.js.html">model-any-changed-attribute-listener.js</a>,
+				 <a href="model-any-changed-attribute-listener.js.html#sunlight-1-line-3">line 3</a>
 			</li>
 		</ul>
 	</dd>
