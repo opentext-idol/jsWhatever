@@ -10,7 +10,8 @@
     "David Knipe <david.knipe@hpe.com>",
     "Jonathan Lancaster",
     "Luca Mandrioli",
-    "Alex Scown <alex.scown@hpe.com>"
+    "Alex Scown <alex.scown@hpe.com>",
+    "Wojciech Kaluza <wojciech.kaluza@hpe.com>"
   ],
   "description": "Collection of Javascript utilities used in HP Autonomy Frontend Projects",
   "moduleType": [
