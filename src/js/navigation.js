@@ -1,5 +1,5 @@
 /*
- * Copyright 2013-2015 Hewlett-Packard Development Company, L.P.
+ * Copyright 2013-2017 Hewlett Packard Enterprise Development Company, L.P.
  * Licensed under the MIT License (the "License"); you may not use this file except in compliance with the License.
  */
 
@@ -7,9 +7,12 @@
  * @module js-whatever/js/navigation
  */
 define([
+    'underscore',
+    'jquery',
     'backbone',
     'text!js-whatever/templates/navigation.html'
-], function(Backbone, template) {
+], function(_, $, Backbone, template) {
+    'use strict';
 
     /**
      * @typedef NavigationOptions
@@ -30,7 +33,7 @@ define([
          * @method
          * @abstract
          */
-        getTemplateParameters: $.noop,
+        getTemplateParameters: _.noop,
 
         /**
          * @desc Template for the navbar
@@ -40,7 +43,7 @@ define([
         initialize: function(options) {
             _.bindAll(this, 'navigate');
 
-            if (!this.event || !this.router) {
+            if(!this.event || !this.router) {
                 throw 'navigation.js error: event and router must be provided!';
             }
 
@@ -68,11 +71,11 @@ define([
             this.$el.html(this.template(params));
 
             this.$('li').click(_.bind(function(e) {
-                if (e.which !== 2) {
+                if(e.which !== 2) {
                     var target = $(e.delegateTarget);
                     var route = target.data('pagename');
 
-                    if (route) {
+                    if(route) {
                         e.preventDefault();
                         this.navigate(route);
                         this.pages.navigateToPage(route);
@@ -81,5 +84,4 @@ define([
             }, this));
         }
     });
-
 });

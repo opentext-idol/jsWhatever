@@ -1,12 +1,13 @@
 /*
- * Copyright 2013-2015 Hewlett-Packard Development Company, L.P.
+ * Copyright 2013-2017 Hewlett Packard Enterprise Development Company, L.P.
  * Licensed under the MIT License (the "License"); you may not use this file except in compliance with the License.
  */
 
 /**
  * @module js-whatever/js/regex-replace
  */
-define(function(){
+define(function() {
+    'use strict';
 
     /**
      * @alias module:js-whatever/js/regex-replace
@@ -28,21 +29,21 @@ define(function(){
      * regexReplace(/\d+/g, '12345abc', _.identity, wrapper); // returns '12345{abc}'
      */
     function regexReplace(regex, text, yesFn, noFn) {
-        if (!regex.global || !yesFn || !noFn) {
+        if(!(regex.global && yesFn && noFn)) {
             throw new Error('regex must be global, yesFn and noFn must be defined');
         }
 
-        if (!text) {
+        if(!text) {
             return text;
         }
 
         var match, lastIndex = 0, output = '';
 
         /* jshint -W084 */
-        while (match = regex.exec(text)) {
+        while(match = regex.exec(text)) {
             var offset = regex.lastIndex - match[0].length;
 
-            if (lastIndex < offset) {
+            if(lastIndex < offset) {
                 output += noFn(text.substring(lastIndex, offset));
             }
 
@@ -51,7 +52,7 @@ define(function(){
         }
         /* jshint +W084 */
 
-        if (lastIndex < text.length) {
+        if(lastIndex < text.length) {
             output += noFn(text.substring(lastIndex));
         }
 
@@ -59,5 +60,4 @@ define(function(){
     }
 
     return regexReplace;
-
 });

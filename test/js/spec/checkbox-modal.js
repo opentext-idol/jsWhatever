@@ -1,5 +1,5 @@
 /*
- * Copyright 2013-2015 Hewlett-Packard Development Company, L.P.
+ * Copyright 2013-2017 Hewlett Packard Enterprise Development Company, L.P.
  * Licensed under the MIT License (the "License"); you may not use this file except in compliance with the License.
  */
 
@@ -8,6 +8,7 @@ define([
     'text!js-whatever/templates/checkbox-modal/radio-table.html',
     'jasmine-jquery'
 ], function(CheckboxModal, radioTemplate) {
+    'use strict';
 
     var i18n = {
         frenchTable: 'French',
@@ -42,50 +43,50 @@ define([
                     });
 
                     it('should set the initial values correctly', function() {
-                        expect(this.modal.editModal.find('[data-row-name=""]').is(':checked')).toBe(true);
+                        expect(this.modal.editModal.find('[data-row-name=""]').is(':checked')).toEqual(true);
 
-                        expect(this.modal.editModal.find('[data-row-name="one"]').is(':checked')).toBe(true);
-                        expect(this.modal.editModal.find('[data-row-name="two"]').is(':checked')).toBe(true);
-                        expect(this.modal.editModal.find('[data-row-name="three"]').is(':checked')).toBe(true);
+                        expect(this.modal.editModal.find('[data-row-name="one"]').is(':checked')).toEqual(true);
+                        expect(this.modal.editModal.find('[data-row-name="two"]').is(':checked')).toEqual(true);
+                        expect(this.modal.editModal.find('[data-row-name="three"]').is(':checked')).toEqual(true);
                     });
 
                     it('should set the nth checkbox correctly', function() {
                         this.modal.setNthCheckbox(0, 2, false);
-                        expect(this.modal.editModal.find('[data-row-name="two"]').is(':checked')).toBe(false);
+                        expect(this.modal.editModal.find('[data-row-name="two"]').is(':checked')).toEqual(false);
                     });
 
                     it('should set checkboxes by name correctly', function() {
                         this.modal.setCheckbox(0, 'two', false);
-                        expect(this.modal.editModal.find('[data-row-name="two"]').is(':checked')).toBe(false);
+                        expect(this.modal.editModal.find('[data-row-name="two"]').is(':checked')).toEqual(false);
                     });
 
                     it('should set all checkboxes correctly', function() {
                         this.modal.setCheckboxes(0, false);
 
-                        expect(this.modal.editModal.find('[data-row-name="one"]').is(':checked')).toBe(false);
-                        expect(this.modal.editModal.find('[data-row-name="two"]').is(':checked')).toBe(false);
-                        expect(this.modal.editModal.find('[data-row-name="three"]').is(':checked')).toBe(false);
+                        expect(this.modal.editModal.find('[data-row-name="one"]').is(':checked')).toEqual(false);
+                        expect(this.modal.editModal.find('[data-row-name="two"]').is(':checked')).toEqual(false);
+                        expect(this.modal.editModal.find('[data-row-name="three"]').is(':checked')).toEqual(false);
                     });
 
                     it('should clear all checkboxes correctly', function() {
                         this.modal.clearAllCheckboxes();
 
-                        expect(this.modal.editModal.find('[data-row-name=""]').is(':checked')).toBe(false);
-                        expect(this.modal.editModal.find('[data-row-name="one"]').is(':checked')).toBe(false);
-                        expect(this.modal.editModal.find('[data-row-name="two"]').is(':checked')).toBe(false);
-                        expect(this.modal.editModal.find('[data-row-name="three"]').is(':checked')).toBe(false);
+                        expect(this.modal.editModal.find('[data-row-name=""]').is(':checked')).toEqual(false);
+                        expect(this.modal.editModal.find('[data-row-name="one"]').is(':checked')).toEqual(false);
+                        expect(this.modal.editModal.find('[data-row-name="two"]').is(':checked')).toEqual(false);
+                        expect(this.modal.editModal.find('[data-row-name="three"]').is(':checked')).toEqual(false);
 
-                        expect(this.modal.editModal.find('[data-row-name=""]').prop('indeterminate')).toBe(false);
+                        expect(this.modal.editModal.find('[data-row-name=""]').prop('indeterminate')).toEqual(false);
                     });
 
                     it('should mark the global checkbox indeterminate correctly', function() {
                         this.modal.setIndeterminateCheckbox(0, true);
 
-                        expect(this.modal.editModal.find('[data-row-name=""]').prop('indeterminate')).toBe(true);
+                        expect(this.modal.editModal.find('[data-row-name=""]').prop('indeterminate')).toEqual(true);
                     });
 
                     it('should get the selected rows correctly', function() {
-                        expect(this.modal.getSelectedRows()).toEqual([['one','two','three']]);
+                        expect(this.modal.getSelectedRows()).toEqual([['one', 'two', 'three']]);
                     });
 
                     it('should handle changes correctly', function() {
@@ -93,20 +94,20 @@ define([
 
                         // we don't check the value of the checked property as phantom differs in behaviour to other browsers
 
-                        expect(this.modal.editModal.find('[data-row-name=""]').prop('indeterminate')).toBe(true);
+                        expect(this.modal.editModal.find('[data-row-name=""]').prop('indeterminate')).toEqual(true);
 
-                        expect(this.modal.getSelectedRows()).toEqual([['two','three']]);
+                        expect(this.modal.getSelectedRows()).toEqual([['two', 'three']]);
                     });
 
                     it('should handle changes to the global checkbox correctly', function() {
                         this.modal.editModal.find('[data-row-name=""]').click().change();
 
-                        expect(this.modal.editModal.find('[data-row-name=""]').is(':checked')).toBe(false);
-                        expect(this.modal.editModal.find('[data-row-name=""]').prop('indeterminate')).toBe(false);
+                        expect(this.modal.editModal.find('[data-row-name=""]').is(':checked')).toEqual(false);
+                        expect(this.modal.editModal.find('[data-row-name=""]').prop('indeterminate')).toEqual(false);
 
-                        expect(this.modal.editModal.find('[data-row-name="one"]').is(':checked')).toBe(false);
-                        expect(this.modal.editModal.find('[data-row-name="two"]').is(':checked')).toBe(false);
-                        expect(this.modal.editModal.find('[data-row-name="three"]').is(':checked')).toBe(false);
+                        expect(this.modal.editModal.find('[data-row-name="one"]').is(':checked')).toEqual(false);
+                        expect(this.modal.editModal.find('[data-row-name="two"]').is(':checked')).toEqual(false);
+                        expect(this.modal.editModal.find('[data-row-name="three"]').is(':checked')).toEqual(false);
                     });
                 });
 
@@ -131,46 +132,46 @@ define([
                     });
 
                     it('should set the initial values correctly', function() {
-                        expect(this.modal.editModal.find('[data-row-name=""]').is(':checked')).toBe(false);
+                        expect(this.modal.editModal.find('[data-row-name=""]').is(':checked')).toEqual(false);
 
-                        expect(this.modal.editModal.find('[data-row-name="one"]').is(':checked')).toBe(false);
-                        expect(this.modal.editModal.find('[data-row-name="two"]').is(':checked')).toBe(false);
-                        expect(this.modal.editModal.find('[data-row-name="three"]').is(':checked')).toBe(false);
+                        expect(this.modal.editModal.find('[data-row-name="one"]').is(':checked')).toEqual(false);
+                        expect(this.modal.editModal.find('[data-row-name="two"]').is(':checked')).toEqual(false);
+                        expect(this.modal.editModal.find('[data-row-name="three"]').is(':checked')).toEqual(false);
                     });
 
                     it('should set the nth checkbox correctly', function() {
                         this.modal.setNthCheckbox(0, 2, true);
-                        expect(this.modal.editModal.find('[data-row-name="two"]').is(':checked')).toBe(true);
+                        expect(this.modal.editModal.find('[data-row-name="two"]').is(':checked')).toEqual(true);
                     });
 
                     it('should set checkboxes by name correctly', function() {
                         this.modal.setCheckbox(0, 'two', true);
-                        expect(this.modal.editModal.find('[data-row-name="two"]').is(':checked')).toBe(true);
+                        expect(this.modal.editModal.find('[data-row-name="two"]').is(':checked')).toEqual(true);
                     });
 
                     it('should set all checkboxes correctly', function() {
                         this.modal.setCheckboxes(0, true);
 
-                        expect(this.modal.editModal.find('[data-row-name="one"]').is(':checked')).toBe(true);
-                        expect(this.modal.editModal.find('[data-row-name="two"]').is(':checked')).toBe(true);
-                        expect(this.modal.editModal.find('[data-row-name="three"]').is(':checked')).toBe(true);
+                        expect(this.modal.editModal.find('[data-row-name="one"]').is(':checked')).toEqual(true);
+                        expect(this.modal.editModal.find('[data-row-name="two"]').is(':checked')).toEqual(true);
+                        expect(this.modal.editModal.find('[data-row-name="three"]').is(':checked')).toEqual(true);
                     });
 
                     it('should clear all checkboxes correctly', function() {
                         this.modal.clearAllCheckboxes();
 
-                        expect(this.modal.editModal.find('[data-row-name=""]').is(':checked')).toBe(false);
-                        expect(this.modal.editModal.find('[data-row-name="one"]').is(':checked')).toBe(false);
-                        expect(this.modal.editModal.find('[data-row-name="two"]').is(':checked')).toBe(false);
-                        expect(this.modal.editModal.find('[data-row-name="three"]').is(':checked')).toBe(false);
+                        expect(this.modal.editModal.find('[data-row-name=""]').is(':checked')).toEqual(false);
+                        expect(this.modal.editModal.find('[data-row-name="one"]').is(':checked')).toEqual(false);
+                        expect(this.modal.editModal.find('[data-row-name="two"]').is(':checked')).toEqual(false);
+                        expect(this.modal.editModal.find('[data-row-name="three"]').is(':checked')).toEqual(false);
 
-                        expect(this.modal.editModal.find('[data-row-name=""]').prop('indeterminate')).toBe(false);
+                        expect(this.modal.editModal.find('[data-row-name=""]').prop('indeterminate')).toEqual(false);
                     });
 
                     it('should mark the global checkbox indeterminate correctly', function() {
                         this.modal.setIndeterminateCheckbox(0, true);
 
-                        expect(this.modal.editModal.find('[data-row-name=""]').prop('indeterminate')).toBe(true);
+                        expect(this.modal.editModal.find('[data-row-name=""]').prop('indeterminate')).toEqual(true);
                     });
 
                     it('should get the selected rows correctly', function() {
@@ -180,8 +181,8 @@ define([
                     it('should handle changes correctly', function() {
                         this.modal.editModal.find('[data-row-name="one"]').click().change();
 
-                        expect(this.modal.editModal.find('[data-row-name=""]').is(':checked')).toBe(false);
-                        expect(this.modal.editModal.find('[data-row-name=""]').prop('indeterminate')).toBe(true);
+                        expect(this.modal.editModal.find('[data-row-name=""]').is(':checked')).toEqual(false);
+                        expect(this.modal.editModal.find('[data-row-name=""]').prop('indeterminate')).toEqual(true);
 
                         expect(this.modal.getSelectedRows()).toEqual([['one']]);
                     });
@@ -189,12 +190,12 @@ define([
                     it('should handle changes to the global checkbox correctly', function() {
                         this.modal.editModal.find('[data-row-name=""]').click().change();
 
-                        expect(this.modal.editModal.find('[data-row-name=""]').is(':checked')).toBe(true);
-                        expect(this.modal.editModal.find('[data-row-name=""]').prop('indeterminate')).toBe(false);
+                        expect(this.modal.editModal.find('[data-row-name=""]').is(':checked')).toEqual(true);
+                        expect(this.modal.editModal.find('[data-row-name=""]').prop('indeterminate')).toEqual(false);
 
-                        expect(this.modal.editModal.find('[data-row-name="one"]').is(':checked')).toBe(true);
-                        expect(this.modal.editModal.find('[data-row-name="two"]').is(':checked')).toBe(true);
-                        expect(this.modal.editModal.find('[data-row-name="three"]').is(':checked')).toBe(true);
+                        expect(this.modal.editModal.find('[data-row-name="one"]').is(':checked')).toEqual(true);
+                        expect(this.modal.editModal.find('[data-row-name="two"]').is(':checked')).toEqual(true);
+                        expect(this.modal.editModal.find('[data-row-name="three"]').is(':checked')).toEqual(true);
                     });
                 });
 
@@ -222,47 +223,47 @@ define([
                     });
 
                     it('should set the initial values correctly', function() {
-                        expect(this.modal.editModal.find('[data-row-name=""]').is(':checked')).toBe(false);
+                        expect(this.modal.editModal.find('[data-row-name=""]').is(':checked')).toEqual(false);
                         expect(this.modal.editModal.find('[data-row-name=""]')).toHaveProp('indeterminate', true);
 
-                        expect(this.modal.editModal.find('[data-row-name="one"]').is(':checked')).toBe(true);
-                        expect(this.modal.editModal.find('[data-row-name="two"]').is(':checked')).toBe(false);
-                        expect(this.modal.editModal.find('[data-row-name="three"]').is(':checked')).toBe(true);
+                        expect(this.modal.editModal.find('[data-row-name="one"]').is(':checked')).toEqual(true);
+                        expect(this.modal.editModal.find('[data-row-name="two"]').is(':checked')).toEqual(false);
+                        expect(this.modal.editModal.find('[data-row-name="three"]').is(':checked')).toEqual(true);
                     });
 
                     it('should set the nth checkbox correctly', function() {
                         this.modal.setNthCheckbox(0, 2, true);
-                        expect(this.modal.editModal.find('[data-row-name="two"]').is(':checked')).toBe(true);
+                        expect(this.modal.editModal.find('[data-row-name="two"]').is(':checked')).toEqual(true);
                     });
 
                     it('should set checkboxes by name correctly', function() {
                         this.modal.setCheckbox(0, 'two', true);
-                        expect(this.modal.editModal.find('[data-row-name="two"]').is(':checked')).toBe(true);
+                        expect(this.modal.editModal.find('[data-row-name="two"]').is(':checked')).toEqual(true);
                     });
 
                     it('should set all checkboxes correctly', function() {
                         this.modal.setCheckboxes(0, true);
 
-                        expect(this.modal.editModal.find('[data-row-name="one"]').is(':checked')).toBe(true);
-                        expect(this.modal.editModal.find('[data-row-name="two"]').is(':checked')).toBe(true);
-                        expect(this.modal.editModal.find('[data-row-name="three"]').is(':checked')).toBe(true);
+                        expect(this.modal.editModal.find('[data-row-name="one"]').is(':checked')).toEqual(true);
+                        expect(this.modal.editModal.find('[data-row-name="two"]').is(':checked')).toEqual(true);
+                        expect(this.modal.editModal.find('[data-row-name="three"]').is(':checked')).toEqual(true);
                     });
 
                     it('should clear all checkboxes correctly', function() {
                         this.modal.clearAllCheckboxes();
 
-                        expect(this.modal.editModal.find('[data-row-name=""]').is(':checked')).toBe(false);
-                        expect(this.modal.editModal.find('[data-row-name="one"]').is(':checked')).toBe(false);
-                        expect(this.modal.editModal.find('[data-row-name="two"]').is(':checked')).toBe(false);
-                        expect(this.modal.editModal.find('[data-row-name="three"]').is(':checked')).toBe(false);
+                        expect(this.modal.editModal.find('[data-row-name=""]').is(':checked')).toEqual(false);
+                        expect(this.modal.editModal.find('[data-row-name="one"]').is(':checked')).toEqual(false);
+                        expect(this.modal.editModal.find('[data-row-name="two"]').is(':checked')).toEqual(false);
+                        expect(this.modal.editModal.find('[data-row-name="three"]').is(':checked')).toEqual(false);
 
-                        expect(this.modal.editModal.find('[data-row-name=""]').prop('indeterminate')).toBe(false);
+                        expect(this.modal.editModal.find('[data-row-name=""]').prop('indeterminate')).toEqual(false);
                     });
 
                     it('should mark the global checkbox indeterminate correctly', function() {
                         this.modal.setIndeterminateCheckbox(0, true);
 
-                        expect(this.modal.editModal.find('[data-row-name=""]').prop('indeterminate')).toBe(true);
+                        expect(this.modal.editModal.find('[data-row-name=""]').prop('indeterminate')).toEqual(true);
                     });
 
                     it('should get the selected rows correctly', function() {
@@ -272,8 +273,8 @@ define([
                     it('should handle changes correctly', function() {
                         this.modal.editModal.find('[data-row-name="one"]').click().change();
 
-                        expect(this.modal.editModal.find('[data-row-name=""]').is(':checked')).toBe(false);
-                        expect(this.modal.editModal.find('[data-row-name=""]').prop('indeterminate')).toBe(true);
+                        expect(this.modal.editModal.find('[data-row-name=""]').is(':checked')).toEqual(false);
+                        expect(this.modal.editModal.find('[data-row-name=""]').prop('indeterminate')).toEqual(true);
 
                         expect(this.modal.getSelectedRows()).toEqual([['three']]);
                     });
@@ -313,37 +314,36 @@ define([
                     });
 
                     it('should set the initial values correctly', function() {
-                        expect(this.modal.editModal.find('[data-row-name="one"]').is(':checked')).toBe(false);
-                        expect(this.modal.editModal.find('[data-row-name="two"]').is(':checked')).toBe(false);
-                        expect(this.modal.editModal.find('[data-row-name="three"]').is(':checked')).toBe(false);
+                        expect(this.modal.editModal.find('[data-row-name="one"]').is(':checked')).toEqual(false);
+                        expect(this.modal.editModal.find('[data-row-name="two"]').is(':checked')).toEqual(false);
+                        expect(this.modal.editModal.find('[data-row-name="three"]').is(':checked')).toEqual(false);
                     });
 
                     it('should set the nth checkbox correctly', function() {
                         this.modal.setNthCheckbox(0, 1, true);
-                        expect(this.modal.editModal.find('[data-row-name="two"]').is(':checked')).toBe(true);
+                        expect(this.modal.editModal.find('[data-row-name="two"]').is(':checked')).toEqual(true);
                     });
 
                     it('should set checkboxes by name correctly', function() {
                         this.modal.setCheckbox(0, 'two', true);
-                        expect(this.modal.editModal.find('[data-row-name="two"]').is(':checked')).toBe(true);
+                        expect(this.modal.editModal.find('[data-row-name="two"]').is(':checked')).toEqual(true);
                     });
 
                     it('should set all checkboxes correctly', function() {
                         this.modal.setCheckboxes(0, true);
 
-                        expect(this.modal.editModal.find('[data-row-name="one"]').is(':checked')).toBe(true);
-                        expect(this.modal.editModal.find('[data-row-name="two"]').is(':checked')).toBe(true);
-                        expect(this.modal.editModal.find('[data-row-name="three"]').is(':checked')).toBe(true);
+                        expect(this.modal.editModal.find('[data-row-name="one"]').is(':checked')).toEqual(true);
+                        expect(this.modal.editModal.find('[data-row-name="two"]').is(':checked')).toEqual(true);
+                        expect(this.modal.editModal.find('[data-row-name="three"]').is(':checked')).toEqual(true);
                     });
 
                     it('should clear all checkboxes correctly', function() {
                         this.modal.clearAllCheckboxes();
 
-                        expect(this.modal.editModal.find('[data-row-name="one"]').is(':checked')).toBe(false);
-                        expect(this.modal.editModal.find('[data-row-name="two"]').is(':checked')).toBe(false);
-                        expect(this.modal.editModal.find('[data-row-name="three"]').is(':checked')).toBe(false);
+                        expect(this.modal.editModal.find('[data-row-name="one"]').is(':checked')).toEqual(false);
+                        expect(this.modal.editModal.find('[data-row-name="two"]').is(':checked')).toEqual(false);
+                        expect(this.modal.editModal.find('[data-row-name="three"]').is(':checked')).toEqual(false);
                     });
-
 
                     it('should get the selected rows correctly', function() {
                         expect(this.modal.getSelectedRows()).toEqual([[]]);
@@ -382,39 +382,39 @@ define([
                     });
 
                     it('should set the initial values correctly', function() {
-                        expect(this.modal.editModal.find('[data-row-name="one"]').is(':checked')).toBe(true);
-                        expect(this.modal.editModal.find('[data-row-name="two"]').is(':checked')).toBe(false);
-                        expect(this.modal.editModal.find('[data-row-name="three"]').is(':checked')).toBe(false);
+                        expect(this.modal.editModal.find('[data-row-name="one"]').is(':checked')).toEqual(true);
+                        expect(this.modal.editModal.find('[data-row-name="two"]').is(':checked')).toEqual(false);
+                        expect(this.modal.editModal.find('[data-row-name="three"]').is(':checked')).toEqual(false);
                     });
 
                     it('should set the nth checkbox correctly', function() {
                         this.modal.setNthCheckbox(0, 1, true);
-                        expect(this.modal.editModal.find('[data-row-name="two"]').is(':checked')).toBe(true);
+                        expect(this.modal.editModal.find('[data-row-name="two"]').is(':checked')).toEqual(true);
                     });
 
                     it('should set checkboxes by name correctly', function() {
                         this.modal.setCheckbox(0, 'two', true);
-                        expect(this.modal.editModal.find('[data-row-name="two"]').is(':checked')).toBe(true);
+                        expect(this.modal.editModal.find('[data-row-name="two"]').is(':checked')).toEqual(true);
                     });
 
                     it('should set all checkboxes correctly', function() {
                         this.modal.setCheckboxes(0, true);
 
-                        expect(this.modal.editModal.find('[data-row-name="one"]').is(':checked')).toBe(true);
-                        expect(this.modal.editModal.find('[data-row-name="two"]').is(':checked')).toBe(true);
-                        expect(this.modal.editModal.find('[data-row-name="three"]').is(':checked')).toBe(true);
+                        expect(this.modal.editModal.find('[data-row-name="one"]').is(':checked')).toEqual(true);
+                        expect(this.modal.editModal.find('[data-row-name="two"]').is(':checked')).toEqual(true);
+                        expect(this.modal.editModal.find('[data-row-name="three"]').is(':checked')).toEqual(true);
                     });
 
                     it('should clear all checkboxes correctly', function() {
                         this.modal.clearAllCheckboxes();
 
-                        expect(this.modal.editModal.find('[data-row-name="one"]').is(':checked')).toBe(false);
-                        expect(this.modal.editModal.find('[data-row-name="two"]').is(':checked')).toBe(false);
-                        expect(this.modal.editModal.find('[data-row-name="three"]').is(':checked')).toBe(false);
+                        expect(this.modal.editModal.find('[data-row-name="one"]').is(':checked')).toEqual(false);
+                        expect(this.modal.editModal.find('[data-row-name="two"]').is(':checked')).toEqual(false);
+                        expect(this.modal.editModal.find('[data-row-name="three"]').is(':checked')).toEqual(false);
 
-                        expect(this.modal.editModal.find('[data-row-name="one"]').prop('indeterminate')).toBe(false);
-                        expect(this.modal.editModal.find('[data-row-name="two"]').prop('indeterminate')).toBe(false);
-                        expect(this.modal.editModal.find('[data-row-name="three"]').prop('indeterminate')).toBe(false);
+                        expect(this.modal.editModal.find('[data-row-name="one"]').prop('indeterminate')).toEqual(false);
+                        expect(this.modal.editModal.find('[data-row-name="two"]').prop('indeterminate')).toEqual(false);
+                        expect(this.modal.editModal.find('[data-row-name="three"]').prop('indeterminate')).toEqual(false);
                     });
 
                     it('should get the selected rows correctly', function() {
@@ -470,97 +470,97 @@ define([
                 });
 
                 it('should set the initial values correctly', function() {
-                    expect(this.modal.editModal.find('[data-row-name=""]:eq(0)').is(':checked')).toBe(true);
+                    expect(this.modal.editModal.find('[data-row-name=""]:eq(0)').is(':checked')).toEqual(true);
 
-                    expect(this.modal.editModal.find('[data-row-name="one"]').is(':checked')).toBe(true);
-                    expect(this.modal.editModal.find('[data-row-name="two"]').is(':checked')).toBe(true);
-                    expect(this.modal.editModal.find('[data-row-name="three"]').is(':checked')).toBe(true);
+                    expect(this.modal.editModal.find('[data-row-name="one"]').is(':checked')).toEqual(true);
+                    expect(this.modal.editModal.find('[data-row-name="two"]').is(':checked')).toEqual(true);
+                    expect(this.modal.editModal.find('[data-row-name="three"]').is(':checked')).toEqual(true);
 
-                    expect(this.modal.editModal.find('[data-row-name=""]:eq(1)').is(':checked')).toBe(false);
+                    expect(this.modal.editModal.find('[data-row-name=""]:eq(1)').is(':checked')).toEqual(false);
 
-                    expect(this.modal.editModal.find('[data-row-name="un"]').is(':checked')).toBe(false);
-                    expect(this.modal.editModal.find('[data-row-name="deux"]').is(':checked')).toBe(false);
-                    expect(this.modal.editModal.find('[data-row-name="trois"]').is(':checked')).toBe(false);
+                    expect(this.modal.editModal.find('[data-row-name="un"]').is(':checked')).toEqual(false);
+                    expect(this.modal.editModal.find('[data-row-name="deux"]').is(':checked')).toEqual(false);
+                    expect(this.modal.editModal.find('[data-row-name="trois"]').is(':checked')).toEqual(false);
 
-                    expect(this.modal.editModal.find('[data-row-name=""]:eq(2)').is(':checked')).toBe(false);
+                    expect(this.modal.editModal.find('[data-row-name=""]:eq(2)').is(':checked')).toEqual(false);
                     expect(this.modal.editModal.find('[data-row-name=""]:eq(2)')).toHaveProp('indeterminate', true);
 
-                    expect(this.modal.editModal.find('[data-row-name="uno"]').is(':checked')).toBe(true);
-                    expect(this.modal.editModal.find('[data-row-name="dos"]').is(':checked')).toBe(false);
-                    expect(this.modal.editModal.find('[data-row-name="tres"]').is(':checked')).toBe(false);
+                    expect(this.modal.editModal.find('[data-row-name="uno"]').is(':checked')).toEqual(true);
+                    expect(this.modal.editModal.find('[data-row-name="dos"]').is(':checked')).toEqual(false);
+                    expect(this.modal.editModal.find('[data-row-name="tres"]').is(':checked')).toEqual(false);
                 });
 
                 it('should set the nth checkbox correctly', function() {
                     this.modal.setNthCheckbox(0, 2, false);
-                    expect(this.modal.editModal.find('[data-row-name="two"]').is(':checked')).toBe(false);
+                    expect(this.modal.editModal.find('[data-row-name="two"]').is(':checked')).toEqual(false);
 
                     this.modal.setNthCheckbox(1, 2, true);
-                    expect(this.modal.editModal.find('[data-row-name="deux"]').is(':checked')).toBe(true);
+                    expect(this.modal.editModal.find('[data-row-name="deux"]').is(':checked')).toEqual(true);
 
                     this.modal.setNthCheckbox(2, 2, true);
-                    expect(this.modal.editModal.find('[data-row-name="dos"]').is(':checked')).toBe(true);
+                    expect(this.modal.editModal.find('[data-row-name="dos"]').is(':checked')).toEqual(true);
 
                     // this one shouldn't have changed
-                    expect(this.modal.editModal.find('[data-row-name="two"]').is(':checked')).toBe(false);
+                    expect(this.modal.editModal.find('[data-row-name="two"]').is(':checked')).toEqual(false);
                 });
 
                 it('should set checkboxes by name correctly', function() {
                     this.modal.setCheckbox(0, 'two', false);
-                    expect(this.modal.editModal.find('[data-row-name="two"]').is(':checked')).toBe(false);
+                    expect(this.modal.editModal.find('[data-row-name="two"]').is(':checked')).toEqual(false);
 
                     this.modal.setCheckbox(1, 'deux', true);
-                    expect(this.modal.editModal.find('[data-row-name="deux"]').is(':checked')).toBe(true);
+                    expect(this.modal.editModal.find('[data-row-name="deux"]').is(':checked')).toEqual(true);
 
                     this.modal.setCheckbox(2, 'dos', true);
-                    expect(this.modal.editModal.find('[data-row-name="dos"]').is(':checked')).toBe(true);
+                    expect(this.modal.editModal.find('[data-row-name="dos"]').is(':checked')).toEqual(true);
 
                     // this one shouldn't have changed
-                    expect(this.modal.editModal.find('[data-row-name="two"]').is(':checked')).toBe(false);
+                    expect(this.modal.editModal.find('[data-row-name="two"]').is(':checked')).toEqual(false);
                 });
 
                 it('should set all checkboxes correctly', function() {
                     this.modal.setCheckboxes(0, false);
 
-                    expect(this.modal.editModal.find('[data-row-name="one"]').is(':checked')).toBe(false);
-                    expect(this.modal.editModal.find('[data-row-name="two"]').is(':checked')).toBe(false);
-                    expect(this.modal.editModal.find('[data-row-name="three"]').is(':checked')).toBe(false);
+                    expect(this.modal.editModal.find('[data-row-name="one"]').is(':checked')).toEqual(false);
+                    expect(this.modal.editModal.find('[data-row-name="two"]').is(':checked')).toEqual(false);
+                    expect(this.modal.editModal.find('[data-row-name="three"]').is(':checked')).toEqual(false);
 
-                    expect(this.modal.editModal.find('[data-row-name="uno"]').is(':checked')).toBe(true);
+                    expect(this.modal.editModal.find('[data-row-name="uno"]').is(':checked')).toEqual(true);
                 });
 
                 it('should clear all checkboxes correctly', function() {
                     this.modal.clearAllCheckboxes();
 
-                    expect(this.modal.editModal.find('[data-row-name=""]:eq(0)').is(':checked')).toBe(false);
-                    expect(this.modal.editModal.find('[data-row-name="one"]').is(':checked')).toBe(false);
-                    expect(this.modal.editModal.find('[data-row-name="two"]').is(':checked')).toBe(false);
-                    expect(this.modal.editModal.find('[data-row-name="three"]').is(':checked')).toBe(false);
+                    expect(this.modal.editModal.find('[data-row-name=""]:eq(0)').is(':checked')).toEqual(false);
+                    expect(this.modal.editModal.find('[data-row-name="one"]').is(':checked')).toEqual(false);
+                    expect(this.modal.editModal.find('[data-row-name="two"]').is(':checked')).toEqual(false);
+                    expect(this.modal.editModal.find('[data-row-name="three"]').is(':checked')).toEqual(false);
 
-                    expect(this.modal.editModal.find('[data-row-name=""]:eq(1)').is(':checked')).toBe(false);
-                    expect(this.modal.editModal.find('[data-row-name="un"]').is(':checked')).toBe(false);
-                    expect(this.modal.editModal.find('[data-row-name="deux"]').is(':checked')).toBe(false);
-                    expect(this.modal.editModal.find('[data-row-name="trois"]').is(':checked')).toBe(false);
+                    expect(this.modal.editModal.find('[data-row-name=""]:eq(1)').is(':checked')).toEqual(false);
+                    expect(this.modal.editModal.find('[data-row-name="un"]').is(':checked')).toEqual(false);
+                    expect(this.modal.editModal.find('[data-row-name="deux"]').is(':checked')).toEqual(false);
+                    expect(this.modal.editModal.find('[data-row-name="trois"]').is(':checked')).toEqual(false);
 
-                    expect(this.modal.editModal.find('[data-row-name=""]:eq(2)').is(':checked')).toBe(false);
-                    expect(this.modal.editModal.find('[data-row-name="uno"]').is(':checked')).toBe(false);
-                    expect(this.modal.editModal.find('[data-row-name="dos"]').is(':checked')).toBe(false);
-                    expect(this.modal.editModal.find('[data-row-name="tres"]').is(':checked')).toBe(false);
+                    expect(this.modal.editModal.find('[data-row-name=""]:eq(2)').is(':checked')).toEqual(false);
+                    expect(this.modal.editModal.find('[data-row-name="uno"]').is(':checked')).toEqual(false);
+                    expect(this.modal.editModal.find('[data-row-name="dos"]').is(':checked')).toEqual(false);
+                    expect(this.modal.editModal.find('[data-row-name="tres"]').is(':checked')).toEqual(false);
 
-                    expect(this.modal.editModal.find('[data-row-name=""]:eq(0)').prop('indeterminate')).toBe(false);
-                    expect(this.modal.editModal.find('[data-row-name=""]:eq(1)').prop('indeterminate')).toBe(false);
-                    expect(this.modal.editModal.find('[data-row-name=""]:eq(2)').prop('indeterminate')).toBe(false);
+                    expect(this.modal.editModal.find('[data-row-name=""]:eq(0)').prop('indeterminate')).toEqual(false);
+                    expect(this.modal.editModal.find('[data-row-name=""]:eq(1)').prop('indeterminate')).toEqual(false);
+                    expect(this.modal.editModal.find('[data-row-name=""]:eq(2)').prop('indeterminate')).toEqual(false);
                 });
 
                 it('should mark the global checkbox indeterminate correctly', function() {
                     this.modal.setIndeterminateCheckbox(0, true);
 
-                    expect(this.modal.editModal.find('[data-row-name=""]:eq(0)').prop('indeterminate')).toBe(true);
-                    expect(this.modal.editModal.find('[data-row-name=""]:eq(1)').prop('indeterminate')).toBe(false);
-                    expect(this.modal.editModal.find('[data-row-name=""]:eq(2)').prop('indeterminate')).toBe(true);
+                    expect(this.modal.editModal.find('[data-row-name=""]:eq(0)').prop('indeterminate')).toEqual(true);
+                    expect(this.modal.editModal.find('[data-row-name=""]:eq(1)').prop('indeterminate')).toEqual(false);
+                    expect(this.modal.editModal.find('[data-row-name=""]:eq(2)').prop('indeterminate')).toEqual(true);
                 });
 
                 it('should get the selected rows correctly', function() {
-                    expect(this.modal.getSelectedRows()).toEqual([['one','two','three'], [], ['uno']]);
+                    expect(this.modal.getSelectedRows()).toEqual([['one', 'two', 'three'], [], ['uno']]);
                 });
 
                 it('should handle changes correctly', function() {
@@ -568,38 +568,37 @@ define([
 
                     // we don't check the value of the checked property as phantom differs in behaviour to other browsers
 
-                    expect(this.modal.editModal.find('[data-row-name=""]').prop('indeterminate')).toBe(true);
+                    expect(this.modal.editModal.find('[data-row-name=""]').prop('indeterminate')).toEqual(true);
 
-                    expect(this.modal.getSelectedRows()).toEqual([['two','three'], [], ['uno']]);
+                    expect(this.modal.getSelectedRows()).toEqual([['two', 'three'], [], ['uno']]);
                 });
 
                 it('should handle changes to the global checkbox correctly', function() {
                     this.modal.editModal.find('[data-row-name=""]:eq(0)').click().change();
 
-                    expect(this.modal.editModal.find('[data-row-name=""]:eq(0)').is(':checked')).toBe(false);
-                    expect(this.modal.editModal.find('[data-row-name=""]:eq(0)').prop('indeterminate')).toBe(false);
+                    expect(this.modal.editModal.find('[data-row-name=""]:eq(0)').is(':checked')).toEqual(false);
+                    expect(this.modal.editModal.find('[data-row-name=""]:eq(0)').prop('indeterminate')).toEqual(false);
 
-                    expect(this.modal.editModal.find('[data-row-name="one"]').is(':checked')).toBe(false);
-                    expect(this.modal.editModal.find('[data-row-name="two"]').is(':checked')).toBe(false);
-                    expect(this.modal.editModal.find('[data-row-name="three"]').is(':checked')).toBe(false);
+                    expect(this.modal.editModal.find('[data-row-name="one"]').is(':checked')).toEqual(false);
+                    expect(this.modal.editModal.find('[data-row-name="two"]').is(':checked')).toEqual(false);
+                    expect(this.modal.editModal.find('[data-row-name="three"]').is(':checked')).toEqual(false);
 
                     this.modal.editModal.find('[data-row-name=""]:eq(1)').click().change();
 
-                    expect(this.modal.editModal.find('[data-row-name=""]:eq(1)').is(':checked')).toBe(true);
-                    expect(this.modal.editModal.find('[data-row-name=""]:eq(1)').prop('indeterminate')).toBe(false);
+                    expect(this.modal.editModal.find('[data-row-name=""]:eq(1)').is(':checked')).toEqual(true);
+                    expect(this.modal.editModal.find('[data-row-name=""]:eq(1)').prop('indeterminate')).toEqual(false);
 
-                    expect(this.modal.editModal.find('[data-row-name="un"]').is(':checked')).toBe(true);
-                    expect(this.modal.editModal.find('[data-row-name="deux"]').is(':checked')).toBe(true);
-                    expect(this.modal.editModal.find('[data-row-name="trois"]').is(':checked')).toBe(true);
+                    expect(this.modal.editModal.find('[data-row-name="un"]').is(':checked')).toEqual(true);
+                    expect(this.modal.editModal.find('[data-row-name="deux"]').is(':checked')).toEqual(true);
+                    expect(this.modal.editModal.find('[data-row-name="trois"]').is(':checked')).toEqual(true);
 
                     // don't change the global checkbox here as phantom differs from other browsers
 
-                    expect(this.modal.editModal.find('[data-row-name="uno"]').is(':checked')).toBe(true);
-                    expect(this.modal.editModal.find('[data-row-name="dos"]').is(':checked')).toBe(false);
-                    expect(this.modal.editModal.find('[data-row-name="tres"]').is(':checked')).toBe(false);
+                    expect(this.modal.editModal.find('[data-row-name="uno"]').is(':checked')).toEqual(true);
+                    expect(this.modal.editModal.find('[data-row-name="dos"]').is(':checked')).toEqual(false);
+                    expect(this.modal.editModal.find('[data-row-name="tres"]').is(':checked')).toEqual(false);
                 });
             });
         });
     });
-
 });

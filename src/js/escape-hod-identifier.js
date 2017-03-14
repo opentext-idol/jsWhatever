@@ -1,5 +1,5 @@
 /*
- * Copyright 2013-2015 Hewlett-Packard Development Company, L.P.
+ * Copyright 2013-2017 Hewlett Packard Enterprise Development Company, L.P.
  * Licensed under the MIT License (the "License"); you may not use this file except in compliance with the License.
  */
 
@@ -7,6 +7,7 @@
  * @module js-whatever/js/escape-hod-identifier
  */
 define(function() {
+    'use strict';
 
     var regExp = /([\\:])/g;
 
@@ -18,10 +19,9 @@ define(function() {
      * @param {string} input The input string
      * @return {string} The escaped string
      */
-    var escapeHodIdentifier = function escapeHodIdentifier(input) {
+    function escapeHodIdentifier(input) {
         return input.replace(regExp, '\\$&');
-    };
+    }
 
     return escapeHodIdentifier;
-
 });

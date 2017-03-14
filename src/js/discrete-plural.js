@@ -1,5 +1,5 @@
 /*
- * Copyright 2013-2015 Hewlett-Packard Development Company, L.P.
+ * Copyright 2013-2017 Hewlett Packard Enterprise Development Company, L.P.
  * Licensed under the MIT License (the "License"); you may not use this file except in compliance with the License.
  */
 
@@ -7,7 +7,8 @@
  * @module js-whatever/js/discrete-plural
  */
 define(function() {
-    //noinspection UnnecessaryLocalVariableJS
+    'use strict';
+
     /**
      * @typedef DiscretePluralFunction
      * @type {function}
@@ -29,15 +30,17 @@ define(function() {
      * pluralFunction(3); // returns '3 kittens'
      * pluralFunction(1.5); //returns ''
      */
-    var discretePlural = function(singular, plural) {
+    function discretePlural(singular, plural) {
         return function(count) {
-            if ((count % 1) !== 0) {
+            if((count % 1) !== 0) {
                 // prevents printing of fractional documents on flot axes
                 return '';
             }
-            return count + (count === 1 || count === -1 ? ' ' + singular : ' ' + plural);
+            return count + (count === 1 || count === -1
+                    ? ' ' + singular
+                    : ' ' + plural);
         };
-    };
+    }
 
     return discretePlural;
 });

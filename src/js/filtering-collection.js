@@ -1,29 +1,34 @@
+/*
+ * Copyright 2013-2017 Hewlett Packard Enterprise Development Company, L.P.
+ * Licensed under the MIT License (the "License"); you may not use this file except in compliance with the License.
+ */
+
 /**
  * @module js-whatever/js/filtering-collection
  */
 define([
+    'underscore',
     'backbone'
-], function(Backbone) {
+], function(_, Backbone) {
+    'use strict';
 
-    var getTrackedAttributes = function(trackedModel) {
-        if (this.attributes) {
-            return trackedModel.pick.apply(trackedModel, this.attributes);
-        } else {
-            return trackedModel.attributes;
-        }
-    };
+    function getTrackedAttributes(trackedModel) {
+        return this.attributes
+            ? trackedModel.pick.apply(trackedModel, this.attributes)
+            : trackedModel.attributes;
+    }
 
-    var createTrackingModel = function(trackedModel) {
+    function createTrackingModel(trackedModel) {
         return new this.model(getTrackedAttributes.call(this, trackedModel), {trackedModel: trackedModel});
-    };
+    }
 
-    var getTrackingModel = function(trackedModel) {
+    function getTrackingModel(trackedModel) {
         return this.find(function(currentModel) {
             return currentModel.trackedModel === trackedModel;
         });
-    };
+    }
 
-    var getFilteredModels = function() {
+    function getFilteredModels() {
         var filteredModels = this.collection.filter(function(model) {
             return this.modelFilter(model, this.filters);
         }, this);
@@ -31,12 +36,12 @@ define([
         return _.map(filteredModels, function(model) {
             return createTrackingModel.call(this, model);
         }, this);
-    };
+    }
 
-    var removeModel = function(model) {
+    function removeModel(model) {
         this.remove(model);
         model.stopListening();
-    };
+    }
 
     /**
      * @callback module:js-whatever/js/filtering-collection.FilteringCollection~modelFilter
@@ -69,7 +74,7 @@ define([
             this.modelFilter = options.modelFilter;
 
             this.listenTo(this.collection, 'add', function(trackedModel) {
-                if (this.modelFilter(trackedModel, this.filters)) {
+                if(this.modelFilter(trackedModel, this.filters)) {
                     this.add(createTrackingModel.call(this, trackedModel));
                 }
             });
@@ -77,13 +82,13 @@ define([
             this.listenTo(this.collection, 'change', function(trackedModel) {
                 var existingModel = getTrackingModel.call(this, trackedModel);
 
-                if (existingModel) {
-                    if (this.modelFilter(trackedModel, this.filters)) {
+                if(existingModel) {
+                    if(this.modelFilter(trackedModel, this.filters)) {
                         existingModel.set(getTrackedAttributes.call(this, trackedModel));
                     } else {
                         removeModel.call(this, existingModel);
                     }
-                } else if (this.modelFilter(trackedModel, this.filters)) {
+                } else if(this.modelFilter(trackedModel, this.filters)) {
                     this.add(createTrackingModel.call(this, trackedModel));
                 }
             });
@@ -91,7 +96,7 @@ define([
             this.listenTo(this.collection, 'remove', function(trackedModel) {
                 var trackingModel = getTrackingModel.call(this, trackedModel);
 
-                if (trackingModel) {
+                if(trackingModel) {
                     removeModel.call(this, trackingModel);
                 }
             });
@@ -120,5 +125,4 @@ define([
             }
         })
     });
-
 });

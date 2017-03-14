@@ -1,14 +1,16 @@
 /*
- * Copyright 2013-2015 Hewlett-Packard Development Company, L.P.
+ * Copyright 2013-2017 Hewlett Packard Enterprise Development Company, L.P.
  * Licensed under the MIT License (the "License"); you may not use this file except in compliance with the License.
  */
 
 /**
  * @module js-whatever/js/substitution
  */
-define(['underscore'], function(_) {
+define([
+    'underscore'
+], function(_) {
+    'use strict';
 
-    //noinspection UnnecessaryLocalVariableJS
     /**
      * @alias module:js-whatever/js/substitution
      * @desc Interpolates placeholders of the form {n} in strings, turning the strings into functions and allowing
@@ -24,7 +26,7 @@ define(['underscore'], function(_) {
      *
      * substitutedI18n.foo('works', 'like this'); // returns 'Substitution works, like this'
      */
-    var substitution = function(i18n) {
+    function substitution(i18n) {
         var processed = {};
 
         var regex = /\{(\d+)\}/g;
@@ -32,10 +34,9 @@ define(['underscore'], function(_) {
         _.each(i18n, function(value, key) {
             var matches = value.match(regex);
 
-            if (matches === null) {
+            if(matches === null) {
                 processed[key] = value;
-            }
-            else {
+            } else {
                 processed[key] = function() {
                     var userArgs = arguments;
 
@@ -53,9 +54,7 @@ define(['underscore'], function(_) {
         });
 
         return processed;
-    };
+    }
 
     return substitution;
-
 });
-

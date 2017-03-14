@@ -1,10 +1,15 @@
+/*
+ * Copyright 2017 Hewlett Packard Enterprise Development Company, L.P.
+ * Licensed under the MIT License (the "License"); you may not use this file except in compliance with the License.
+ */
+
 define([
-    'backbone',
     'underscore',
     'jquery',
+    'backbone',
     'text!js-whatever/templates/modal.html',
     'bootstrap'
-], function(Backbone, _, $, modalHtml) {
+], function(_, $, Backbone, modalHtml) {
     'use strict';
 
     var modalTemplate = _.template(modalHtml);
@@ -29,7 +34,7 @@ define([
             this.title = options.title;
             this.secondaryButtonText = options.secondaryButtonText;
 
-            this.showFooter = !_.isUndefined(options.showFooter) ? options.showFooter : true;
+            this.showFooter = _.isUndefined(options.showFooter) || options.showFooter;
 
             this.render();
 
@@ -53,9 +58,9 @@ define([
                 title: this.title
             })).modal();
 
-            if (this.content) {
+            if(this.content) {
                 this.$('.modal-body').html(this.content);
-            } else if (this.contentView) {
+            } else if(this.contentView) {
                 this.contentView.render();
                 this.$('.modal-body').append(this.contentView.$el);
             }
@@ -65,5 +70,4 @@ define([
             this.$el.modal('hide');
         }
     });
-
 });

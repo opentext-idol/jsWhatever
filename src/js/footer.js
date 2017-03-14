@@ -1,5 +1,5 @@
 /*
- * Copyright 2013-2015 Hewlett-Packard Development Company, L.P.
+ * Copyright 2013-2017 Hewlett Packard Enterprise Development Company, L.P.
  * Licensed under the MIT License (the "License"); you may not use this file except in compliance with the License.
  */
 
@@ -7,12 +7,15 @@
  * @module js-whatever/js/footer
  */
 define([
+    'underscore',
+    'jquery',
     'backbone',
     'store',
     'text!js-whatever/templates/footer/footer.html',
     'text!js-whatever/templates/footer/footer-tab.html',
     'text!js-whatever/templates/footer/footer-tab-view.html'
-], function(Backbone, store, footerTemplate, tabTemplate, viewTemplate) {
+], function(_, $, Backbone, store, footerTemplate, tabTemplate, viewTemplate) {
+    'use strict';
 
     /**
      * @typedef FooterStrings
@@ -80,8 +83,18 @@ define([
          * @type {Array<FooterProcessor>}
          */
         processors: [
-            { selector: '.footer-tabs', component: 'tab', template: _.template(tabTemplate, null, {variable: 'ctx'}), target: 'li'},
-            { selector: '.tab-content', component: 'view', template: _.template(viewTemplate, null, {variable: 'ctx'}), target: '.tab-pane' }
+            {
+                selector: '.footer-tabs',
+                component: 'tab',
+                template: _.template(tabTemplate, null, {variable: 'ctx'}),
+                target: 'li'
+            },
+            {
+                selector: '.tab-content',
+                component: 'view',
+                template: _.template(viewTemplate, null, {variable: 'ctx'}),
+                target: '.tab-pane'
+            }
         ],
 
         initialize: function(options) {
@@ -90,9 +103,9 @@ define([
             this.vent = options.vent;
 
             this.strings = options.strings || {
-                clickToHide: 'Collapse footer.',
-                clickToShow: 'Show more...'
-            };
+                    clickToHide: 'Collapse footer.',
+                    clickToShow: 'Show more...'
+                };
         },
 
         /**
@@ -108,12 +121,12 @@ define([
                 var $container = this.$(processor.selector);
 
                 _.each(this.tabData, function(item) {
-                    var $wrapper = $($.parseHTML(processor.template({ key: item.key })));
+                    var $wrapper = $($.parseHTML(processor.template({key: item.key})));
                     var component = item[processor.component];
 
                     component.render();
 
-                    if ($wrapper.hasClass('context')) {
+                    if($wrapper.hasClass('context')) {
                         $wrapper.html(component.el);
                     } else {
                         $wrapper.find('.context').html(component.el);
@@ -149,7 +162,7 @@ define([
 
             store.set(this.index, $tab.index());
 
-            if ($tab.hasClass('active') && this.$parent.hasClass('show-footer')) {
+            if($tab.hasClass('active') && this.$parent.hasClass('show-footer')) {
                 this.hide();
             } else {
                 this.show();
@@ -196,5 +209,4 @@ define([
             this.vent.fireResize();
         }
     });
-
 });

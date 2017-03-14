@@ -1,5 +1,5 @@
 /*
- * Copyright 2013-2015 Hewlett-Packard Development Company, L.P.
+ * Copyright 2013-2017 Hewlett Packard Enterprise Development Company, L.P.
  * Licensed under the MIT License (the "License"); you may not use this file except in compliance with the License.
  */
 
@@ -7,11 +7,13 @@
  * @module js-whatever/js/wizard-custom
  */
 define([
-    'backbone',
     'underscore',
+    'backbone',
     'text!js-whatever/templates/wizard/wizard.html',
     'jquery-steps'
-], function(Backbone, _, template) {
+], function(_, Backbone, template) {
+    'use strict';
+
     /**
      * @typedef WizardStrings
      * @property {string} last String displayed on the wizard's finish button

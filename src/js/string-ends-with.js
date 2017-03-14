@@ -1,5 +1,5 @@
 /*
- * Copyright 2013-2015 Hewlett-Packard Development Company, L.P.
+ * Copyright 2013-2017 Hewlett Packard Enterprise Development Company, L.P.
  * Licensed under the MIT License (the "License"); you may not use this file except in compliance with the License.
  */
 
@@ -8,7 +8,9 @@
  */
 define([
     'underscore'
-], function() {
+], function(_) {
+    'use strict';
+
     _.mixin({
         /**
          * @desc Tests if the given string ends with any of the given suffices. Provided as an underscore mixin
@@ -21,7 +23,7 @@ define([
          * _.endsWith('hello world', ['hello', 'world']); // returns true
          */
         endsWith: function(string, suffices) {
-            if(_.isString(string) && (_.isArray(suffices) || _.isString(suffices))){
+            if(_.isString(string) && (_.isArray(suffices) || _.isString(suffices))) {
                 var length = string.length;
 
                 if(!_.isArray(suffices)) {

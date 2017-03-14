@@ -1,13 +1,15 @@
 /*
- * Copyright 2013-2015 Hewlett-Packard Development Company, L.P.
+ * Copyright 2013-2017 Hewlett Packard Enterprise Development Company, L.P.
  * Licensed under the MIT License (the "License"); you may not use this file except in compliance with the License.
  */
 
 define([
-    'js-whatever/js/list-view',
+    'underscore',
     'backbone',
+    'js-whatever/js/list-view',
     'js-testing/backbone-mock-factory'
-], function(ListView, Backbone, mockFactory) {
+], function(_, Backbone, ListView, mockFactory) {
+    'use strict';
 
     var itemTemplate = _.template('<p id="item-<%=data.id%>" class="<%=className%>"><%-data.age%></p>');
     var itemTemplateOptions = {className: 'my-class'};
@@ -60,7 +62,7 @@ define([
             expect($options.eq(3)).toHaveText('George');
 
             this.collection.comparator = function(model) {
-                return - model.get('age');
+                return -model.get('age');
             };
 
             this.collection.sort();
@@ -367,5 +369,4 @@ define([
             });
         });
     });
-
 });

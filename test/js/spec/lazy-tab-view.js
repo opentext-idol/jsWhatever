@@ -1,24 +1,28 @@
 /*
- * Copyright 2013-2015 Hewlett-Packard Development Company, L.P.
+ * Copyright 2013-2017 Hewlett Packard Enterprise Development Company, L.P.
  * Licensed under the MIT License (the "License"); you may not use this file except in compliance with the License.
  */
 
 define([
+    'jquery',
+    'backbone',
     'real/js/lazy-tab-view',
-    'js-testing/backbone-mock-factory',
-    'backbone'
-], function(LazyTabView, backboneMockFactory, Backbone) {
+    'js-testing/backbone-mock-factory'
+], function($, Backbone, LazyTabView, backboneMockFactory) {
+    'use strict';
 
     var FirstView = backboneMockFactory.getView(['render', 'getSelectedRoute', 'tabActivation']);
     var SecondView = backboneMockFactory.getView(['render']);
 
-    var showTab = function(tabView, attr) {
+    function showTab(tabView, attr) {
         tabView.showTab({}, {
             newPanel: {
-                attr: function() { return attr; }
+                attr: function() {
+                    return attr;
+                }
             }
         });
-    };
+    }
 
     describe('Lazy Tab View', function() {
         beforeEach(function() {
@@ -87,5 +91,4 @@ define([
             });
         });
     });
-
 });

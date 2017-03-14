@@ -1,11 +1,12 @@
 /*
- * Copyright 2013-2015 Hewlett-Packard Development Company, L.P.
+ * Copyright 2013-2017 Hewlett Packard Enterprise Development Company, L.P.
  * Licensed under the MIT License (the "License"); you may not use this file except in compliance with the License.
  */
 
 define([
     'js-whatever/js/escape-hod-identifier'
 ], function(escapeHodIdentifier) {
+    'use strict';
 
     function testEscape(input, output) {
         expect(escapeHodIdentifier(input)).toEqual(output);
@@ -47,7 +48,7 @@ define([
         it('escapes a string with many colons and backslashes', function() {
             testEscape('\\:aaaaaaa\\\\::colons::::', '\\\\\\:aaaaaaa\\\\\\\\\\:\\:colons\\:\\:\\:\\:');
         });
-        
+
         it('escapes a string with different cases', function() {
             testEscape('FunKY\\:CaSE', 'FunKY\\\\\\:CaSE');
         });
@@ -56,5 +57,4 @@ define([
             testEscape('?\\?:??', '?\\\\?\\:??');
         });
     });
-
 });

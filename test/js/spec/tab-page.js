@@ -1,20 +1,21 @@
 /*
- * Copyright 2013-2015 Hewlett-Packard Development Company, L.P.
+ * Copyright 2013-2017 Hewlett Packard Enterprise Development Company, L.P.
  * Licensed under the MIT License (the "License"); you may not use this file except in compliance with the License.
  */
 
 define([
+    'underscore',
     'js-whatever/js/tab-page',
-    'js-testing/backbone-mock-factory',
-    'underscore'
-], function(TabPage, backboneMockFactory, _) {
+    'js-testing/backbone-mock-factory'
+], function(_, TabPage, backboneMockFactory) {
+    'use strict';
 
     var FirstView = backboneMockFactory.getView(['getSelectedRoute']);
     var SecondView = backboneMockFactory.getView([]);
 
     var firstTabConstructorOptions = {};
 
-    var initializeTabs = function () {
+    function initializeTabs() {
         this.tabs = [
             {
                 constructor: FirstView,
@@ -26,7 +27,7 @@ define([
                 href: 'second-tab'
             }
         ];
-    };
+    }
 
     var TestTabPage = TabPage.extend({
         initializeTabs: initializeTabs,
@@ -42,8 +43,8 @@ define([
     });
 
     describe('Tab page', function() {
-        describe('without filtering', function () {
-            beforeEach(function () {
+        describe('without filtering', function() {
+            beforeEach(function() {
                 this.tabPage = new TestTabPage();
             });
 
@@ -63,7 +64,7 @@ define([
                 expect(this.tabPage.getSelectedRoute()).toBe('test-tab-page/first-tab')
             });
 
-            describe('after rendering', function () {
+            describe('after rendering', function() {
                 beforeEach(function() {
                     this.tabPage.render();
                 });
@@ -83,7 +84,7 @@ define([
         });
 
         describe('with filtering', function() {
-            beforeEach(function () {
+            beforeEach(function() {
                 this.tabPage = new FilteredTabPage();
             });
 
@@ -94,7 +95,5 @@ define([
                 expect(this.tabPage.tabs[0].view.constructorArgs[0]).toBe(firstTabConstructorOptions)
             });
         });
-
     });
-
 });

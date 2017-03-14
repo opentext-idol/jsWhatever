@@ -1,5 +1,5 @@
 /*
- * Copyright 2013-2015 Hewlett-Packard Development Company, L.P.
+ * Copyright 2013-2017 Hewlett Packard Enterprise Development Company, L.P.
  * Licensed under the MIT License (the "License"); you may not use this file except in compliance with the License.
  */
 
@@ -7,11 +7,12 @@
  * @module js-whatever/js/tab-page
  */
 define([
+    'underscore',
     'js-whatever/js/base-page',
     'js-whatever/js/lazy-tab-view',
-    'text!js-whatever/templates/tab-page.html',
-    'underscore'
-], function(BasePage, LazyTabView, template, _) {
+    'text!js-whatever/templates/tab-page.html'
+], function(_, BasePage, LazyTabView, template) {
+    'use strict';
 
     /**
      * @name module:js-whatever/js/tab-page.TabPage
@@ -77,7 +78,7 @@ define([
             this.filterTabs();
 
             _.each(this.tabs, function(tab) {
-                if (tab.constructor) {
+                if(tab.constructor) {
                     tab.view = new tab.constructor(tab.constructorOptions);
                 }
             });
@@ -87,13 +88,13 @@ define([
          * @desc Override to initialize this.tabs
          * @type {function}
          */
-        initializeTabs: $.noop, //Override this and create this.tabs
+        initializeTabs: _.noop, //Override this and create this.tabs
 
         /**
          * @desc Override to filter this.tabs
          * @type {function}
          */
-        filterTabs: $.noop, // Override this to filter this.tabs before creating page
+        filterTabs: _.noop, // Override this to filter this.tabs before creating page
 
         /**
          * @desc Renders the view, creating an embedded {@link module:js-whatever/js/tab-view.TabView}
@@ -127,7 +128,5 @@ define([
         getSelectedRoute: function() {
             return this.tabView ? this.tabView.getSelectedRoute() : [this.routePrefix, this.tabs[0].href].join('/');
         }
-
     });
-
 });

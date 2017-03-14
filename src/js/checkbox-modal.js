@@ -1,5 +1,5 @@
 /*
- * Copyright 2013-2015 Hewlett-Packard Development Company, L.P.
+ * Copyright 2013-2017 Hewlett Packard Enterprise Development Company, L.P.
  * Licensed under the MIT License (the "License"); you may not use this file except in compliance with the License.
  */
 
@@ -7,11 +7,15 @@
  * @module js-whatever/js/checkbox-modal
  */
 define([
+    'underscore',
+    'jquery',
     'backbone',
     'js-whatever/js/ensure-array',
     'text!js-whatever/templates/checkbox-modal/checkbox-modal.html',
     'text!js-whatever/templates/checkbox-modal/checkbox-table.html'
-], function(Backbone, ensureArray, checkboxModal, checkboxTable) {
+], function(_, $, Backbone, ensureArray, checkboxModal, checkboxTable) {
+    'use strict';
+
     /**
      * @typedef CheckboxModalTable
      * @property {boolean|string[]} initialState The initial state of the checkboxes. Can be either a boolean, or a list of
@@ -62,7 +66,6 @@ define([
      * });
      */
     return Backbone.View.extend(/** @lends module:js-whatever/js/checkbox-modal.CheckboxModal.prototype */{
-
         initialize: function(init) {
             _.bindAll(this, 'render', 'setRows', 'setRow', 'getSelectedRows', 'remove', 'resizeModal',
                 'getModalTemplateParams', 'getElementValue', 'restorePrevState', 'setGlobalCheckboxes');
@@ -82,7 +85,7 @@ define([
 
             this.checkboxOrRadio = init.checkboxOrRadio || 'checkbox';
 
-            if (this.checkboxOrRadio === 'radio') {
+            if(this.checkboxOrRadio === 'radio') {
                 this.atLeastOneElementSelected = true;
             }
 
@@ -116,7 +119,7 @@ define([
                 table.initialState = table.initialState || false;
 
                 table.columnStates = _.reduce(table.rows, function(memo, row) {
-                    if (_.isArray(table.initialState)) {
+                    if(_.isArray(table.initialState)) {
                         memo[row] = _.contains(table.initialState, row);
                     } else {
                         memo[row] = table.initialState;
@@ -218,7 +221,7 @@ define([
         setCheckboxesAndRows: function(index, valueCheckbox, valueGlobalCheckbox) {
             this.setCheckboxes(index, valueCheckbox);
             this.setRows(index, valueCheckbox);
-            if (valueGlobalCheckbox !== undefined) {
+            if(valueGlobalCheckbox !== undefined) {
                 this.setIndeterminateCheckbox(index, valueGlobalCheckbox);
             }
         },
@@ -232,19 +235,19 @@ define([
                 var tempCheck = '';
 
                 _.each($(table).find('td input[type="' + this.checkboxOrRadio + '"]'), function(check) {
-                    if (tempCheck === '') {
+                    if(tempCheck === '') {
                         tempCheck = $(check).prop('checked');
                     }
 
-                    if (tempCheck !== $(check).prop('checked')) {
+                    if(tempCheck !== $(check).prop('checked')) {
                         tempCheck = 'indeterminate';
                     }
                 });
 
-                if (tempCheck !== 'indeterminate') {
-                    this.setCheckbox(index, '', tempCheck);
-                } else {
+                if(tempCheck === 'indeterminate') {
                     this.setIndeterminateCheckbox(index, true);
+                } else {
+                    this.setCheckbox(index, '', tempCheck);
                 }
             }, this);
         },
@@ -260,7 +263,7 @@ define([
                 var globalCheckbox = $(table).find('input[data-row-name=""]');
                 var innerCheckedRows = [];
 
-                if (checked.length && (!globalCheckbox.length || globalCheckbox.prop('indeterminate'))) {
+                if(checked.length && (!globalCheckbox.length || globalCheckbox.prop('indeterminate'))) {
                     this.setRow(index, '', 'indeterminate');
 
                     _.each(notChecked, function(elem) {
@@ -272,7 +275,7 @@ define([
                         return $(elem).data('row-name');
                     }, this);
                 } else {
-                    if (globalCheckbox.prop('checked')) {
+                    if(globalCheckbox.prop('checked')) {
                         innerCheckedRows = _.map(checked, function(elem) {
                             return $(elem).data('row-name');
                         }, this);
@@ -360,7 +363,7 @@ define([
          */
         showModal: function() {
             this.editModal.modal('show');
-            if (!this.storePrevConfig) {
+            if(!this.storePrevConfig) {
                 this.restorePrevState();
             }
         },
@@ -379,7 +382,7 @@ define([
         restorePrevState: function() {
             _.each(this.tables, function(table) {
                 _.each(table.prevConfig, function(state, element) {
-                    if (state === 'indeterminate') {
+                    if(state === 'indeterminate') {
                         this.editModal.find('input[data-row-name="' + element + '"]').prop('indeterminate', true);
                     } else {
                         this.editModal.find('input[data-row-name="' + element + '"]').prop('checked', state);
@@ -420,17 +423,17 @@ define([
             var checked = $target.closest('table').find('td input[type="' + this.checkboxOrRadio + '"]:checked');
             var globalCheckbox = $target.closest('table').find('input[data-row-name=""]');
 
-            if (this.storePrevConfig) {
+            if(this.storePrevConfig) {
                 this.prevConfig = this.columnStates;
                 this.storePrevConfig = false;
             }
 
-            if (rowName === '') {
-                if ($target.prop('checked') || this.atLeastOneElementSelected) {
+            if(rowName === '') {
+                if($target.prop('checked') || this.atLeastOneElementSelected) {
                     checkboxes.prop('checked', true);
                     globalCheckbox.prop('indeterminate', false);
 
-                    if (this.atLeastOneElementSelected) {
+                    if(this.atLeastOneElementSelected) {
                         globalCheckbox.prop('checked', true);
                     }
                 } else {
@@ -438,16 +441,16 @@ define([
                     globalCheckbox.prop('indeterminate', false);
                 }
             } else {
-                if ($target.prop('checked')) {
-                    if (checkboxes.length === checked.length) {
+                if($target.prop('checked')) {
+                    if(checkboxes.length === checked.length) {
                         globalCheckbox.prop('checked', true);
                         globalCheckbox.prop('indeterminate', false);
                     } else {
                         globalCheckbox.prop('indeterminate', true);
                     }
                 } else {
-                    if (checked.length === 0) {
-                        if (this.atLeastOneElementSelected) {
+                    if(checked.length === 0) {
+                        if(this.atLeastOneElementSelected) {
                             $(e.delegateTarget).prop('checked', true);
                         } else {
                             globalCheckbox.prop('indeterminate', false);

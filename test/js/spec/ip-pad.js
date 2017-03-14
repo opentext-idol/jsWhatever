@@ -1,14 +1,14 @@
 /*
- * Copyright 2013-2015 Hewlett-Packard Development Company, L.P.
+ * Copyright 2013-2017 Hewlett Packard Enterprise Development Company, L.P.
  * Licensed under the MIT License (the "License"); you may not use this file except in compliance with the License.
  */
 
 define([
     'js-whatever/js/ip-pad'
 ], function(ipPad) {
+    'use strict';
 
     describe('IP Pad', function() {
-
         it('should leave falsy values unchanged', function() {
             expect(ipPad(undefined)).toBe(undefined);
             expect(ipPad(null)).toBe(null);
@@ -29,7 +29,5 @@ define([
         it('should add leading zeroes to multiple blocks', function() {
             expect(ipPad('5.5.5.5')).toBe('005.005.005.005');
         });
-
     });
-
 });

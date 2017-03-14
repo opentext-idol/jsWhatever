@@ -1,13 +1,14 @@
 /*
- * Copyright 2013-2015 Hewlett-Packard Development Company, L.P.
+ * Copyright 2013-2017 Hewlett Packard Enterprise Development Company, L.P.
  * Licensed under the MIT License (the "License"); you may not use this file except in compliance with the License.
  */
 
 /**
  * @module js-whatever/js/memory-format
  */
-define(function(){
-    //noinspection UnnecessaryLocalVariableJS
+define(function() {
+    'use strict';
+
     /**
      * @alias module:js-whatever/js/memory-format
      * @desc Formats a number of bytes to one decimal place in the largest available unit
@@ -20,32 +21,29 @@ define(function(){
      * memoryFormat(1024); // returns '1.0 KB'
      * memoryFormat(2, 1024); // returns '2.0 KB'
      */
-    var memoryFormat = function(bytes, multiple) {
-        if (multiple) {
+    function memoryFormat(bytes, multiple) {
+        if(multiple) {
             bytes *= multiple;
         }
 
-        if (!isFinite(bytes)) {
+        if(!isFinite(bytes)) {
             return String(bytes);
         }
 
         var magnitude = Math.abs(bytes);
 
-        if (magnitude >= 1099511627776) {
+        if(magnitude >= 1099511627776) {
             return (bytes / 1099511627776).toFixed(1) + ' TB';
-        }
-        else if (magnitude >= 1073741824) {
+        } else if(magnitude >= 1073741824) {
             return (bytes / 1073741824).toFixed(1) + ' GB';
-        }
-        else if (magnitude >= 1048576) {
+        } else if(magnitude >= 1048576) {
             return (bytes / 1048576).toFixed(1) + ' MB';
-        }
-        else if (magnitude >= 1024) {
+        } else if(magnitude >= 1024) {
             return (bytes / 1024).toFixed(1) + ' KB';
         }
 
         return Number(bytes).toFixed(0) + ' B';
-    };
+    }
 
     return memoryFormat;
 });

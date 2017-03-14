@@ -1,12 +1,14 @@
 /*
- * Copyright 2013-2015 Hewlett-Packard Development Company, L.P.
+ * Copyright 2013-2017 Hewlett Packard Enterprise Development Company, L.P.
  * Licensed under the MIT License (the "License"); you may not use this file except in compliance with the License.
  */
 
 define([
+    'underscore',
     'js-whatever/js/autoload-methods',
     'js-testing/backbone-mock-factory'
-], function(autoloadMethods, backboneMock) {
+], function(_, autoloadMethods, backboneMock) {
+    'use strict';
 
     var Test = backboneMock.getModel(['fetch']);
     var AutoloadTest = backboneMock.getModel();
@@ -25,7 +27,7 @@ define([
     });
 
     describe('Autoload Methods', function() {
-        beforeEach(function () {
+        beforeEach(function() {
             this.testModel = new Test();
         });
 

@@ -1,15 +1,16 @@
 /*
- * Copyright 2013-2015 Hewlett-Packard Development Company, L.P.
+ * Copyright 2013-2017 Hewlett Packard Enterprise Development Company, L.P.
  * Licensed under the MIT License (the "License"); you may not use this file except in compliance with the License.
  */
 
 define([
+    'jquery',
     'backbone',
     'js-whatever/js/listenable'
-], function(Backbone, listenable) {
+], function($, Backbone, listenable) {
+    'use strict';
 
     describe('listenable', function() {
-
         beforeEach(function() {
             this.view = new Backbone.View();
 
@@ -31,7 +32,5 @@ define([
 
             expect(spy).toHaveCallCount(1);
         });
-
     });
-
 });

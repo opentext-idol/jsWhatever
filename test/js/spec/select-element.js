@@ -1,38 +1,36 @@
 /*
- * Copyright 2013-2015 Hewlett-Packard Development Company, L.P.
+ * Copyright 2013-2017 Hewlett Packard Enterprise Development Company, L.P.
  * Licensed under the MIT License (the "License"); you may not use this file except in compliance with the License.
  */
 
 define([
+    'jquery',
     'js-whatever/js/select-element'
-], function (selectElement) {
+], function($, selectElement) {
+    'use strict';
 
-    var getSelectedText = function () {
-        if (window.getSelection) {
-            return window.getSelection().toString();
-        }
-        if (document.selection) {
-            return document.selection.createRange().text;
-        }
-        return null;
-    };
+    function getSelectedText() {
+        return window.getSelection
+            ? window.getSelection().toString()
+            : (document.selection
+                ? document.selection.createRange().text
+                : null);
+    }
 
-    describe('Utility: `selectElement`', function () {
-
-        describe('for a selector matching no elements', function () {
-            it('should return false', function () {
+    describe('Utility: `selectElement`', function() {
+        describe('for a selector matching no elements', function() {
+            it('should return false', function() {
                 expect(selectElement('')).toBe(false);
             });
         });
 
-        describe('for a matching selector', function () {
-
-            beforeEach(function () {
+        describe('for a matching selector', function() {
+            beforeEach(function() {
                 this.parent = $('<div class="hidden">');
 
-                this.child0  = $('<p>some</p>');
-                this.child1  = $('<p>demo</p>');
-                this.child2  = $('<p>content</p>');
+                this.child0 = $('<p>some</p>');
+                this.child1 = $('<p>demo</p>');
+                this.child2 = $('<p>content</p>');
 
                 this.parent.append(this.child0);
                 this.parent.append(this.child1);
@@ -41,12 +39,11 @@ define([
                 $('body').append(this.parent);
             });
 
-            afterEach(function () {
+            afterEach(function() {
                 this.parent.remove();
             });
 
-            it('should select the text for that element', function () {
-
+            it('should select the text for that element', function() {
                 expect(selectElement(this.child0)).toBe(true);
                 expect(getSelectedText()).toBe('some');
 
@@ -58,7 +55,6 @@ define([
 
                 expect(selectElement(this.parent)).toBe(true);
                 expect(getSelectedText()).toMatch(/^some\s*demo\s*content$/);
-
             });
         });
     });

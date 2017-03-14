@@ -1,20 +1,21 @@
 /*
- * Copyright 2013-2015 Hewlett-Packard Development Company, L.P.
+ * Copyright 2013-2017 Hewlett Packard Enterprise Development Company, L.P.
  * Licensed under the MIT License (the "License"); you may not use this file except in compliance with the License.
  */
 
 define([
+    'underscore',
     'js-whatever/js/colour-manager'
-], function (ColourManager) {
+], function(_, ColourManager) {
+    'use strict';
 
     var numberPredefined = 11;
 
-    var getKey = function() {
+    function getKey() {
         return _.uniqueId();
-    };
+    }
 
     describe('Utility: ColourManager', function() {
-
         beforeEach(function() {
             this.colourManager = new ColourManager();
 
@@ -47,14 +48,14 @@ define([
                 this.colours = {};
 
                 var key;
-                for (var ii=0; ii<numberPredefined; ii++) {
+                for(var ii = 0; ii < numberPredefined; ii++) {
                     key = getKey();
                     this.colours[key] = this.colourManager.getColour(key);
                 }
             });
 
             it('should return LOTS of colours', function() {
-                for (var ii=0; ii<100; ii++) {
+                for(var ii = 0; ii < 100; ii++) {
                     expect(this.colourManager.getColour(getKey())).toBeAHexColour();
                 }
             });
@@ -89,7 +90,7 @@ define([
                 var ii, key;
                 var colours = [];
 
-                for (ii=0; ii<numberPredefined; ii++) {
+                for(ii = 0; ii < numberPredefined; ii++) {
                     key = getKey();
                     colours.push({
                         key: key,
@@ -99,10 +100,10 @@ define([
 
                 this.colourManager.reset();
 
-                for (ii=0; ii<numberPredefined; ii++) {
+                for(ii = 0; ii < numberPredefined; ii++) {
                     // colours should be assigned first-come-first-serve on keys; so if you ask for keys in a different order
                     // you should get back the colours in the same order
-                    expect(this.colourManager.getColour(colours[numberPredefined -1 - ii].key)).toEqual(colours[ii].colour);
+                    expect(this.colourManager.getColour(colours[numberPredefined - 1 - ii].key)).toEqual(colours[ii].colour);
                 }
             });
         });
@@ -120,7 +121,5 @@ define([
                 expect(finalColour).toEqual('#00e05b');
             });
         });
-
     });
-
 });

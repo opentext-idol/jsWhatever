@@ -1,5 +1,5 @@
 /*
- * Copyright 2013-2015 Hewlett-Packard Development Company, L.P.
+ * Copyright 2013-2017 Hewlett Packard Enterprise Development Company, L.P.
  * Licensed under the MIT License (the "License"); you may not use this file except in compliance with the License.
  */
 
@@ -7,9 +7,10 @@
  * @module js-whatever/js/abstract-pages
  */
 define([
-    'backbone',
-    'underscore'
-], function(Backbone, _) {
+    'underscore',
+    'backbone'
+], function(_, Backbone) {
+    'use strict';
 
     /**
      * @name module:js-whatever/js/abstract-pages.AbstractPages
@@ -34,7 +35,7 @@ define([
         initialize: function() {
             _.bindAll(this, 'changePage', 'findPage');
 
-            if (!this.router || !this.vent) {
+            if(!(this.router && this.vent)) {
                 throw 'abstract-pages.js error: router and vent must be provided!';
             }
 
@@ -66,7 +67,7 @@ define([
          *     pageName: 'bar'
          * }]
          */
-        initializePages: $.noop,
+        initializePages: _.noop,
 
         /**
          * @param {String} page The page object
@@ -81,10 +82,10 @@ define([
          * @returns {Object} The page object with the given name
          */
         findPage: function(pageName) {
-            var page = _.findWhere(this.pages, { pageName: pageName });
+            var page = _.findWhere(this.pages, {pageName: pageName});
 
-            if (!page) {
-                page = _.findWhere(this.pages, { defaultPage: true });
+            if(!page) {
+                page = _.findWhere(this.pages, {defaultPage: true});
             }
 
             return page;
@@ -98,13 +99,13 @@ define([
         changePage: function(pageName) {
             var newPage = this.findPage(pageName);
 
-            if (!newPage.hasRendered) {
+            if(!newPage.hasRendered) {
                 newPage.view.render();
                 this.$el.append(newPage.view.el);
                 newPage.hasRendered = true;
             }
 
-            if (this.currentPage) {
+            if(this.currentPage) {
                 this.currentPage.view.hide();
             }
 
@@ -127,5 +128,4 @@ define([
             this.vent.navigate(route, {trigger: false});
         }
     });
-
 });

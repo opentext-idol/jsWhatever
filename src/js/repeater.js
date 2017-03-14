@@ -1,5 +1,5 @@
 /*
- * Copyright 2013-2015 Hewlett-Packard Development Company, L.P.
+ * Copyright 2013-2017 Hewlett Packard Enterprise Development Company, L.P.
  * Licensed under the MIT License (the "License"); you may not use this file except in compliance with the License.
  */
 
@@ -8,7 +8,9 @@
  */
 define([
     'underscore'
-], function () {
+], function(_) {
+    'use strict';
+
     /**
      * @name module:js-whatever/js/repeater.Repeater
      * @desc Wrapper around setTimeout that allows for the control of the timeout
@@ -28,8 +30,8 @@ define([
          * @desc Stops the timeout
          * @returns {Repeater} this
          */
-        stop: function () {
-            if (this.timeout !== null) {
+        stop: function() {
+            if(this.timeout !== null) {
                 clearTimeout(this.timeout);
                 this.timeout = null;
             }
@@ -41,7 +43,7 @@ define([
          * @desc Starts the timeout. If it has already started, this will reset the timeout
          * @returns {Repeater} this
          */
-        start: function () {
+        start: function() {
             this.stop();
             this.timeout = _.delay(this.update, this.interval);
             return this;
@@ -51,10 +53,10 @@ define([
          * @desc Calls the provided function
          * @returns {Repeater} this
          */
-        update: function () {
+        update: function() {
             this.f();
 
-            if (this.timeout !== null) {
+            if(this.timeout !== null) {
                 this.start();
             }
 
