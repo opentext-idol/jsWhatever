@@ -1,5 +1,5 @@
 /*
- * Copyright 2013-2015 Hewlett-Packard Development Company, L.P.
+ * Copyright 2013-2017 Hewlett Packard Enterprise Development Company, L.P.
  * Licensed under the MIT License (the "License"); you may not use this file except in compliance with the License.
  */
 
@@ -9,9 +9,9 @@
  * @abstract
  */
 define([
-    'jquery',
     'underscore'
-],function($, _) {
+], function(_) {
+    'use strict';
 
     return {
         /**
@@ -43,21 +43,21 @@ define([
                 this.loaded = true;
             }, this);
 
-            if (options.ports) {
+            if(options.ports) {
                 this.ports = options.ports;
             }
 
-            if (options.autoload !== undefined) {
+            if(options.autoload !== undefined) {
                 this.autoload = options.autoload
             }
 
-            if (options.loaded !== undefined) {
+            if(options.loaded !== undefined) {
                 this.loaded = options.loaded
             }
 
             this.on(this.eventName, onLoaded);
 
-            if (this.autoload) {
+            if(this.autoload) {
                 this.fetch({
                     success: onLoaded
                 });
@@ -69,7 +69,7 @@ define([
          * @abstract
          * @method
          */
-        url: $.noop,
+        url: _.noop,
 
         /**
          * @desc Register a callback to be called when there is data available.  If the model has loaded, the callback
@@ -78,11 +78,11 @@ define([
          * @param ctx The context for callback
          */
         onLoad: function(callback, ctx) {
-            if (ctx) {
+            if(ctx) {
                 callback = _.bind(callback, ctx);
             }
 
-            if (this.loaded) {
+            if(this.loaded) {
                 callback(this);
             }
             else {

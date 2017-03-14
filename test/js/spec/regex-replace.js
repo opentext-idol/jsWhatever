@@ -1,12 +1,13 @@
 /*
- * Copyright 2013-2015 Hewlett-Packard Development Company, L.P.
+ * Copyright 2013-2017 Hewlett Packard Enterprise Development Company, L.P.
  * Licensed under the MIT License (the "License"); you may not use this file except in compliance with the License.
  */
 
 define([
-    'js-whatever/js/regex-replace',
-    'underscore'
-], function (regexReplace, _) {
+    'underscore',
+    'js-whatever/js/regex-replace'
+], function(_, regexReplace) {
+    'use strict';
 
     var nonGlobalRegex = /[^]/;
     var globalRegex = /[^]/g;
@@ -17,7 +18,7 @@ define([
         };
     }
 
-    describe('regexReplace', function () {
+    describe('regexReplace', function() {
         it('throws when given no arguments', function() {
             expect(function() {
                 regexReplace();
@@ -54,8 +55,8 @@ define([
             }).toThrow();
         });
 
-        it('should not error when given valid input', function () {
-            expect(function () {
+        it('should not error when given valid input', function() {
+            expect(function() {
                 regexReplace(globalRegex, '', _.identity, _.identity);
             }).not.toThrow();
         });
@@ -64,8 +65,8 @@ define([
             expect(regexReplace(globalRegex, '', _.identity, _.identity)).toBe('');
         });
 
-        describe('should correctly apply functions where appropriate', function () {
-            it('for digit sequences', function () {
+        describe('should correctly apply functions where appropriate', function() {
+            it('for digit sequences', function() {
                 var digits = encase('[digits:', ']');
                 var notDigits = encase('<not-digits:', '>');
                 var pattern = /\d+/g;
@@ -74,7 +75,7 @@ define([
                 expect(regexReplace(pattern, input, digits, notDigits)).toBe(output);
             });
 
-            it('for pattern with alternation', function () {
+            it('for pattern with alternation', function() {
                 var cat = encase('<', '>');
                 var other = encase('[other:', ']');
                 var pattern = /ca+t|do+g/g;
@@ -83,8 +84,10 @@ define([
                 expect(regexReplace(pattern, input, cat, other)).toBe(output);
             });
 
-            it('for pattern with groups', function () {
-                var cat = function (value, group) { return '<cat ' + group.length + ' a\'s>'; };
+            it('for pattern with groups', function() {
+                var cat = function(value, group) {
+                    return '<cat ' + group.length + ' a\'s>';
+                };
                 var other = encase('[other:', ']');
                 var pattern = /c(a+)t/g;
                 var input = 'abcaat12cadooooga36caaaat';
@@ -92,7 +95,7 @@ define([
                 expect(regexReplace(pattern, input, cat, other)).toBe(output);
             });
 
-            it('for full pattern match', function () {
+            it('for full pattern match', function() {
                 var match = encase('{', '}');
                 var other = encase('[oops:', ']');
                 var pattern = /\d+/g;
@@ -101,7 +104,7 @@ define([
                 expect(regexReplace(pattern, input, match, other)).toBe(output);
             });
 
-            it('for full separated pattern matches', function () {
+            it('for full separated pattern matches', function() {
                 var match = encase('{', '}');
                 var other = encase('[oops:', ']');
                 var pattern = /\d/g;
@@ -110,7 +113,7 @@ define([
                 expect(regexReplace(pattern, input, match, other)).toBe(output);
             });
 
-            it('for no pattern match', function () {
+            it('for no pattern match', function() {
                 var match = encase('[oops:', ']');
                 var other = encase('{', '}');
                 var pattern = /\d/g;
@@ -120,5 +123,4 @@ define([
             });
         });
     });
-
 });

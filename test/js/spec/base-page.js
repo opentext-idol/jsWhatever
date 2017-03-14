@@ -1,20 +1,21 @@
 /*
- * Copyright 2013-2015 Hewlett-Packard Development Company, L.P.
+ * Copyright 2013-2017 Hewlett Packard Enterprise Development Company, L.P.
  * Licensed under the MIT License (the "License"); you may not use this file except in compliance with the License.
  */
 
 define([
+    'jquery',
     'js-whatever/js/base-page'
-], function(BasePage) {
+], function($, BasePage) {
+    'use strict';
 
     describe('Base Page', function() {
-
         beforeEach(function() {
             jasmine.addMatchers({
                 toBeVisible: function() {
                     return {
                         compare: function(actual) {
-                            var pass = actual.$el.css('display') !== 'none';
+                            var pass = actual.$el.css('display') !== 'none' && actual.isVisible() === true;
                             return {
                                 message: 'Expected ' + jasmine.pp(actual) + (pass ? ' not ' : '') + 'to be visible',
                                 pass: pass
@@ -29,6 +30,7 @@ define([
             }))();
 
             spyOn(this.page, 'update');
+            spyOn(this.page, 'render');
         });
 
         it('should be invisible when newly created', function() {
@@ -40,17 +42,28 @@ define([
                 this.page.show();
             });
 
+            it('should call the render method', function() {
+                expect(this.page.render).toHaveBeenCalled();
+                expect(this.page.render.calls.count()).toEqual(1);
+            });
+
+            it('if called multiple times, should only call render once', function() {
+                this.page.show();
+                expect(this.page.render).toHaveBeenCalled();
+                expect(this.page.render.calls.count()).toEqual(1);
+            });
+
             it('should make pages visible', function() {
                 expect(this.page).toBeVisible();
             });
 
             it('should add the data-pagename attribute', function() {
-                expect(this.page.$el.data('pagename')).toBe('test')
+                expect(this.page.$el.data('pagename')).toEqual('test')
             });
 
             it('should call the update method', function() {
                 expect(this.page.update).toHaveCallCount(1);
-            })
+            });
         });
 
         describe('hide', function() {
@@ -59,7 +72,7 @@ define([
                 this.page.hide();
 
                 expect(this.page).not.toBeVisible();
-            })
+            });
         });
 
         describe('isVisible', function() {
@@ -73,15 +86,22 @@ define([
 
             it('should return true for visible pages', function() {
                 this.page.show();
-
-                expect(this.page.isVisible()).toBe(true);
+                expect(this.page.isVisible()).toEqual(true);
             });
 
             it('should return false for invisible pages', function() {
-                expect(this.page.isVisible()).toBe(false);
+                expect(this.page.isVisible()).toEqual(false);
+            });
+
+            it('should change value if the page is shown or hidden', function() {
+                expect(this.page.isVisible()).toEqual(false);
+                this.page.show();
+                expect(this.page.isVisible()).toEqual(true);
+                this.page.hide();
+                expect(this.page.isVisible()).toEqual(false);
+                this.page.show();
+                expect(this.page.isVisible()).toEqual(true);
             });
         })
-
     });
-
 });

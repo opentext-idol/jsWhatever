@@ -1,5 +1,5 @@
 /*
- * Copyright 2013-2015 Hewlett-Packard Development Company, L.P.
+ * Copyright 2013-2017 Hewlett Packard Enterprise Development Company, L.P.
  * Licensed under the MIT License (the "License"); you may not use this file except in compliance with the License.
  */
 
@@ -7,11 +7,12 @@
  * @module js-whatever/js/confirm-view
  */
 define([
+    'underscore',
     'backbone',
     'text!js-whatever/templates/confirm.html',
-    'underscore',
     'bootstrap'
-], function(Backbone, template){
+], function(_, Backbone, template) {
+    'use strict';
 
     /**
      * @typedef ConfirmViewOptions
@@ -105,7 +106,7 @@ define([
                 config: config
             }));
 
-            if (config.modalClass) {
+            if(config.modalClass) {
                 this.$el.addClass(config.modalClass);
             }
 
@@ -115,17 +116,17 @@ define([
 
             this.$el.modal().on(this.config.hiddenEvent, this.remove);
 
-            this.$('.modal-body a.route').click(_.bind(function(){
+            this.$('.modal-body a.route').click(_.bind(function() {
                 this.$el.modal('hide');
             }, this));
 
-            if (config.okHandler) {
+            if(config.okHandler) {
                 //pass in value to be used as jquery binding
                 var okButton = this.$('.okButton');
                 okButton.click(_.wrap(config.okHandler, _.bind(this.handleButton, this, okButton.get(0))));
             }
 
-            if (config.cancelHandler) {
+            if(config.cancelHandler) {
                 var cancelButton = this.$('.cancelButton');
                 cancelButton.click(_.wrap(config.cancelHandler, _.bind(this.handleButton, this, cancelButton.get(0))));
             }
@@ -150,8 +151,8 @@ define([
         /**
          * @desc Hides the modal and removes it from the DOM
          */
-        remove: function () {
-            if (this.$el && this.$el.hasClass('in')) {
+        remove: function() {
+            if(this.$el && this.$el.hasClass('in')) {
                 this.$el.modal('hide');
             }
 

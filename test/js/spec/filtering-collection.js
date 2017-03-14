@@ -10,9 +10,9 @@ define([
                 {id: 'Penny', age: 17}
             ]);
 
-            var modelFilter = function(model, filters) {
+            function modelFilter(model, filters) {
                 return model.get('age') >= filters.minAge;
-            };
+            }
 
             this.filteringCollection = new FilteringCollection([], {
                 attributes: ['id', 'age'],

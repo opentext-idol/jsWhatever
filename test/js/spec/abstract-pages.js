@@ -1,14 +1,16 @@
 /*
- * Copyright 2013-2015 Hewlett-Packard Development Company, L.P.
+ * Copyright 2013-2017 Hewlett Packard Enterprise Development Company, L.P.
  * Licensed under the MIT License (the "License"); you may not use this file except in compliance with the License.
  */
 
 define([
+    'underscore',
+    'backbone',
     'js-whatever/js/abstract-pages',
     'js-whatever/js/vent-constructor',
-    'backbone',
     'js-testing/backbone-mock-factory'
-], function(AbstractPages, Vent, Backbone, backboneMockFactory) {
+], function(_, Backbone, AbstractPages, Vent, backboneMockFactory) {
+    'use strict';
 
     var View1 = backboneMockFactory.getView(['hide', 'show', 'getSelectedRoute', 'render']);
     var View2 = backboneMockFactory.getView(['hide', 'show', 'getSelectedRoute', 'render']);
@@ -75,7 +77,7 @@ define([
             })
         });
 
-        describe('changePage', function(){
+        describe('changePage', function() {
             it('should render a page the first time it is used', function() {
                 expect(this.pages.findPage('firstPage').view.render).toHaveCallCount(0);
                 expect(this.pages.findPage('secondPage').view.render).toHaveCallCount(0);
@@ -131,14 +133,12 @@ define([
 
             it('should cause the vent to navigate', function() {
                 expect(vent.navigate).toHaveCallCount(1);
-                expect(vent.navigate).toHaveBeenCalledWith('test/firstPage', {trigger:false});
+                expect(vent.navigate).toHaveBeenCalledWith('test/firstPage', {trigger: false});
             });
 
             it('should change to the page', function() {
                 expect(this.pages.findPage('firstPage').view.show).toHaveCallCount(1);
             })
         });
-
     });
-
 });

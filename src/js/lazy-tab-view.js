@@ -1,5 +1,5 @@
 /*
- * Copyright 2013-2015 Hewlett-Packard Development Company, L.P.
+ * Copyright 2013-2017 Hewlett Packard Enterprise Development Company, L.P.
  * Licensed under the MIT License (the "License"); you may not use this file except in compliance with the License.
  */
 
@@ -7,8 +7,10 @@
  * @module js-whatever/js/lazy-tab-view
  */
 define([
+    'underscore',
     'js-whatever/js/tab-view'
-], function(TabView) {
+], function(_, TabView) {
+    'use strict';
 
     /**
      * @name module:js-whatever/js/lazy-tab-view.LazyTabView
@@ -17,7 +19,6 @@ define([
      * @extends module:js-whatever/js/tab-view.TabView
      */
     return TabView.extend(/** @lends module:js-whatever/js/lazy-tab-view.LazyTabView.prototype */{
-
         /**
          * @desc Shows a tab in response to an event from the jQuery plugin. Renders a view if it hasn't been rendered
          * before. Calls the tabActivation method of the view if it is defined.
@@ -31,7 +32,7 @@ define([
                 return tab.href === id;
             });
 
-            if (!tabData.hasRendered) {
+            if(!tabData.hasRendered) {
                 var tab = tabData.view;
 
                 tab.render();
@@ -43,7 +44,7 @@ define([
 
             TabView.prototype.showTab.call(this, e, ui);
 
-            if (tabData.view && tabData.view.tabActivation) {
+            if(tabData.view && tabData.view.tabActivation) {
                 tabData.view.tabActivation();
             }
         },
@@ -58,13 +59,13 @@ define([
 
             var route = TabView.prototype.getSelectedRoute.apply(this, arguments);
 
-            if (id) {
+            if(id) {
                 var selectedView = this.find(id).view;
 
-                if (selectedView && selectedView.getSelectedRoute) {
+                if(selectedView && selectedView.getSelectedRoute) {
                     var additionalRoute = selectedView.getSelectedRoute();
 
-                    if (additionalRoute) {
+                    if(additionalRoute) {
                         route += '/' + additionalRoute
                     }
                 }

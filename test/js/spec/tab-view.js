@@ -1,12 +1,15 @@
 /*
- * Copyright 2013-2015 Hewlett-Packard Development Company, L.P.
+ * Copyright 2013-2017 Hewlett Packard Enterprise Development Company, L.P.
  * Licensed under the MIT License (the "License"); you may not use this file except in compliance with the License.
  */
 
 define([
-    'js-whatever/js/tab-view',
-    'backbone'
-], function(TabView, Backbone) {
+    'underscore',
+    'jquery',
+    'backbone',
+    'js-whatever/js/tab-view'
+], function(_, $, Backbone, TabView) {
+    'use strict';
 
     describe('Tab view', function() {
         var realTabs = $.fn.tabs;
@@ -68,7 +71,10 @@ define([
                 newPanel: $('<div id="macaque"></div>')
             });
 
-            expect(this.vent.navigate).toHaveBeenCalledWith('my-page/app/tabbed/macaque', { trigger : false, replace : false });
+            expect(this.vent.navigate).toHaveBeenCalledWith('my-page/app/tabbed/macaque', {
+                trigger: false,
+                replace: false
+            });
         });
 
         it('should select the correct tab on router "route" event', function() {
@@ -90,5 +96,4 @@ define([
             expect(this.tabView.getSelectedRoute()).toBe('app/tabbed/macaque');
         });
     });
-
 });

@@ -1,5 +1,5 @@
 /*
- * Copyright 2013-2015 Hewlett-Packard Development Company, L.P.
+ * Copyright 2013-2017 Hewlett Packard Enterprise Development Company, L.P.
  * Licensed under the MIT License (the "License"); you may not use this file except in compliance with the License.
  */
 
@@ -7,9 +7,11 @@
  * @module js-whatever/js/tab-view
  */
 define([
+    'underscore',
     'backbone',
     'jqueryui'
-], function(Backbone) {
+], function(_, Backbone) {
+    'use strict';
 
     /**
      * @typedef TabData
@@ -33,7 +35,6 @@ define([
      * @extends Backbone.View
      */
     return Backbone.View.extend(/** @lends module:js-whatever/js/tab-view.TabView.prototype */{
-
         initialize: function(options) {
             _.bindAll(this, 'showTab', 'selectTab');
 
@@ -70,10 +71,10 @@ define([
             this.selectedId = id;
 
             var tab = this.find(id);
-            if (!tabNewlyCreated && (!tab.view || !_.result(tab.view, 'suppressTabHistory'))) {
+            if(!tabNewlyCreated && (!tab.view || !_.result(tab.view, 'suppressTabHistory'))) {
                 var newRoute = this.appPrefix + '/' + this.getSelectedRoute(id);
 
-                var isSubTabRoute = newRoute.indexOf(Backbone.history.fragment.replace(new RegExp('^.*?' + this.appPrefix), this.appPrefix ) + '/') === 0;
+                var isSubTabRoute = newRoute.indexOf(Backbone.history.fragment.replace(new RegExp('^.*?' + this.appPrefix), this.appPrefix) + '/') === 0;
 
                 // if the new route is a subtab of the old route, we should replace the old route
                 // e.g. when refreshing a page on #page/performance/performanceStatistics/statstab-ACI we
@@ -120,10 +121,7 @@ define([
          * @returns {string}
          */
         getSelectedRoute: function(id) {
-            id = id || this.selectedId;
-            return [this.routePrefix, id].join('/');
+            return [this.routePrefix, id || this.selectedId].join('/');
         }
-
     });
-
 });

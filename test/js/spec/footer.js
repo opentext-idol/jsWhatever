@@ -1,17 +1,20 @@
 /*
- * Copyright 2013-2015 Hewlett-Packard Development Company, L.P.
+ * Copyright 2013-2017 Hewlett Packard Enterprise Development Company, L.P.
  * Licensed under the MIT License (the "License"); you may not use this file except in compliance with the License.
  */
 
 define([
+    'underscore',
+    'jquery',
     'backbone',
     'js-whatever/js/footer',
     'store',
     'bootstrap',
     'jasmine-jquery'
-], function (Backbone, Footer, store) {
+], function(_, $, Backbone, Footer, store) {
+    'use strict';
 
-    describe('Footer', function () {
+    describe('Footer', function() {
         var $parent = $('<div/>');
 
         var MockComponent = Backbone.View.extend({
@@ -20,11 +23,11 @@ define([
             },
 
             render: function() {
-                this.$el.html('<div id="' + this.elId +'" class="component"></div>')
+                this.$el.html('<div id="' + this.elId + '" class="component"></div>')
             }
         });
 
-        beforeEach(function () {
+        beforeEach(function() {
             this.mockVent = _.extend({
                 fireResize: jasmine.createSpy('fireResize'),
                 navigate: jasmine.createSpy('navigate')
@@ -54,7 +57,7 @@ define([
             $('body').append(this.footer.el);
         });
 
-        afterEach(function () {
+        afterEach(function() {
             this.footer.$el.detach();
             store.clear();
         });
@@ -117,7 +120,7 @@ define([
             expect(this.footer.$('#RECENT_TASKS')).not.toHaveClass('active');
         });
 
-        it('should fire a resize event' ,function() {
+        it('should fire a resize event', function() {
             expect(this.mockVent.fireResize.calls.count()).toEqual(1);
 
             this.$toggle.click();
@@ -125,5 +128,4 @@ define([
             expect(this.mockVent.fireResize.calls.count()).toEqual(2);
         });
     });
-
 });

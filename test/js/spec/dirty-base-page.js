@@ -1,11 +1,12 @@
 /*
- * Copyright 2013-2015 Hewlett-Packard Development Company, L.P.
+ * Copyright 2013-2017 Hewlett Packard Enterprise Development Company, L.P.
  * Licensed under the MIT License (the "License"); you may not use this file except in compliance with the License.
  */
 
 define([
     'js-whatever/js/dirty-base-page'
 ], function(DirtyBasePage) {
+    'use strict';
 
     describe('Dirty base page', function() {
         beforeEach(function() {
@@ -54,5 +55,4 @@ define([
             })
         });
     });
-
 });

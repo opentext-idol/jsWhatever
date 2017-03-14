@@ -1,5 +1,5 @@
 /*
- * Copyright 2013-2015 Hewlett-Packard Development Company, L.P.
+ * Copyright 2013-2017 Hewlett Packard Enterprise Development Company, L.P.
  * Licensed under the MIT License (the "License"); you may not use this file except in compliance with the License.
  */
 
@@ -7,9 +7,11 @@
  * @module js-whatever/js/empty-navbar
  */
 define([
+    'underscore',
     'backbone',
     'text!js-whatever/templates/empty-navbar.html'
-], function(Backbone, template) {
+], function(_, Backbone, template) {
+    'use strict';
 
     var defaultOptions = {
         showLogout: true
@@ -36,10 +38,9 @@ define([
      * @extends Backbone.View
      */
     return Backbone.View.extend(/** @lends module:js-whatever/js/empty-navbar.EmptyNavbar.prototype */{
-
         template: _.template(template),
 
-        initialize: function (options) {
+        initialize: function(options) {
             this.options = _.extend({}, defaultOptions, options || {});
         },
 
@@ -49,7 +50,5 @@ define([
         render: function() {
             this.$el.html(this.template(this.options));
         }
-
     });
-
 });

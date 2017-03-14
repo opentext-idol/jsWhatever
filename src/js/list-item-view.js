@@ -1,9 +1,16 @@
+/*
+ * Copyright 2017 Hewlett Packard Enterprise Development Company, L.P.
+ * Licensed under the MIT License (the "License"); you may not use this file except in compliance with the License.
+ */
+
 /**
  * @module js-whatever/js/list-item-view
  */
 define([
+    'underscore',
     'backbone'
-], function(Backbone) {
+], function(_, Backbone) {
+    'use strict';
 
     /**
      * @typedef module:js-whatever/js/list-item-view.ListItemView~ListItemViewOptions
@@ -43,5 +50,4 @@ define([
             this.$el.attr('data-id', this.model.id);
         }
     });
-
 });

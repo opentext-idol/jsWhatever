@@ -1,5 +1,5 @@
 /*
- * Copyright 2013-2015 Hewlett-Packard Development Company, L.P.
+ * Copyright 2013-2017 Hewlett Packard Enterprise Development Company, L.P.
  * Licensed under the MIT License (the "License"); you may not use this file except in compliance with the License.
  */
 
@@ -7,9 +7,10 @@
  * @module js-whatever/js/escape-with-links
  */
 define([
-    'js-whatever/js/regex-replace',
-    'underscore'
-], function(regexReplace, _){
+    'underscore',
+    'js-whatever/js/regex-replace'
+], function(_, regexReplace) {
+    'use strict';
 
     var template = _.template('<a class="<%-className%>" target="<%-target%>" href="<%-href%>"><%-text%></a>');
 
@@ -29,17 +30,17 @@ define([
         var regex = /\(?https?:\/\/[-A-Za-z0-9\u0080-\uFFFF+&@#/%?=~_()|!:,.;']*[-A-Za-z0-9\u0080-\uFFFF+&@#/%=~_()|]/ig;
         var regexSpaces = /\(?https?:\/\/[-A-Za-z0-9\u0080-\uFFFF+&@#/%?=~_()|!:,.;'\s]*[-A-Za-z0-9\u0080-\uFFFF+&@#/%=~_()|]/ig;
 
-        if (_.isUndefined(target) || _.isNull(target)) {
+        if(_.isUndefined(target) || _.isNull(target)) {
             target = '_blank';
         }
 
-        if (_.isUndefined(className) || _.isNull(className)) {
+        if(_.isUndefined(className) || _.isNull(className)) {
             className = 'autoLink';
         }
 
         var reg = catchSpaces === true ? regexSpaces : regex;
 
-        if (!text) {
+        if(!text) {
             return text;
         }
 
@@ -47,7 +48,7 @@ define([
             var wrapLink = false;
 
             // Check for links wrapped in brackets
-            if (url[0] === '(' && url[url.length - 1] === ')') {
+            if(url[0] === '(' && url[url.length - 1] === ')') {
                 url = url.substring(1, url.length - 1);
                 wrapLink = true;
             }
@@ -59,7 +60,7 @@ define([
                 text: url
             });
 
-            if (wrapLink) {
+            if(wrapLink) {
                 link = '(' + link + ')';
             }
 
@@ -68,5 +69,4 @@ define([
     }
 
     return escapeWithLinks;
-
 });

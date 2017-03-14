@@ -1,5 +1,5 @@
 /*
- * Copyright 2013-2015 Hewlett-Packard Development Company, L.P.
+ * Copyright 2013-2017 Hewlett Packard Enterprise Development Company, L.P.
  * Licensed under the MIT License (the "License"); you may not use this file except in compliance with the License.
  */
 
@@ -8,6 +8,7 @@
  * @desc Wrapper around window.location, allowing for easier testing
  */
 define(function() {
+    'use strict';
 
     var host = window.location.host;
     var hostname = window.location.hostname;
@@ -16,12 +17,7 @@ define(function() {
     var protocol = window.location.protocol;
     var search = window.location.search;
 
-    //noinspection UnnecessaryLocalVariableJS
-    /**
-     * @alias module:js-whatever/js/location
-     */
-    var location = {
-
+    return {
         /**
          * @returns {string} window.location.host
          */
@@ -64,6 +60,4 @@ define(function() {
             return search;
         }
     };
-
-    return location;
 });

@@ -1,5 +1,5 @@
 /*
- * Copyright 2013-2015 Hewlett-Packard Development Company, L.P.
+ * Copyright 2013-2017 Hewlett Packard Enterprise Development Company, L.P.
  * Licensed under the MIT License (the "License"); you may not use this file except in compliance with the License.
  */
 
@@ -17,10 +17,12 @@
  */
 define([
     'jquery'
-], function(jQuery) {
-    jQuery.expr[':'].icontains = jQuery.expr.createPseudo(function(arg) {
+], function($) {
+    'use strict';
+
+    $.expr[':'].icontains = $.expr.createPseudo(function(arg) {
         return function(elem) {
-            return jQuery(elem).text().toUpperCase().indexOf(arg.toUpperCase()) >= 0;
+            return $(elem).text().toUpperCase().indexOf(arg.toUpperCase()) >= 0;
         };
     });
 });

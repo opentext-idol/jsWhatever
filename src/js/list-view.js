@@ -1,5 +1,5 @@
 /*
- * Copyright 2013-2015 Hewlett-Packard Development Company, L.P.
+ * Copyright 2013-2017 Hewlett Packard Enterprise Development Company, L.P.
  * Licensed under the MIT License (the "License"); you may not use this file except in compliance with the License.
  */
 
@@ -7,9 +7,11 @@
  * @module js-whatever/js/list-view
  */
 define([
+    'underscore',
     'backbone',
     'js-whatever/js/list-item-view'
-], function(Backbone, ListItemView) {
+], function(_, Backbone, ListItemView) {
+    'use strict';
 
     // TODO: ListViewOptions.useCollectionChange is deprecated and should be removed in a later version
     /**
@@ -48,7 +50,7 @@ define([
 
             this.maxSize = options.maxSize;
 
-            if (options.maxSize) {
+            if(options.maxSize) {
                 this.transformedCollection = _.bind(function() {
                     return this.collection.chain().first(options.maxSize)
                 }, this)
@@ -66,12 +68,12 @@ define([
 
             var useCollectionChange = _.isUndefined(options.useCollectionChange) ? true : options.useCollectionChange;
 
-            if ((_.isUndefined(options.collectionChangeEvents) && useCollectionChange) || options.collectionChangeEvents === true) {
+            if((_.isUndefined(options.collectionChangeEvents) && useCollectionChange) || options.collectionChangeEvents === true) {
                 this.listenTo(this.collection, 'change', function(model) {
                     var view = this.views[model.cid];
                     view && view.render();
                 });
-            } else if (!_.isUndefined(options.collectionChangeEvents)) {
+            } else if(!_.isUndefined(options.collectionChangeEvents)) {
                 _.each(options.collectionChangeEvents, function(methodName, attribute) {
                     this.listenTo(this.collection, 'change:' + attribute, function(model) {
                         var view = this.views[model.cid];
@@ -85,7 +87,7 @@ define([
             this.removeViews();
             var $fragment = $(document.createDocumentFragment());
 
-            if (this.headerHtml) {
+            if(this.headerHtml) {
                 $fragment.append(this.headerHtml);
                 this.$header = $fragment.children().last();
             }
@@ -95,7 +97,7 @@ define([
                 $fragment.append(view.el);
             }, this);
 
-            if (this.footerHtml) {
+            if(this.footerHtml) {
                 var $footer = $(this.footerHtml);
                 this.$footer = $footer.first();
                 $fragment.append($footer);
@@ -132,10 +134,10 @@ define([
          */
         onAdd: function(model) {
             // if we have maxSize, is the model in the interesting range
-            if (!this.maxSize || this.transformedCollection().indexOf(model).value() >= 0) {
+            if(!this.maxSize || this.transformedCollection().indexOf(model).value() >= 0) {
                 var view = this.createItemView(model);
 
-                if (this.$footer) {
+                if(this.$footer) {
                     view.$el.insertBefore(this.$footer);
                 } else {
                     this.$el.append(view.el);
@@ -144,11 +146,11 @@ define([
 
             // if a model was added in the interesting range, another model may need to be pushed out
             // always false if maxSize is undefined
-            if (_.size(this.views) > this.maxSize) {
+            if(_.size(this.views) > this.maxSize) {
                 _.each(this.views, function(view) {
                     var index = this.collection.indexOf(view.model);
 
-                    if (index >= this.maxSize) {
+                    if(index >= this.maxSize) {
                         this.removeView(view);
                     }
                 }, this)
@@ -162,18 +164,18 @@ define([
         onRemove: function(model) {
             var view = this.views[model.cid];
 
-            if (view) {
+            if(view) {
                 this.removeView(view);
                 delete this.views[model.cid];
             }
 
-            if (_.size(this.views) < this.maxSize && this.collection.size() >= this.maxSize) {
+            if(_.size(this.views) < this.maxSize && this.collection.size() >= this.maxSize) {
                 // if we've removed a view, the next model in the collection should have a view made
                 var nextModel = this.collection.at(this.maxSize - 1);
 
                 var newView = this.createItemView(nextModel);
 
-                if (this.$footer) {
+                if(this.$footer) {
                     newView.$el.insertBefore(this.$footer);
                 } else {
                     this.$el.append(newView.el);
@@ -191,25 +193,25 @@ define([
             this.transformedCollection().each(function(model, index) {
                 var view = this.views[model.cid];
 
-                if (view) {
-                    if (!this.maxSize || index < this.maxSize) {
+                if(view) {
+                    if(!this.maxSize || index < this.maxSize) {
                         var $item = view.$el;
 
-                        if ($previous) {
+                        if($previous) {
                             $previous = $item.insertAfter($previous);
                         } else {
                             $previous = $item.prependTo(this.$el);
                         }
                     }
-                    else if (this.maxSize) {
+                    else if(this.maxSize) {
                         this.removeView(view);
                         delete this.views[model.cid];
                     }
                 }
-                else if (index < this.maxSize) {
+                else if(index < this.maxSize) {
                     var newView = this.createItemView(model);
 
-                    if ($previous) {
+                    if($previous) {
                         $previous = newView.$el.insertAfter($previous);
                     } else {
                         $previous = newView.$el.prependTo(this.$el);
@@ -243,5 +245,4 @@ define([
             this.views = {};
         }
     });
-
 });
