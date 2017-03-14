@@ -279,8 +279,15 @@ define([
                         expect(this.modal.getSelectedRows()).toEqual([['three']]);
                     });
 
-                    xit('should handle changes to the global checkbox correctly', function() {
-                        // the global checkbox behaves differently in phantom and real browsers
+                    it('should handle changes to the global checkbox correctly', function() {
+                        this.modal.editModal.find('[data-row-name=""]').click().change();
+
+                        expect(this.modal.editModal.find('[data-row-name=""]').is(':checked')).toEqual(true);
+                        expect(this.modal.editModal.find('[data-row-name=""]').prop('indeterminate')).toEqual(false);
+
+                        expect(this.modal.editModal.find('[data-row-name="one"]').is(':checked')).toEqual(true);
+                        expect(this.modal.editModal.find('[data-row-name="two"]').is(':checked')).toEqual(true);
+                        expect(this.modal.editModal.find('[data-row-name="three"]').is(':checked')).toEqual(true);
                     });
                 });
             });
