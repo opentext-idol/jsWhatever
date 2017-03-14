@@ -103,12 +103,14 @@ module.exports = (grunt) ->
         freeze: true
         jquery: true
         latedef: true
+        laxbreak: true
         newcap: true
         noarg: true
         noempty: true
         nonbsp: true
         undef: true
         unused: true
+        validthis: true
         globals:
           define: false
           _: false
