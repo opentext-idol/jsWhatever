@@ -1,19 +1,19 @@
 {
   "name": "hp-autonomy-js-whatever",
   "authors": [
-    "Brian Beckett <brian.beckett@hpe.com>",
-    "Tung Jin Chew <tung-jin.chew@hpe.com>",
-    "Liam Goodacre <liam.goodacre@hpe.com>",
-    "Matthew Gordon <matthew.gordon2@hpe.com>",
+    "Tung Jin Chew <tung-jin.chew@microfocus.com>",
+    "Brian Beckett",
+    "Liam Goodacre",
+    "Matthew Gordon",
     "Xiaochen Guo",
-    "Alyona Ivanova <alyona.ivanova@hpe.com>",
-    "David Knipe <david.knipe@hpe.com>",
+    "Alyona Ivanova",
+    "David Knipe",
     "Jonathan Lancaster",
     "Luca Mandrioli",
-    "Alex Scown <alex.scown@hpe.com>",
-    "Wojciech Kaluza <wojciech.kaluza@hpe.com>"
+    "Alex Scown",
+    "Wojciech Kaluza"
   ],
-  "description": "Collection of Javascript utilities used in HP Autonomy Frontend Projects",
+  "description": "Collection of Javascript utilities used in Micro Focus IDOL Frontend Projects",
   "moduleType": [
     "amd"
   ],
