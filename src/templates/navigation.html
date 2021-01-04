@@ -13,14 +13,14 @@
 %>
 
 <div class="navbar navbar-fixed-top">
-    <div class="navbar-inner">
+    <div>
         <div class="container-fluid">
-            <a class="btn btn-navbar collapsed" data-toggle="collapse" data-target=".nav-collapse">
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
+            <a class="btn btn-default navbar-btn collapsed" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="glyphicon glyphicon-bar"></span>
+                <span class="glyphicon glyphicon-bar"></span>
+                <span class="glyphicon glyphicon-bar"></span>
             </a>
-            <a class="brand" <% if(ctx.brandRoute){ %> href="#<%=ctx.brandRoute%>" <% } %>>
+            <a class="navbar-brand" <% if(ctx.brandRoute){ %> href="#<%=ctx.brandRoute%>" <% } %>>
             <%=ctx.appName%>
             <% if(ctx.subheading) { %>
             <p class="subheading">
@@ -30,8 +30,8 @@
             </p>
             <% } %>
             </a>
-            <div class="nav-collapse collapse">
-                <ul class="nav">
+            <div class="navbar-collapse collapse">
+                <ul class="navbar-nav">
                     <% _.each(ctx.navLeft, function(navItem) { %>
                     <% if (navItem.children) { %>
                     <li class="dropdown <%=navItem.classes%>" data-menu-id="<%=navItem.menuId%>">
@@ -55,8 +55,8 @@
                     <% } %>
                     <% }); %>
                 </ul>
-                <ul class="nav pull-right banner"></ul>
-                <ul class="nav pull-right">
+                <ul class="navbar-nav pull-right banner"></ul>
+                <ul class="navbar-nav pull-right">
                     <% _.each(ctx.navRight, function(navItem) { %>
                     <% if (navItem.children) { %>
                     <li class="dropdown <%=navItem.classes%>" data-menu-id="<%=navItem.menuId%>">
@@ -79,7 +79,6 @@
                     </li>
                     <% } %>
                     <% }); %>
-                    <li class="divider-vertical"></li>
                 </ul>
             </div>
         </div>

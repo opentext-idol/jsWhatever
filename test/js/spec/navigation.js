@@ -31,27 +31,27 @@ define([
                 subheading: 'Best Thing Ever',
                 navLeft: [{
                     href: 'first',
-                    icon: 'icon-meh',
+                    icon: 'glyphicon-meh',
                     label: 'First',
                     pageName: 'first'
                 }, {
                     href: 'second',
-                    icon: 'icon-fighter-jet',
+                    icon: 'glyphicon-fighter-jet',
                     label: 'Second',
                     pageName: 'second'
                 }],
                 navRight: [{
-                    icon: 'icon-bug',
+                    icon: 'glyphicon-bug',
                     label: 'Menu',
                     menuId: 'menu',
                     children: [{
                         href: 'first-child',
-                        icon: 'icon-fighter-jet',
+                        icon: 'glyphicon-fighter-jet',
                         label: 'First Child',
                         pageName: 'first-child'
                     }, {
                         href: 'second-child',
-                        icon: 'icon-beer',
+                        icon: 'glyphicon-beer',
                         label: 'Second Child',
                         pageName: 'second-child'
                     }]

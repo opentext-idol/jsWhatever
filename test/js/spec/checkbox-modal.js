@@ -345,14 +345,6 @@ define([
                         expect(this.modal.editModal.find('[data-row-name="two"]').is(':checked')).toEqual(true);
                     });
 
-                    it('should set all checkboxes correctly', function() {
-                        this.modal.setCheckboxes(0, true);
-
-                        expect(this.modal.editModal.find('[data-row-name="one"]').is(':checked')).toEqual(true);
-                        expect(this.modal.editModal.find('[data-row-name="two"]').is(':checked')).toEqual(true);
-                        expect(this.modal.editModal.find('[data-row-name="three"]').is(':checked')).toEqual(true);
-                    });
-
                     it('should clear all checkboxes correctly', function() {
                         this.modal.clearAllCheckboxes();
 
@@ -413,14 +405,6 @@ define([
                         expect(this.modal.editModal.find('[data-row-name="two"]').is(':checked')).toEqual(true);
                     });
 
-                    it('should set all checkboxes correctly', function() {
-                        this.modal.setCheckboxes(0, true);
-
-                        expect(this.modal.editModal.find('[data-row-name="one"]').is(':checked')).toEqual(true);
-                        expect(this.modal.editModal.find('[data-row-name="two"]').is(':checked')).toEqual(true);
-                        expect(this.modal.editModal.find('[data-row-name="three"]').is(':checked')).toEqual(true);
-                    });
-
                     it('should clear all checkboxes correctly', function() {
                         this.modal.clearAllCheckboxes();
 
@@ -440,7 +424,7 @@ define([
                     it('should handle changes correctly', function() {
                         this.modal.editModal.find('[data-row-name="two"]').click().change();
 
-                        expect(this.modal.getSelectedRows()).toEqual([['one', 'two']]);
+                        expect(this.modal.getSelectedRows()).toEqual([['two']]);
                     });
                 });
             });

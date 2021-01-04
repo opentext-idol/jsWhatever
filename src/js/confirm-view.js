@@ -35,14 +35,14 @@ define([
      * @property {function} [cancelHandler] Function called when the Cancel button is clicked
      * @property {string} [modalClass] Class added to modal after rendering
      * @property {string} [cancelClass=btn-danger] Cancel button class
-     * @property {string} [cancelIcon=icon-remove] Cancel button icon
+     * @property {string} [cancelIcon=glyphicon-remove] Cancel button icon
      * @property {boolean} [closable=true] Set to true if the modal can be closed. If show buttons is true the modal
      * can still be closed using the buttons
      * @property {string} [okClass=btn-success] OK button class
-     * @property {string} [okIcon=icon-ok] OK button icon
+     * @property {string} [okIcon=glyphicon-ok] OK button icon
      * @property {boolean} [showButtons=true] Set to true if the modal should have OK and Cancel buttons
-     * @property {string} [hiddenEvent=hidden] The Bootstrap event to listen for when the modal is hidden. Override
-     * if using Bootstrap 3
+     * @property {string} [hiddenEvent=hidden.bs.modal] The Bootstrap event to listen for when the
+     * modal is hidden. Override if using Bootstrap 3
      */
     /**
      * @name module:js-whatever/js/confirm-view.ConfirmView
@@ -68,12 +68,12 @@ define([
 
             this.config = _.defaults(config, {
                 cancelClass: 'btn-danger',
-                cancelIcon: 'icon-remove',
+                cancelIcon: 'glyphicon-remove',
                 closable: true,
                 okClass: 'btn-success',
-                okIcon: 'icon-ok',
+                okIcon: 'glyphicon-ok',
                 showButtons: true,
-                hiddenEvent: 'hidden'
+                hiddenEvent: 'hidden.bs.modal'
             });
 
             if(!this.config.message) {
@@ -96,7 +96,7 @@ define([
                 throw 'Confirm Error: okText string must be defined if closable is true';
             }
 
-            this.$el.on('shown', _.bind(function() {
+            this.$el.on('show.bs.modal', _.bind(function() {
                 document.activeElement.blur();
                 this.$('.okButton').focus();
             }, this));

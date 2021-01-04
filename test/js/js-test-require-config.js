@@ -20,10 +20,10 @@ define(function() {
         paths: {
             // lib
             backbone: 'bower_components/backbone/backbone',
-            bootstrap: 'bower_components/bootstrap/bootstrap/js/bootstrap',
+            bootstrap: 'bower_components/bootstrap/dist/js/bootstrap',
             'jasmine-jquery': 'bower_components/jasmine-jquery/lib/jasmine-jquery',
             'jasmine-sinon': 'bower_components/jasmine-sinon/lib/jasmine-sinon',
-            jquery: 'bower_components/jquery/jquery',
+            jquery: 'bower_components/jquery/dist/jquery',
             'jquery-steps': 'bower_components/jquery-steps/build/jquery.steps',
             'js-testing': 'bower_components/hp-autonomy-js-testing-utils/src/js',
             sinon: 'bower_components/sinon/index',

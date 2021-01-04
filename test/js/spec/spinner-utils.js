@@ -26,18 +26,20 @@ define([
 
             spinnerUtils.enableSpinner($element, 'foo');
 
-            expect($element).toHaveClass('icon-spin');
-            expect($element).toHaveClass('icon-spinner');
+            expect($element).toHaveClass('glyphicon');
+            expect($element).toHaveClass('glyphicon-spin');
+            expect($element).toHaveClass('glyphicon-spinner');
             expect($element).not.toHaveClass('foo');
         });
 
         it('should remove the spinner classes and add the given pinner classes when disabling the spinner', function() {
-            var $element = $('<div class="icon-spin icon-spinner"></div>');
+            var $element = $('<div class="glyphicon glyphicon-spin glyphicon-spinner"></div>');
 
             spinnerUtils.disableSpinner($element, 'foo');
 
-            expect($element).not.toHaveClass('icon-spin');
-            expect($element).not.toHaveClass('icon-spinner');
+            expect($element).not.toHaveClass('glyphicon');
+            expect($element).not.toHaveClass('glyphicon-spin');
+            expect($element).not.toHaveClass('glyphicon-spinner');
             expect($element).toHaveClass('foo');
         });
     });

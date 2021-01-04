@@ -19,7 +19,7 @@
 define(function() {
     'use strict';
 
-    var spinnerClasses = 'icon-spinner icon-spin';
+    var spinnerClasses = 'glyphicon glyphicon-spinner glyphicon-spin';
 
     //noinspection UnnecessaryLocalVariableJS
     /**
@@ -28,7 +28,8 @@ define(function() {
      */
     var spinnerUtils = {
         /**
-         * @desc Removes the given CSS classes from $element and applies the classes icon-spinner and icon-spin
+         * @desc Removes the given CSS classes from $element and applies the classes
+         *       glyphicon-spinner and glyphicon-spin
          * @param {jQuery} $element
          * @param {string} classesToRemove The CSS classes to remove
          */
@@ -37,7 +38,8 @@ define(function() {
         },
 
         /**
-         * @desc Adds the given CSS classes to $element and removes the classes icon-spinner and icon-spin
+         * @desc Adds the given CSS classes to $element and removes the classes glyphicon-spinner
+         *       and glyphicon-spin
          * @param {jQuery} $element
          * @param {string} classesToAdd The CSS classes to add
          */
