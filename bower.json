@@ -1,7 +1,7 @@
 {
   "name": "hp-autonomy-js-whatever",
   "authors": [
-    "Tung Jin Chew <tung-jin.chew@microfocus.com>",
+    "Tung Jin Chew",
     "Brian Beckett",
     "Liam Goodacre",
     "Matthew Gordon",
@@ -13,7 +13,7 @@
     "Alex Scown",
     "Wojciech Kaluza"
   ],
-  "description": "Collection of Javascript utilities used in Micro Focus IDOL Frontend Projects",
+  "description": "Collection of Javascript utilities used in OpenText IDOL Frontend Projects",
   "moduleType": [
     "amd"
   ],
