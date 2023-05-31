@@ -1,7 +1,7 @@
 {
   "name": "hp-autonomy-frontend-javascript-utils",
   "version": "1.0.0",
-  "repository": "https://github.com/microfocus-idol/jsWhatever",
+  "repository": "https://github.com/opentext-idol/jsWhatever",
   "devDependencies": {
     "coffeelint": "^1.6.0",
     "grunt": "^0.4.5",
