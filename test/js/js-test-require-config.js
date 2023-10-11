@@ -19,22 +19,22 @@ define(function() {
         baseUrl: '.',
         paths: {
             // lib
-            backbone: 'bower_components/backbone/backbone',
-            bootstrap: 'bower_components/bootstrap/bootstrap/js/bootstrap',
-            'jasmine-jquery': 'bower_components/jasmine-jquery/lib/jasmine-jquery',
-            'jasmine-sinon': 'bower_components/jasmine-sinon/lib/jasmine-sinon',
-            jquery: 'bower_components/jquery/jquery',
-            'jquery-steps': 'bower_components/jquery-steps/build/jquery.steps',
-            'js-testing': 'bower_components/hp-autonomy-js-testing-utils/src/js',
-            sinon: 'bower_components/sinon/index',
-            text: 'bower_components/requirejs-text/text',
-            underscore: 'bower_components/underscore/underscore',
+            backbone: 'node_modules/backbone/backbone',
+            bootstrap: 'node_modules/bootstrap/dist/js/bootstrap',
+            'jasmine-jquery': 'node_modules/jasmine-jquery/lib/jasmine-jquery',
+            'jasmine-sinon': 'node_modules/jasmine-sinon/lib/jasmine-sinon',
+            jquery: 'node_modules/jquery/dist/jquery',
+            'jquery-steps': 'node_modules/jquery-steps/build/jquery.steps',
+            'js-testing': 'node_modules/hp-autonomy-js-testing-utils/src/js',
+            sinon: 'node_modules/sinon/lib/sinon',
+            text: 'node_modules/requirejs-text/text',
+            underscore: 'node_modules/underscore/underscore',
 
             //dir
             test: 'test/js',
 
             // mock
-            store: 'bower_components/hp-autonomy-js-testing-utils/src/js/store',
+            store: 'node_modules/hp-autonomy-js-testing-utils/src/js/store',
             jqueryui: 'test/js/mock/lib/jquery-ui'
         },
         shim: {
