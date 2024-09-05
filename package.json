@@ -1,6 +1,6 @@
 {
   "name": "hp-autonomy-frontend-javascript-utils",
-  "version": "2.13.0",
+  "version": "2.14.0",
   "repository": "https://github.com/opentext-idol/jsWhatever",
   "dependencies": {
     "backbone": "1.2.3",
@@ -8,7 +8,7 @@
     "jquery-steps": "1.1.0",
     "bootstrap": "3.4.1",
     "jquery": "3.7.1",
-    "requirejs": "2.3.3",
+    "requirejs": "2.3.7",
     "requirejs-text": "2.0.15",
     "underscore": "1.13.6"
   },
