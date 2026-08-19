@@ -15,49 +15,48 @@
 /**
  * @module js-whatever/js/empty-navbar
  */
-define([
-    'underscore',
-    'backbone',
-    'text!js-whatever/templates/empty-navbar.html'
-], function(_, Backbone, template) {
-    'use strict';
+'use strict';
 
-    var defaultOptions = {
-        showLogout: true
-    };
+const _ = require('underscore');
+const Backbone = require('backbone');
+const template = require('../templates/empty-navbar.html');
+
+var defaultOptions = {
+    showLogout: true
+};
+
+/**
+ * @typedef EmptyNavbarStrings
+ * @type {object}
+ * @property {string} appName The name of the application
+ * @property {string} [logout] The label for the logout link. Must be defined if showLogout is true
+ */
+/**
+ * @typedef EmptyNavbarOptions
+ * @type {object}
+ * @property {boolean} [showLogout=true] Set to true if a logout button should be displayed
+ * @property {string} [logoutUri] Href for the logout button. Must be defined if showLogout is true
+ * @property {EmptyNavbarStrings} strings
+ */
+/**
+ * @name module:js-whatever/js/empty-navbar.EmptyNavbar
+ * @desc Renders an empty top navbar that may contain a logout button
+ * @constructor
+ * @param {EmptyNavbarOptions} [options={showLogout: true}]
+ * @extends Backbone.View
+ */
+module.exports = Backbone.View.extend(/** @lends module:js-whatever/js/empty-navbar.EmptyNavbar.prototype */{
+    template: _.template(template),
+
+    initialize: function(options) {
+        this.options = _.extend({}, defaultOptions, options || {});
+    },
 
     /**
-     * @typedef EmptyNavbarStrings
-     * @type {object}
-     * @property {string} appName The name of the application
-     * @property {string} [logout] The label for the logout link. Must be defined if showLogout is true
+     * @desc Renders the view with the provided {@link EmptyNavbarOptions}
      */
-    /**
-     * @typedef EmptyNavbarOptions
-     * @type {object}
-     * @property {boolean} [showLogout=true] Set to true if a logout button should be displayed
-     * @property {string} [logoutUri] Href for the logout button. Must be defined if showLogout is true
-     * @property {EmptyNavbarStrings} strings
-     */
-    /**
-     * @name module:js-whatever/js/empty-navbar.EmptyNavbar
-     * @desc Renders an empty top navbar that may contain a logout button
-     * @constructor
-     * @param {EmptyNavbarOptions} [options={showLogout: true}]
-     * @extends Backbone.View
-     */
-    return Backbone.View.extend(/** @lends module:js-whatever/js/empty-navbar.EmptyNavbar.prototype */{
-        template: _.template(template),
-
-        initialize: function(options) {
-            this.options = _.extend({}, defaultOptions, options || {});
-        },
-
-        /**
-         * @desc Renders the view with the provided {@link EmptyNavbarOptions}
-         */
-        render: function() {
-            this.$el.html(this.template(this.options));
-        }
-    });
+    render: function() {
+        this.$el.html(this.template(this.options));
+    }
 });
+

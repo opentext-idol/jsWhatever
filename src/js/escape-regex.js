@@ -15,18 +15,17 @@
 /**
  * @module js-whatever/js/escape-regex
  */
-define(function() {
-    'use strict';
+'use strict';
 
-    /**
-     * @alias module:js-whatever/js/escape-regex
-     * @desc Escapes regular expression characters in strings to allow them to be used with new RegExp()
-     * @param {string} str The string to escape
-     * @returns {string} The input string with regular expression characters escaped
-     */
-    function escapeRegex(str) {
-        return str.replace(/([\\^$*+\-?.(){}[\]|])/g, '\\$1');
-    }
+/**
+ * @alias module:js-whatever/js/escape-regex
+ * @desc Escapes regular expression characters in strings to allow them to be used with new RegExp()
+ * @param {string} str The string to escape
+ * @returns {string} The input string with regular expression characters escaped
+ */
+function escapeRegex(str) {
+    return str.replace(/([\\^$*+\-?.(){}[\]|])/g, '\\$1');
+}
 
-    return escapeRegex;
-});
+module.exports = escapeRegex;
+

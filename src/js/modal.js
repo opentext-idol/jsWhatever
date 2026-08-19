@@ -12,71 +12,72 @@
  * information contained herein is subject to change without notice.
  */
 
-define([
-    'underscore',
-    'jquery',
-    'backbone',
-    'text!js-whatever/templates/modal.html',
-    'bootstrap'
-], function(_, $, Backbone, modalHtml) {
-    'use strict';
+'use strict';
 
-    var modalTemplate = _.template(modalHtml);
+const _ = require('underscore');
+const $ = require('jquery');
+const Backbone = require('backbone');
+const modalHtml = require('../templates/modal.html');
 
-    return Backbone.View.extend({
-        className: 'modal fade',
+// Loaded for side effects only - do not remove.
+require('bootstrap');
 
-        events: {
-            'hidden.bs.modal': 'remove',
-            'click .modal-action-button': function() {
-                this.actionButtonCallback();
-            }
-        },
+var modalTemplate = _.template(modalHtml);
 
-        initialize: function(options) {
-            // The title and actionButtonText are escaped but content is not
-            this.actionButtonCallback = options.actionButtonCallback;
-            this.actionButtonClass = options.actionButtonClass;
-            this.actionButtonText = options.actionButtonText;
-            this.content = options.content;
-            this.contentView = options.contentView;
-            this.title = options.title;
-            this.secondaryButtonText = options.secondaryButtonText;
+module.exports = Backbone.View.extend({
+    className: 'modal fade',
 
-            this.showFooter = _.isUndefined(options.showFooter) || options.showFooter;
-
-            this.render();
-
-            this.listenTo(this.contentView, 'primary-button-disable', function() {
-                this.$('.modal-footer .button-primary').addClass('not-clickable disabled');
-            });
-
-            this.listenTo(this.contentView, 'primary-button-enable', function() {
-                this.$('.modal-footer .button-primary').removeClass('not-clickable disabled');
-            });
-        },
-
-        render: function() {
-            $(document.activeElement).blur();
-
-            this.$el.html(modalTemplate({
-                actionButtonClass: this.actionButtonClass,
-                actionButtonText: this.actionButtonText,
-                secondaryButtonText: this.secondaryButtonText,
-                showFooter: this.showFooter,
-                title: this.title
-            })).modal();
-
-            if(this.content) {
-                this.$('.modal-body').html(this.content);
-            } else if(this.contentView) {
-                this.contentView.render();
-                this.$('.modal-body').append(this.contentView.$el);
-            }
-        },
-
-        hide: function() {
-            this.$el.modal('hide');
+    events: {
+        'hidden.bs.modal': 'remove',
+        'click .modal-action-button': function() {
+            this.actionButtonCallback();
         }
-    });
+    },
+
+    initialize: function(options) {
+        // The title and actionButtonText are escaped but content is not
+        this.actionButtonCallback = options.actionButtonCallback;
+        this.actionButtonClass = options.actionButtonClass;
+        this.actionButtonText = options.actionButtonText;
+        this.content = options.content;
+        this.contentView = options.contentView;
+        this.title = options.title;
+        this.secondaryButtonText = options.secondaryButtonText;
+
+        this.showFooter = _.isUndefined(options.showFooter) || options.showFooter;
+
+        this.render();
+
+        this.listenTo(this.contentView, 'primary-button-disable', function() {
+            this.$('.modal-footer .button-primary').addClass('not-clickable disabled');
+        });
+
+        this.listenTo(this.contentView, 'primary-button-enable', function() {
+            this.$('.modal-footer .button-primary').removeClass('not-clickable disabled');
+        });
+    },
+
+    render: function() {
+        $(document.activeElement).blur();
+
+        this.$el.html(modalTemplate({
+            actionButtonClass: this.actionButtonClass,
+            actionButtonText: this.actionButtonText,
+            secondaryButtonText: this.secondaryButtonText,
+            showFooter: this.showFooter,
+            title: this.title
+        })).modal();
+
+        if(this.content) {
+            this.$('.modal-body').html(this.content);
+        } else if(this.contentView) {
+            this.contentView.render();
+            this.$('.modal-body').append(this.contentView.$el);
+        }
+    },
+
+    hide: function() {
+        this.$el.modal('hide');
+    }
 });
+

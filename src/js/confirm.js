@@ -15,19 +15,18 @@
 /**
  * @module js-whatever/js/confirm
  */
-define([
-    'js-whatever/js/confirm-view'
-], function(Confirm) {
-    'use strict';
+'use strict';
 
-    /**
-     * @alias module:js-whatever/js/confirm
-     * @desc Creates and returns a new instance of {@link module:js-whatever/js/confirm-view.ConfirmView|ConfirmView}
-     * @param {ConfirmViewOptions} config Options passed to the confirm view
-     */
-    function confirm(config) {
-        return new Confirm(config);
-    }
+const Confirm = require('./confirm-view');
 
-    return confirm;
-});
+/**
+ * @alias module:js-whatever/js/confirm
+ * @desc Creates and returns a new instance of {@link module:js-whatever/js/confirm-view.ConfirmView|ConfirmView}
+ * @param {ConfirmViewOptions} config Options passed to the confirm view
+ */
+function confirm(config) {
+    return new Confirm(config);
+}
+
+module.exports = confirm;
+

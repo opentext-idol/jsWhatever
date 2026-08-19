@@ -15,67 +15,66 @@
 /**
  * @module js-whatever/js/listenable
  */
-define([
-    'underscore',
-    'jquery'
-], function(_, $) {
-    'use strict';
+'use strict';
 
-    var DATA_KEY = 'listenable';
+const _ = require('underscore');
+const $ = require('jquery');
 
-    /**
-     * @alias module:js-whatever/js/listenable
-     * @desc Allows jQuery wrapped objects to be used with backbone style events. e.g. listenTo and stopListening
-     * @param {string|jQuery} el The element to be wrapped
-     * @returns {{on: Function, off: Function}} A object which can be consumed by Backbone's listenTo and stopListening
-     * methods
-     */
-    function listenable(el) {
-        var $el = $(el);
+var DATA_KEY = 'listenable';
 
-        var me = {
-            on: function(event, fn) {
-                var id = me._listenerId || (me._listenerId = _.uniqueId('l'));
-                var data = $el.data(DATA_KEY) || {};
-                var pairs = data[id] || [];
-                pairs.push({event: event, fn: fn});
+/**
+ * @alias module:js-whatever/js/listenable
+ * @desc Allows jQuery wrapped objects to be used with backbone style events. e.g. listenTo and stopListening
+ * @param {string|jQuery} el The element to be wrapped
+ * @returns {{on: Function, off: Function}} A object which can be consumed by Backbone's listenTo and stopListening
+ * methods
+ */
+function listenable(el) {
+    var $el = $(el);
 
-                $el.on(event, fn);
+    var me = {
+        on: function(event, fn) {
+            var id = me._listenerId || (me._listenerId = _.uniqueId('l'));
+            var data = $el.data(DATA_KEY) || {};
+            var pairs = data[id] || [];
+            pairs.push({event: event, fn: fn});
 
-                data[id] = pairs;
-                $el.data(DATA_KEY, data);
-            },
+            $el.on(event, fn);
 
-            off: function(event, fn) {
-                var data = $el.data(DATA_KEY);
-                if(!data) {
-                    return;
-                }
+            data[id] = pairs;
+            $el.data(DATA_KEY, data);
+        },
 
-                var pairs = data[me._listenerId];
-                if(!pairs) {
-                    return;
-                }
+        off: function(event, fn) {
+            var data = $el.data(DATA_KEY);
+            if(!data) {
+                return;
+            }
 
-                if(!event && !fn) {
-                    _.each(pairs, function(data) {
-                        $el.off(data.event, data.fn);
-                    });
-                }                else {
-                    for(var ii = pairs.length - 1; ii >= 0; ii--) {
-                        if(pairs[ii].event === event && (!fn || pairs[ii].fn === fn)) {
-                            pairs.splice(ii, 1);
-                            $el.off(event, fn);
-                        }
+            var pairs = data[me._listenerId];
+            if(!pairs) {
+                return;
+            }
+
+            if(!event && !fn) {
+                _.each(pairs, function(data) {
+                    $el.off(data.event, data.fn);
+                });
+            }                else {
+                for(var ii = pairs.length - 1; ii >= 0; ii--) {
+                    if(pairs[ii].event === event && (!fn || pairs[ii].fn === fn)) {
+                        pairs.splice(ii, 1);
+                        $el.off(event, fn);
                     }
                 }
-
-                data[me._listenerId] = pairs;
             }
-        };
 
-        return me;
-    }
+            data[me._listenerId] = pairs;
+        }
+    };
 
-    return listenable;
-});
+    return me;
+}
+
+module.exports = listenable;
+

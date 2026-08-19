@@ -15,53 +15,52 @@
 /**
  * @module js-whatever/js/vent-constructor
  */
-define([
-    'underscore',
-    'jquery',
-    'backbone'
-], function(_, $, Backbone) {
-    'use strict';
+'use strict';
 
-    /**
-     * @name module:js-whatever/js/vent-constructor.Vent
-     * @desc Constructs a new instance of vent.  Observes resize events on window
-     * @param {Backbone.Router} router The router to use for navigation
-     * @constructor
-     * @emits vent:resize When the window has resized. Fired at most once every 200ms
-     */
-    function Vent(router) {
-        _.bindAll(this, 'fireResize');
+const _ = require('underscore');
+const $ = require('jquery');
+const Backbone = require('backbone');
 
-        $(window).on('resize', this.fireResize);
+/**
+ * @name module:js-whatever/js/vent-constructor.Vent
+ * @desc Constructs a new instance of vent.  Observes resize events on window
+ * @param {Backbone.Router} router The router to use for navigation
+ * @constructor
+ * @emits vent:resize When the window has resized. Fired at most once every 200ms
+ */
+function Vent(router) {
+    _.bindAll(this, 'fireResize');
 
-        this.router = router;
+    $(window).on('resize', this.fireResize);
+
+    this.router = router;
+}
+
+_.extend(Vent.prototype, Backbone.Events, /** @lends module:js-whatever/js/vent-constructor.Vent.prototype */ {
+        /**
+         * @desc Aggregated navigation method. The Backbone.Router.navigate trigger option defauls to true
+         * @param {string} route The route to navigate to
+         * @param {object} options Options passed to router.navigate.
+         */
+        navigate: function(route, options) {
+            options = options || {};
+
+            options = _.defaults(options, {
+                trigger: true
+            });
+
+            this.router.navigate(route, options);
+        },
+
+        /**
+         * @desc Requests that the vent:resize event be fired
+         * @method
+         */
+        fireResize: _.throttle(function() {
+            this.trigger('vent:resize');
+        }, 200)
     }
+);
 
-    _.extend(Vent.prototype, Backbone.Events, /** @lends module:js-whatever/js/vent-constructor.Vent.prototype */ {
-            /**
-             * @desc Aggregated navigation method. The Backbone.Router.navigate trigger option defauls to true
-             * @param {string} route The route to navigate to
-             * @param {object} options Options passed to router.navigate.
-             */
-            navigate: function(route, options) {
-                options = options || {};
+module.exports = Vent;
 
-                options = _.defaults(options, {
-                    trigger: true
-                });
-
-                this.router.navigate(route, options);
-            },
-
-            /**
-             * @desc Requests that the vent:resize event be fired
-             * @method
-             */
-            fireResize: _.throttle(function() {
-                this.trigger('vent:resize');
-            }, 200)
-        }
-    );
-
-    return Vent;
-});

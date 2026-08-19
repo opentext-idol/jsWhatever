@@ -24,14 +24,13 @@
  * $test.filter(':icontains("CATS")').length; // returns 1
  * $test.filter(':icontains("bears")').length; // returns 0
  */
-define([
-    'jquery'
-], function($) {
-    'use strict';
+'use strict';
 
-    $.expr[':'].icontains = $.expr.createPseudo(function(arg) {
-        return function(elem) {
-            return $(elem).text().toUpperCase().indexOf(arg.toUpperCase()) >= 0;
-        };
-    });
+const $ = require('jquery');
+
+$.expr[':'].icontains = $.expr.createPseudo(function(arg) {
+    return function(elem) {
+        return $(elem).text().toUpperCase().indexOf(arg.toUpperCase()) >= 0;
+    };
 });
+

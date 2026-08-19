@@ -15,22 +15,21 @@
 /**
  * @module js-whatever/js/escape-hod-identifier
  */
-define(function() {
-    'use strict';
+'use strict';
 
-    var regExp = /([\\:])/g;
+var regExp = /([\\:])/g;
 
-    //noinspection UnnecessaryLocalVariableJS
-    /**
-     * @alias module:js-whatever/js/escape-hod-identifier
-     * @desc Escape colons in HOD identifiers. HOD identifiers (domain names, application names, index names etc) can be
-     * concatenated with colons. In these cases, : must become \: and \ must become \\.
-     * @param {string} input The input string
-     * @return {string} The escaped string
-     */
-    function escapeHodIdentifier(input) {
-        return input.replace(regExp, '\\$&');
-    }
+//noinspection UnnecessaryLocalVariableJS
+/**
+ * @alias module:js-whatever/js/escape-hod-identifier
+ * @desc Escape colons in HOD identifiers. HOD identifiers (domain names, application names, index names etc) can be
+ * concatenated with colons. In these cases, : must become \: and \ must become \\.
+ * @param {string} input The input string
+ * @return {string} The escaped string
+ */
+function escapeHodIdentifier(input) {
+    return input.replace(regExp, '\\$&');
+}
 
-    return escapeHodIdentifier;
-});
+module.exports = escapeHodIdentifier;
+

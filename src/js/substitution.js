@@ -15,55 +15,54 @@
 /**
  * @module js-whatever/js/substitution
  */
-define([
-    'underscore'
-], function(_) {
-    'use strict';
+'use strict';
 
-    /**
-     * @alias module:js-whatever/js/substitution
-     * @desc Interpolates placeholders of the form {n} in strings, turning the strings into functions and allowing
-     * arguments to be passed in to hide string concatenation
-     * @param {object} i18n Object containing strings to interpolate
-     * @returns {object} A copy of i18n where the strings containing the interpolation pattern have become functions
-     * @example
-     * var i18n = {
-     *     foo: 'Substitution {0}, {1}'
-     * };
-     *
-     * var substitutedI18n = substitution(i18n);
-     *
-     * substitutedI18n.foo('works', 'like this'); // returns 'Substitution works, like this'
-     */
-    function substitution(i18n) {
-        var processed = {};
+const _ = require('underscore');
 
-        var regex = /\{(\d+)\}/g;
+/**
+ * @alias module:js-whatever/js/substitution
+ * @desc Interpolates placeholders of the form {n} in strings, turning the strings into functions and allowing
+ * arguments to be passed in to hide string concatenation
+ * @param {object} i18n Object containing strings to interpolate
+ * @returns {object} A copy of i18n where the strings containing the interpolation pattern have become functions
+ * @example
+ * var i18n = {
+ *     foo: 'Substitution {0}, {1}'
+ * };
+ *
+ * var substitutedI18n = substitution(i18n);
+ *
+ * substitutedI18n.foo('works', 'like this'); // returns 'Substitution works, like this'
+ */
+function substitution(i18n) {
+    var processed = {};
 
-        _.each(i18n, function(value, key) {
-            var matches = value.match(regex);
+    var regex = /\{(\d+)\}/g;
 
-            if(matches === null) {
-                processed[key] = value;
-            } else {
-                processed[key] = function() {
-                    var userArgs = arguments;
+    _.each(i18n, function(value, key) {
+        var matches = value.match(regex);
 
-                    var finalValue = value;
+        if(matches === null) {
+            processed[key] = value;
+        } else {
+            processed[key] = function() {
+                var userArgs = arguments;
 
-                    _.each(matches, function(match) {
-                        var number = Number(match.replace(/[\{\}]/g, ''));
-                        var innerRegex = new RegExp(match.replace('{', '\\{').replace('}', '\\}'), 'g');
-                        finalValue = finalValue.replace(innerRegex, userArgs[number]);
-                    });
+                var finalValue = value;
 
-                    return finalValue;
-                };
-            }
-        });
+                _.each(matches, function(match) {
+                    var number = Number(match.replace(/[\{\}]/g, ''));
+                    var innerRegex = new RegExp(match.replace('{', '\\{').replace('}', '\\}'), 'g');
+                    finalValue = finalValue.replace(innerRegex, userArgs[number]);
+                });
 
-        return processed;
-    }
+                return finalValue;
+            };
+        }
+    });
 
-    return substitution;
-});
+    return processed;
+}
+
+module.exports = substitution;
+

@@ -17,89 +17,88 @@
  * @desc Methods for Backbone models and collections which fetch themselves upon instantiation
  * @abstract
  */
-define([
-    'underscore'
-], function(_) {
-    'use strict';
+'use strict';
 
-    return {
-        /**
-         * @desc Determines if the model should fetch when instantiated
-         * @type {boolean}
-         */
-        autoload: true,
-        loaded: false,
+const _ = require('underscore');
 
-        /**
-         * @typedef {Object} AutoloadOptions
-         * @property {boolean} autoload If the model should autoload
-         * @property {boolean} loaded If the model has already loaded
-         */
-        /**
-         * @desc backbone
-         * @param {Object} attributes initial model attributes
-         * @param {AutoloadOptions} options
-         */
-        initialize: function(attributes, options) {
-            // We need our .loaded flag to be set true in a change listener since it's fired before the fetch()
-            // completion handler fires; prevents loss of the first change event if we call this.onLoad from within
-            // this.onLoad e.g. in #1018992. We still keep the fetch completion handler since it's not explicitly
-            // mentioned in docs whether the handler or change() events fire first () so it might change in future.
-            options = options || {};
+module.exports = {
+    /**
+     * @desc Determines if the model should fetch when instantiated
+     * @type {boolean}
+     */
+    autoload: true,
+    loaded: false,
 
-            var onLoaded = _.bind(function() {
-                this.off(this.eventName, onLoaded);
-                this.loaded = true;
-            }, this);
+    /**
+     * @typedef {Object} AutoloadOptions
+     * @property {boolean} autoload If the model should autoload
+     * @property {boolean} loaded If the model has already loaded
+     */
+    /**
+     * @desc backbone
+     * @param {Object} attributes initial model attributes
+     * @param {AutoloadOptions} options
+     */
+    initialize: function(attributes, options) {
+        // We need our .loaded flag to be set true in a change listener since it's fired before the fetch()
+        // completion handler fires; prevents loss of the first change event if we call this.onLoad from within
+        // this.onLoad e.g. in #1018992. We still keep the fetch completion handler since it's not explicitly
+        // mentioned in docs whether the handler or change() events fire first () so it might change in future.
+        options = options || {};
 
-            if(options.ports) {
-                this.ports = options.ports;
-            }
+        var onLoaded = _.bind(function() {
+            this.off(this.eventName, onLoaded);
+            this.loaded = true;
+        }, this);
 
-            if(options.autoload !== undefined) {
-                this.autoload = options.autoload
-            }
+        if(options.ports) {
+            this.ports = options.ports;
+        }
 
-            if(options.loaded !== undefined) {
-                this.loaded = options.loaded
-            }
+        if(options.autoload !== undefined) {
+            this.autoload = options.autoload
+        }
 
-            this.on(this.eventName, onLoaded);
+        if(options.loaded !== undefined) {
+            this.loaded = options.loaded
+        }
 
-            if(this.autoload) {
-                this.fetch({
-                    success: onLoaded
-                });
-            }
-        },
+        this.on(this.eventName, onLoaded);
 
-        /**
-         * @desc the url that data should be fetched from
-         * @abstract
-         * @method
-         */
-        url: _.noop,
+        if(this.autoload) {
+            this.fetch({
+                success: onLoaded
+            });
+        }
+    },
 
-        /**
-         * @desc Register a callback to be called when there is data available.  If the model has loaded, the callback
-         * will be called immediately.  Otherwise the callback will be called when the model has finished loading.
-         * @param callback The callback to be called
-         * @param ctx The context for callback
-         */
-        onLoad: function(callback, ctx) {
-            if(ctx) {
-                callback = _.bind(callback, ctx);
-            }
+    /**
+     * @desc the url that data should be fetched from
+     * @abstract
+     * @method
+     */
+    url: _.noop,
 
-            if(this.loaded) {
+    /**
+     * @desc Register a callback to be called when there is data available.  If the model has loaded, the callback
+     * will be called immediately.  Otherwise the callback will be called when the model has finished loading.
+     * @param callback The callback to be called
+     * @param ctx The context for callback
+     */
+    onLoad: function(callback, ctx) {
+        if(ctx) {
+            callback = _.bind(callback, ctx);
+        }
+
+        if(this.loaded) {
+            callback(this);
+        }
+        else {
+            this.on(this.eventName, function listener() {
+                this.off(this.eventName, listener);
                 callback(this);
-            }
-            else {
-                this.on(this.eventName, function listener() {
-                    this.off(this.eventName, listener);
-                    callback(this);
-                });
-            }
+            });
         }
     }
-});
+};
+

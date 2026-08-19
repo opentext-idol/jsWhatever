@@ -15,21 +15,20 @@
 /**
  * @module js-whatever/js/autoload
  */
-define([
-    'underscore',
-    'backbone',
-    'js-whatever/js/autoload-methods'
-], function(_, Backbone, autoloadMethods) {
-    'use strict';
+'use strict';
 
-    /**
-     * @name module:js-whatever/js/autoload.Autoload
-     * @desc A Backbone.Model which incorporates {@link module:js-whatever/js/autoload-methods|AutoloadMethods}
-     * @constructor
-     * @extends Backbone.Model
-     * @abstract
-     */
-    return Backbone.Model.extend(_.chain(autoloadMethods).clone().extend({
-        eventName: 'change'
-    }).value());
-});
+const _ = require('underscore');
+const Backbone = require('backbone');
+const autoloadMethods = require('./autoload-methods');
+
+/**
+ * @name module:js-whatever/js/autoload.Autoload
+ * @desc A Backbone.Model which incorporates {@link module:js-whatever/js/autoload-methods|AutoloadMethods}
+ * @constructor
+ * @extends Backbone.Model
+ * @abstract
+ */
+module.exports = Backbone.Model.extend(_.chain(autoloadMethods).clone().extend({
+    eventName: 'change'
+}).value());
+

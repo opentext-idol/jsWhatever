@@ -15,127 +15,126 @@
 /**
  * @module js-whatever/js/tab-page
  */
-define([
-    'underscore',
-    'js-whatever/js/base-page',
-    'js-whatever/js/lazy-tab-view',
-    'text!js-whatever/templates/tab-page.html'
-], function(_, BasePage, LazyTabView, template) {
-    'use strict';
+'use strict';
+
+const _ = require('underscore');
+const BasePage = require('./base-page');
+const LazyTabView = require('./lazy-tab-view');
+const template = require('../templates/tab-page.html');
+
+/**
+ * @name module:js-whatever/js/tab-page.TabPage
+ * @desc Wrapper around {@link module:js-whatever/js/lazy-tab-view.LazyTabView|LazyTabView} which allows it to be
+ * used as a page. The constructor calls initializeTabs, followed by filterTabs, then constructs an instance
+ * of each tab
+ * @constructor
+ * @extends module:js-whatever/js/base-page.BasePage
+ * @abstract
+ */
+module.exports = BasePage.extend(/** @lends module:js-whatever/js/tab-page.TabPage.prototype */{
 
     /**
-     * @name module:js-whatever/js/tab-page.TabPage
-     * @desc Wrapper around {@link module:js-whatever/js/lazy-tab-view.LazyTabView|LazyTabView} which allows it to be
-     * used as a page. The constructor calls initializeTabs, followed by filterTabs, then constructs an instance
-     * of each tab
-     * @constructor
-     * @extends module:js-whatever/js/base-page.BasePage
+     * @desc The base route of your application
+     * @type {string}
+     * @default page
+     */
+    appPrefix: 'page',
+
+    /**
+     * @desc Instance of Vent used for navigation
+     * @type {module:js-whatever/js/vent-constructor.Vent}
      * @abstract
      */
-    return BasePage.extend(/** @lends module:js-whatever/js/tab-page.TabPage.prototype */{
+    vent: null, // You need to set this
 
-        /**
-         * @desc The base route of your application
-         * @type {string}
-         * @default page
-         */
-        appPrefix: 'page',
+    /**
+     * @type {Backbone.Router}
+     * @abstract
+     */
+    router: null, // You need to set this
 
-        /**
-         * @desc Instance of Vent used for navigation
-         * @type {module:js-whatever/js/vent-constructor.Vent}
-         * @abstract
-         */
-        vent: null, // You need to set this
+    /**
+     * @typedef TabPageTabData
+     * @property {string} href The id of the tab
+     * @property {label} label The display name of the tab
+     * @property {function} constructor A Backbone.View constructor function
+     * @property {object} [constructorOptions] Options passed to the constructor
+     */
+    /**
+     * @desc Tabs to be rendered. Initialize in initializeTabs
+     * @type {Array<TabPageTabData>}
+     * @abstract
+     */
+    tabs: [], //You need to set this
 
-        /**
-         * @type {Backbone.Router}
-         * @abstract
-         */
-        router: null, // You need to set this
+    /**
+     * @desc String used in route construction. Set this to the name of the page
+     * @type {string}
+     * @default overrideMe
+     * @abstract
+     */
+    routePrefix: "overrideMe", //You need to set this
 
-        /**
-         * @typedef TabPageTabData
-         * @property {string} href The id of the tab
-         * @property {label} label The display name of the tab
-         * @property {function} constructor A Backbone.View constructor function
-         * @property {object} [constructorOptions] Options passed to the constructor
-         */
-        /**
-         * @desc Tabs to be rendered. Initialize in initializeTabs
-         * @type {Array<TabPageTabData>}
-         * @abstract
-         */
-        tabs: [], //You need to set this
+    /**
+     * @desc Template for page
+     */
+    template: _.template(template),
 
-        /**
-         * @desc String used in route construction. Set this to the name of the page
-         * @type {string}
-         * @default overrideMe
-         * @abstract
-         */
-        routePrefix: "overrideMe", //You need to set this
+    initialize: function() {
+        this.initializeTabs();
 
-        /**
-         * @desc Template for page
-         */
-        template: _.template(template),
+        this.filterTabs();
 
-        initialize: function() {
-            this.initializeTabs();
+        _.each(this.tabs, function(tab) {
+            if(tab.constructor) {
+                tab.view = new tab.constructor(tab.constructorOptions);
+            }
+        });
+    },
 
-            this.filterTabs();
+    /**
+     * @desc Override to initialize this.tabs
+     * @type {function}
+     */
+    initializeTabs: _.noop, //Override this and create this.tabs
 
-            _.each(this.tabs, function(tab) {
-                if(tab.constructor) {
-                    tab.view = new tab.constructor(tab.constructorOptions);
-                }
-            });
-        },
+    /**
+     * @desc Override to filter this.tabs
+     * @type {function}
+     */
+    filterTabs: _.noop, // Override this to filter this.tabs before creating page
 
-        /**
-         * @desc Override to initialize this.tabs
-         * @type {function}
-         */
-        initializeTabs: _.noop, //Override this and create this.tabs
+    /**
+     * @desc Renders the view, creating an embedded {@link module:js-whatever/js/tab-view.TabView}
+     */
+    render: function() {
+        this.$el.html(this.template({
+            tabs: this.tabs
+        }));
 
-        /**
-         * @desc Override to filter this.tabs
-         * @type {function}
-         */
-        filterTabs: _.noop, // Override this to filter this.tabs before creating page
+        this.tabView = new LazyTabView({
+            router: this.router,
+            vent: this.vent,
+            appPrefix: this.appPrefix,
+            routePrefix: this.routePrefix,
+            el: this.el,
+            tabs: this.tabs
+        });
+    },
 
-        /**
-         * @desc Renders the view, creating an embedded {@link module:js-whatever/js/tab-view.TabView}
-         */
-        render: function() {
-            this.$el.html(this.template({
-                tabs: this.tabs
-            }));
+    /**
+     * @desc Selects the currently selected tab to update navigation
+     */
+    update: function() {
+        this.tabView.selectTab();
+    },
 
-            this.tabView = new LazyTabView({
-                router: this.router,
-                vent: this.vent,
-                appPrefix: this.appPrefix,
-                routePrefix: this.routePrefix,
-                el: this.el,
-                tabs: this.tabs
-            });
-        },
-
-        /**
-         * @desc Selects the currently selected tab to update navigation
-         */
-        update: function() {
-            this.tabView.selectTab();
-        },
-
-        /**
-         * @desc Returns the selected route for the embedded tab view
-         * @returns {string}
-         */
-        getSelectedRoute: function() {
-            return this.tabView ? this.tabView.getSelectedRoute() : [this.routePrefix, this.tabs[0].href].join('/');
-        }
-    });
+    /**
+     * @desc Returns the selected route for the embedded tab view
+     * @returns {string}
+     */
+    getSelectedRoute: function() {
+        return this.tabView ? this.tabView.getSelectedRoute() : [this.routePrefix, this.tabs[0].href].join('/');
+    }
 });
+

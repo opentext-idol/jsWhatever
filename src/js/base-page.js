@@ -15,69 +15,68 @@
 /**
  * @module js-whatever/js/base-page
  */
-define([
-    'underscore',
-    'backbone'
-], function(_, Backbone) {
-    'use strict';
+'use strict';
+
+const _ = require('underscore');
+const Backbone = require('backbone');
+
+/**
+ * @name module:js-whatever/js/base-page.BasePage
+ * @desc Abstract base class representing a page. All application pages should extend from this or implement the
+ * same methods.
+ * Base pages will start hidden.
+ * @constructor
+ * @extends Backbone.View
+ * @abstract
+ */
+module.exports = Backbone.View.extend(/** @lends module:js-whatever/js/base-page.BasePage.prototype */{
+    attributes: {
+        style: 'display:none;'
+    },
 
     /**
-     * @name module:js-whatever/js/base-page.BasePage
-     * @desc Abstract base class representing a page. All application pages should extend from this or implement the
-     * same methods.
-     * Base pages will start hidden.
-     * @constructor
-     * @extends Backbone.View
-     * @abstract
+     * @desc Shows the page and calls the {@link module:js-whatever/js/base-page.BasePage#update|update} method
      */
-    return Backbone.View.extend(/** @lends module:js-whatever/js/base-page.BasePage.prototype */{
-        attributes: {
-            style: 'display:none;'
-        },
+    show: function() {
+        this.$el.show();
 
-        /**
-         * @desc Shows the page and calls the {@link module:js-whatever/js/base-page.BasePage#update|update} method
-         */
-        show: function() {
-            this.$el.show();
+        // for Selenium testing
+        this.$el.attr('data-pagename', this.pageName);
 
-            // for Selenium testing
-            this.$el.attr('data-pagename', this.pageName);
+        if(!this.hasRendered) {
+            this.render();
+            this.hasRendered = true;
+        }
 
-            if(!this.hasRendered) {
-                this.render();
-                this.hasRendered = true;
-            }
+        this.visible = true;
+        this.update();
+    },
 
-            this.visible = true;
-            this.update();
-        },
+    /**
+     * @desc Hides the page
+     */
+    hide: function() {
+        this.visible = false;
+        this.$el.hide();
+    },
 
-        /**
-         * @desc Hides the page
-         */
-        hide: function() {
-            this.visible = false;
-            this.$el.hide();
-        },
+    isVisible: function() {
+        return !!this.visible;
+    },
 
-        isVisible: function() {
-            return !!this.visible;
-        },
+    /**
+     * @desc Called when showing a page. The default implementation is a no-op.
+     * @abstract
+     * @method
+     */
+    update: _.noop,
 
-        /**
-         * @desc Called when showing a page. The default implementation is a no-op.
-         * @abstract
-         * @method
-         */
-        update: _.noop,
-
-        /**
-         * @desc Called when navigating to a page. If a page has state which can be represented by a route, this route
-         * should be returned. The default implementation is a no-op.
-         * @abstract
-         * @method
-         */
-        getSelectedRoute: _.noop
-    });
+    /**
+     * @desc Called when navigating to a page. If a page has state which can be represented by a route, this route
+     * should be returned. The default implementation is a no-op.
+     * @abstract
+     * @method
+     */
+    getSelectedRoute: _.noop
 });
+
