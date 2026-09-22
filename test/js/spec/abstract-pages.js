@@ -13,12 +13,13 @@
  */
 
 define([
+    'jquery',
     'underscore',
     'backbone',
     'js-whatever/js/abstract-pages',
     'js-whatever/js/vent-constructor',
     'js-testing/backbone-mock-factory'
-], function(_, Backbone, AbstractPages, Vent, backboneMockFactory) {
+], function($, _, Backbone, AbstractPages, Vent, backboneMockFactory) {
     'use strict';
 
     var View1 = backboneMockFactory.getView(['hide', 'show', 'getSelectedRoute', 'render']);
@@ -87,34 +88,30 @@ define([
         });
 
         describe('changePage', function() {
-            it('should render a page the first time it is used', function() {
-                expect(this.pages.findPage('firstPage').view.render).toHaveCallCount(0);
-                expect(this.pages.findPage('secondPage').view.render).toHaveCallCount(0);
+            it('should add a page\'s el to the DOM the first time it is used', function() {
+                spyOn($.fn, 'append').and.callThrough();
 
                 this.pages.changePage('firstPage');
 
-                expect(this.pages.findPage('firstPage').view.render).toHaveCallCount(1);
+                expect($.fn.append).toHaveBeenCalledWith(this.pages.findPage('firstPage').view.el);
             });
 
-            it('should render a page only once', function() {
-                expect(this.pages.findPage('firstPage').view.render).toHaveCallCount(0);
-                expect(this.pages.findPage('secondPage').view.render).toHaveCallCount(0);
-
+            it('should add a page\'s el to the DOM only once', function() {
                 this.pages.changePage('firstPage');
                 this.pages.changePage('secondPage');
                 this.pages.changePage('firstPage');
 
-                expect(this.pages.findPage('firstPage').view.render).toHaveCallCount(1);
-                expect(this.pages.findPage('secondPage').view.render).toHaveCallCount(1);
+                expect(this.pages.findPage('firstPage').hasBeenAdded).toBe(true);
+                expect(this.pages.findPage('secondPage').hasBeenAdded).toBe(true);
             });
 
-            it('should cache the rendered state of a page', function() {
-                expect(this.pages.findPage('firstPage').view.render).toHaveCallCount(0);
+            it('should cache whether a page\'s el has been added to the DOM', function() {
+                expect(this.pages.findPage('firstPage').hasBeenAdded).toBeFalsy();
 
                 this.pages.changePage('firstPage');
 
-                expect(this.pages.findPage('firstPage').hasRendered).toBe(true);
-                expect(this.pages.findPage('secondPage').hasRendered).toBeFalsy();
+                expect(this.pages.findPage('firstPage').hasBeenAdded).toBe(true);
+                expect(this.pages.findPage('secondPage').hasBeenAdded).toBeFalsy();
             });
 
             it('should hide the current page and show the new page when changing', function() {

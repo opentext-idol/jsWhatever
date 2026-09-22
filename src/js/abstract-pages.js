@@ -107,10 +107,9 @@ module.exports = Backbone.View.extend(/** @lends module:js-whatever/js/abstract-
     changePage: function(pageName) {
         var newPage = this.findPage(pageName);
 
-        if(!newPage.hasRendered) {
-            newPage.view.render();
+        if(!newPage.hasBeenAdded) {
             this.$el.append(newPage.view.el);
-            newPage.hasRendered = true;
+            newPage.hasBeenAdded = true;
         }
 
         if(this.currentPage) {

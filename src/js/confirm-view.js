@@ -42,8 +42,8 @@ require('bootstrap');
  * @property {string} [okClass=btn-success] OK button class
  * @property {string} [okIcon=icon-ok] OK button icon
  * @property {boolean} [showButtons=true] Set to true if the modal should have OK and Cancel buttons
- * @property {string} [hiddenEvent=hidden] The Bootstrap event to listen for when the modal is hidden. Override
- * if using Bootstrap 3
+ * @property {string} [hiddenEvent=hidden.bs.modal] The Bootstrap event to listen for when the modal is hidden.
+ * Defaults to the Bootstrap 3 namespaced event; override if consuming this component with Bootstrap 2 instead
  */
 /**
  * @name module:js-whatever/js/confirm-view.ConfirmView
@@ -62,7 +62,7 @@ module.exports = Backbone.View.extend(/** @lends module:js-whatever/js/confirm-v
     /**
      * @desc {string} Initial classes for the modal
      */
-    className: 'modal hide fade',
+    className: 'modal fade',
 
     initialize: function(config) {
         _.bindAll(this, 'remove');
@@ -74,7 +74,7 @@ module.exports = Backbone.View.extend(/** @lends module:js-whatever/js/confirm-v
             okClass: 'btn-success',
             okIcon: 'icon-ok',
             showButtons: true,
-            hiddenEvent: 'hidden'
+            hiddenEvent: 'hidden.bs.modal'
         });
 
         if(!this.config.message) {
@@ -97,7 +97,7 @@ module.exports = Backbone.View.extend(/** @lends module:js-whatever/js/confirm-v
             throw 'Confirm Error: okText string must be defined if closable is true';
         }
 
-        this.$el.on('shown', _.bind(function() {
+        this.$el.on('shown.bs.modal', _.bind(function() {
             document.activeElement.blur();
             this.$('.okButton').focus();
         }, this));

@@ -1,5 +1,10 @@
 # Version history
 
+## 3.1.1
+- bug fix: `confirm-view.js`: (`js-whatever/js/confirm`): change `hiddenEvent` default to work with Bootstrap 3
+- bug fix: `checkbox-modal.js`, `confirm-view.js`, `navigation.js`, `empty-navbar.js`: Bootstrap 3 compatibility
+- bug fix: `abstract-pages.js`: `changePage`: avoid rendering twice
+
 ## 3.1.0 — 2026-09-15
 - add new `select-locale` utility
 
