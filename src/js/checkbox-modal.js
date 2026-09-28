@@ -39,7 +39,7 @@ const checkboxTable = require('../templates/checkbox-modal/checkbox-table.html')
  * @property {Array.<CheckboxModalTable>} tables The configuration for the tables
  * @property {object} [parameters=[]] Additional parameters passed to templateModal
  * @property {function} [okCallback=$.noop] Callback called when the OK button is pressed
- * @property {string} [okIcon='icon-refresh'] Icon for the OK button
+ * @property {string} [okIcon='fa fa-refresh'] Icon for the OK button
  * @property {string} [okClass='btn-success'] Class for the OK button
  * @property {string} [cancelClass=''] Class for the cancel button
  * @property {boolean} [atLeastOneElementSelected=false] Set this to true if a checkbox
@@ -83,7 +83,7 @@ module.exports = Backbone.View.extend(/** @lends module:js-whatever/js/checkbox-
         this.tables = init.tables;
         this.parameters = ensureArray(init.parameters);
         this.okCallback = init.okCallback || $.noop;
-        this.okIcon = init.okIcon || 'icon-refresh';
+        this.okIcon = init.okIcon || 'fa fa-refresh';
         this.okClass = init.okClass || 'btn-success';
         this.cancelClass = init.cancelClass || '';
         this.atLeastOneElementSelected = init.atLeastOneElementSelected || false;

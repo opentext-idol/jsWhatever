@@ -18,7 +18,7 @@
  */
 'use strict';
 
-var spinnerClasses = 'icon-spinner icon-spin';
+var spinnerClasses = 'fa fa-spinner fa-spin';
 
 //noinspection UnnecessaryLocalVariableJS
 /**
@@ -27,7 +27,7 @@ var spinnerClasses = 'icon-spinner icon-spin';
  */
 var spinnerUtils = {
     /**
-     * @desc Removes the given CSS classes from $element and applies the classes icon-spinner and icon-spin
+     * @desc Removes the given CSS classes from $element and applies the classes fa-spinner and fa-spin
      * @param {jQuery} $element
      * @param {string} classesToRemove The CSS classes to remove
      */
@@ -36,7 +36,7 @@ var spinnerUtils = {
     },
 
     /**
-     * @desc Adds the given CSS classes to $element and removes the classes icon-spinner and icon-spin
+     * @desc Adds the given CSS classes to $element and removes the classes fa-spinner and fa-spin
      * @param {jQuery} $element
      * @param {string} classesToAdd The CSS classes to add
      */

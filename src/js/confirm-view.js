@@ -36,11 +36,11 @@ require('bootstrap');
  * @property {function} [cancelHandler] Function called when the Cancel button is clicked
  * @property {string} [modalClass] Class added to modal after rendering
  * @property {string} [cancelClass=btn-danger] Cancel button class
- * @property {string} [cancelIcon=icon-remove] Cancel button icon
+ * @property {string} [cancelIcon=fa fa-remove] Cancel button icon
  * @property {boolean} [closable=true] Set to true if the modal can be closed. If show buttons is true the modal
  * can still be closed using the buttons
  * @property {string} [okClass=btn-success] OK button class
- * @property {string} [okIcon=icon-ok] OK button icon
+ * @property {string} [okIcon=fa fa-check] OK button icon
  * @property {boolean} [showButtons=true] Set to true if the modal should have OK and Cancel buttons
  * @property {string} [hiddenEvent=hidden.bs.modal] The Bootstrap event to listen for when the modal is hidden.
  * Defaults to the Bootstrap 3 namespaced event; override if consuming this component with Bootstrap 2 instead
@@ -69,10 +69,10 @@ module.exports = Backbone.View.extend(/** @lends module:js-whatever/js/confirm-v
 
         this.config = _.defaults(config, {
             cancelClass: 'btn-danger',
-            cancelIcon: 'icon-remove',
+            cancelIcon: 'fa fa-remove',
             closable: true,
             okClass: 'btn-success',
-            okIcon: 'icon-ok',
+            okIcon: 'fa fa-check',
             showButtons: true,
             hiddenEvent: 'hidden.bs.modal'
         });

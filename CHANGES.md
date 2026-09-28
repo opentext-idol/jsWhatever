@@ -1,6 +1,10 @@
 # Version history
 
-## 3.1.1
+## 3.2.0 — 2026-09-28
+- **Breaking:** `spinner-utils.js`, `confirm-view.js`, `checkbox-modal.js`, `footer.js`: migrate default icon classes
+  from Font Awesome 3 to Font Awesome 4
+
+## 3.1.1 - 2026-09-22
 - bug fix: `confirm-view.js`: (`js-whatever/js/confirm`): change `hiddenEvent` default to work with Bootstrap 3
 - bug fix: `checkbox-modal.js`, `confirm-view.js`, `navigation.js`, `empty-navbar.js`: Bootstrap 3 compatibility
 - bug fix: `abstract-pages.js`: `changePage`: avoid rendering twice
