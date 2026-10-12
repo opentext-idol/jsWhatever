@@ -40,7 +40,7 @@ require('jquery-steps');
 /**
  * @typedef WizardOptions
  * @property {function} [template] Overrides the default template
- * @property {string} [columnClass=span12] Overrides the default columnClass
+ * @property {string} [columnClass=''] Overrides the default columnClass
  * @property {WizardStrings} strings Strings for the wizard
  * @property {Array<WizardStep>} steps Steps for the wizard
  * @property {object} [renderOptions] Additional options passed to the template
@@ -62,9 +62,9 @@ module.exports = Backbone.View.extend(/** @lends module:js-whatever/js/wizard-cu
 
     /**
      * @desc Bootstrap grid class
-     * @default span12
+     * @default ''
      */
-    columnClass: 'span12',
+    columnClass: '',
 
     initialize: function(options){
         _.bindAll(this, 'handleStepChange');
