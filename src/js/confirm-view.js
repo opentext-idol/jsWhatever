@@ -124,7 +124,7 @@ module.exports = Backbone.View.extend(/** @lends module:js-whatever/js/confirm-v
             this.$el.data('backdrop', 'static').addClass('undismissable-modal');
         }
 
-        this.$el.modal().on(this.config.hiddenEvent, this.remove);
+        this.$el.modal('show').on(this.config.hiddenEvent, this.remove);
 
         this.$('.modal-body a.route').click(_.bind(function() {
             this.$el.modal('hide');

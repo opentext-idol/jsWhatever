@@ -66,7 +66,7 @@ module.exports = Backbone.View.extend({
             secondaryButtonText: this.secondaryButtonText,
             showFooter: this.showFooter,
             title: this.title
-        })).modal();
+        })).modal('show');
 
         if(this.content) {
             this.$('.modal-body').html(this.content);
