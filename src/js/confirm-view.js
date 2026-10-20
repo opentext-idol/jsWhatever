@@ -162,7 +162,7 @@ module.exports = Backbone.View.extend(/** @lends module:js-whatever/js/confirm-v
      * @desc Hides the modal and removes it from the DOM
      */
     remove: function() {
-        if(this.$el && this.$el.hasClass('in')) {
+        if(this.$el && this.$el.hasClass('show')) {
             this.$el.modal('hide');
         }
 

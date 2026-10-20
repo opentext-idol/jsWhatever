@@ -43,24 +43,24 @@
     color: #666;
 }
 
-.page-footer .nav-tabs > li > a {
+.page-footer .nav-tabs .nav-link {
     padding-top: 4px;
     padding-bottom: 5px;
 }
 
-.page-footer .nav-tabs > li > a,
-.page-footer .nav-tabs > li > a:hover,
-.page-footer .nav-tabs > li > a:focus {
+.page-footer .nav-tabs .nav-link,
+.page-footer .nav-tabs .nav-link:hover,
+.page-footer .nav-tabs .nav-link:focus {
     background: #ddd;
 }
 
-.page-footer .nav-tabs > .active > a,
-.page-footer .nav-tabs > .active > a:hover,
-.page-footer .nav-tabs > .active > a:focus {
+.page-footer .nav-tabs .nav-link.active,
+.page-footer .nav-tabs .nav-link.active:hover,
+.page-footer .nav-tabs .nav-link.active:focus {
     background: #eee;
 }
 
-.page-footer .nav-tabs > li.active > a {
+.page-footer .nav-tabs .nav-link.active {
     cursor: pointer;
 }
 

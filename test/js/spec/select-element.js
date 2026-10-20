@@ -35,7 +35,7 @@ define([
 
         describe('for a matching selector', function() {
             beforeEach(function() {
-                this.parent = $('<div class="hidden">');
+                this.parent = $('<div class="opacity-0">');
 
                 this.child0 = $('<p>some</p>');
                 this.child1 = $('<p>demo</p>');

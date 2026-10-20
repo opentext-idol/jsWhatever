@@ -64,10 +64,10 @@ module.exports = Backbone.View.extend(/** @lends module:js-whatever/js/navigatio
      * @param pageName The name of the page that has been navigated to
      */
     navigate: function(pageName) {
-        this.$('li').removeClass('active');
+        this.$('.nav-link, .dropdown-item').removeClass('active');
         var clicked = this.$('li[data-pagename="' + pageName + '"]');
-        clicked.addClass('active');
-        clicked.closest('.dropdown').addClass('active');
+        clicked.children('a').addClass('active');
+        clicked.closest('.dropdown').children('.nav-link').addClass('active');
     },
 
     /**

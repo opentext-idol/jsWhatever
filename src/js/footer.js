@@ -95,7 +95,7 @@ module.exports = Backbone.View.extend(/** @lends module:js-whatever/js/footer.Fo
             selector: '.footer-tabs',
             component: 'tab',
             template: _.template(tabTemplate, null, {variable: 'ctx'}),
-            target: 'li'
+            target: '.nav-link'
         },
         {
             selector: '.tab-content',
@@ -207,7 +207,7 @@ module.exports = Backbone.View.extend(/** @lends module:js-whatever/js/footer.Fo
         this.$parent.toggleClass('show-footer', state);
 
         this.$('.toggle-footer')
-            .tooltip('destroy')
+            .tooltip('dispose')
             .tooltip({
                 container: 'body',
                 html: true,
